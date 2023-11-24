@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+    <!-- Choose difficulty -->
+    <label>Difficulty</label> <br>
+    <select id="NewGameDifficulty" onchange="NewGameDifficulty()">
+        <option>Easy</option>
+        <option selected>Medium</option>
+        <option>Hard</option>
+    </select><br><br>
+
+<!-- Player attributes -->
+    <textarea id="NewGamePlayerName" cols="30" rows="1" placeholder="Player name"></textarea><br>
+
+    <select id="NewGameAttributes" onchange="NewGameAttributes()">
+        <option id="NewGameAttributesGenerate" selected>Random</option>
+        <option id="NewGameAttributesSet">Set values (total: 46)</option>
+    </select><br>
+
+    <button id="NewGameAttributesGenerateButtons" onclick="Generate()">Generate attributes</button>
+    <div>
+        <input type="number" id="SetAmount" value="10" min="1" max="52" oninput="this.value = Math.abs(this.value)" disabled/>
+    <table >
+        <!-- Attack -->
+        <tr>
+            <td>Attack: </td>  <td id="NewGamePlayerAttack">0</td> 
+            <td>
+                <button class="setAttribute" onclick="SetAttribute(true,1)" disabled>+</button>
+                <button class="setAttribute" onclick="SetAttribute(false,1)" disabled>-</button></td>
+        </tr>
+
+        <!-- Defense -->
+        <tr>
+            <td>Defense: </td>  <td id="NewGamePlayerDefense">0</td> 
+            <td>
+                <button class="setAttribute" onclick="SetAttribute(true,2)" disabled>+</button>
+                <button class="setAttribute" onclick="SetAttribute(false,2)" disabled>-</button></td>
+        </tr>
+
+        <!-- HP -->
+        <tr>
+            
+            <td>HP: </td>  <td id="NewGamePlayerHP">0</td> 
+            <td>
+                <button class="setAttribute" onclick="SetAttribute(true,3)" disabled>+</button>
+                <button class="setAttribute" onclick="SetAttribute(false,3)" disabled>-</button></td>
+        </tr>
+
+        <!-- Magic -->
+        <tr>
+            <td>Magic: </td>  <td id="NewGamePlayerMagic">0</td> 
+            <td>
+                <button class="setAttribute" onclick="SetAttribute(true,4)" disabled>+</button>
+                <button class="setAttribute" onclick="SetAttribute(false,4)" disabled>-</button></td>
+        </tr>              
+    </table><br>
+</div>
+
+    <!-- Choose location -->
+    <label for="">Starting location</label>
+    <select id="NewGameLocation">
+        <option selected>Random</option>
+        <option>Choose</option>
+    </select><br>
+
+    <!-- Buttons -->
+    <button onclick="location.href = 'pagePlay.html';StartGame()" id="pagePlay">Start game</button>
+
+    <button onclick="location.href = 'pageHome.html'">Back to home page</button>
+
+
+
+    
+    <script src="scriptNewGame.js"></script>
+
+</body>
+</html>

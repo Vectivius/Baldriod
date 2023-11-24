@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baldriod Play</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+            <!-- Menu -->
+            <div id="DivMenu">
+                <button onclick="location.href = 'pageHome.html'">Back to home page</button>
+                <button>Save game</button>
+                <button>Load game</button>
+                <button onclick="location.href = 'pageNewGame.html'">New game</button>
+                <button onclick="HiddenSwitch('DivSettings')">Settings</button>
+                <span id="SettingDifficulty">Medium</span>
+                <button onclick="AddItem(`${document.getElementById('itemtest').value}`)">Add Item Test</button>
+                <textarea id="itemtest" cols="8" rows="4"></textarea>
+            </div>
+        
+    
+        <!-- Settings --> <!-- Hidden -->
+        <div class="collapsibleListElements" hidden id="DivSettings">
+            <p>Difficulty</p>  
+            <select id="SettingsDifficulty" onchange="SetText('SettingDifficulty', GetValue('SettingsDifficulty'))">
+                <option>Easy</option>
+                <option>Medium</option>
+                <option>Hard</option>
+            </select>
+        </div>
+
+ 
+
+    <!-- Player attributes -->
+    <div id="DivPlayerAttributes">
+            <table border="1">
+                <tr>
+                    <td colspan="3" id="PlayerName"></td>
+                </tr> 
+                <tr>
+                    <td>Attack</td>
+                    <td id="PlayerStartAttack">6</td>
+                    <td id="PlayerCurrentAttack">5</td>
+                </tr> <span id="PlayerWeaponAttack" hidden></span> <span id="PlayerMinusAttack" hidden></span>
+    
+                <tr>
+                    <td>Defense</td>
+                    <td id="PlayerStartDefense"></td>
+                    <td id="PlayerCurrentDefense"></td>
+                </tr> <span id="PlayerArmorDefense" hidden></span><span id="PlayerMinusDefense" hidden></span>
+    
+                <tr>
+                    <td>HP</td>
+                    <td id="PlayerStartHP"></td>
+                    <td id="PlayerCurrentHP"></td>
+                </tr>
+    
+                <tr>
+                    <td>Magic</td>
+                    <td id="PlayerStartMagic"></td>
+                    <td id="PlayerCurrentMagic"></td>
+                </tr>
+            </table>
+    </div>
+    
+    <!-- Player inventory -->
+    <div id="DivPlayerInventory">
+        <span id="PlayerWeaponDamage">1-3</span>
+    
+         <!-- Weapons --> <!-- Dropdown -->
+        <button type="button" class="collapsible" onclick="HiddenSwitch('InventoryWeaponList')">Selected weapon: <span id="InventoryChoosenWeapon"></span></button>
+        <div class="collapsibleListElements" id="InventoryWeaponList" hidden>
+            <table border="1">
+                <tr>
+                    <td id="InventoryWeapon1" onclick="ChangeChoosenWeapon(1)">Dagger</td>
+                    <td>Attack: <span id="InventoryWeapon1Attack">0</span> </td>
+                    <td>Defense: <span id="InventoryWeapon1Defense">0</span> </td>
+                    <td>Damage: <span id="InventoryWeapon1Damage">0</span> </td>
+                    <td onclick="RemoveFromInventoryWeaponList(1)">Delete</td>
+                </tr>
+    
+                <tr>
+                    <td id="InventoryWeapon2" onclick="ChangeChoosenWeapon(2)">Axe</td> <!--/\--> <td id="">Attack: </td> <!--/\-->  <td>Defense:</td> <!--/\--> <td>Damage: </td> <!--/\--> <td onclick="RemoveFromInventoryWeaponList(2)">Delete</td>
+                </tr>
+    
+                <tr>
+                    <td id="InventoryWeapon3" onclick="ChangeChoosenWeapon(3)">Sword</td> <!--/\--> <td>Attack: </td> <!--/\-->  <td>Defense:</td> <!--/\--> <td>Damage: </td> <!--/\--> <td onclick="RemoveFromInventoryWeaponList(3)">Delete</td>
+                </tr>
+    
+                <tr>
+                    <td id="InventoryWeapon4" onclick="ChangeChoosenWeapon(4)">Spear</td> <!--/\--> <td>Attack: </td> <!--/\-->  <td>Defense:</td> <!--/\--> <td>Damage: </td> <!--/\--> <td onclick="RemoveFromInventoryWeaponList(4)">Delete</td>
+                </tr>
+    
+                <tr>
+                    <td id="InventoryWeapon5" onclick="ChangeChoosenWeapon(5)">Halberd</td> <!--/\--> <td>Attack: </td> <!--/\-->  <td>Defense:</td> <!--/\--> <td>Damage: </td> <!--/\--> <td onclick="RemoveFromInventoryWeaponList(5)">Delete</td>
+                </tr>
+    
+            </table>
+        </div>
+    
+        <!-- Armors --> <!-- Dropdown -->
+        <button type="button" class="collapsible" onclick="HiddenSwitch('InventoryArmorList')">Selected armor: <span id="InventoryChoosenArmor"></span></button>
+        <div class="collapsibleListElements" id="InventoryArmorList" hidden>
+            <p id="InventoryArmor1">1</p>
+            <p id="InventoryArmor2">2</p>
+            <p id="InventoryArmor3">3</p>
+        </div>
+    
+        </select>
+    
+        <!-- Shields --> <!-- Dropdown -->
+        <button type="button" class="collapsible" onclick="HiddenSwitch('InventoryShieldList')">Selected shield: <span id="InventoryChoosenShield"></span></button>
+        <div class="collapsibleListElements" id="InventoryShieldList" hidden>
+            <p id="InventoryShield1">1</p>
+            <p id="InventoryShield2">2</p>
+            <p id="InventoryShield3">3</p>
+        </div>
+    
+    <table border="1">
+            <tr>
+                <td>Coins: </td> <td id="InventoryCoins">6</td>
+            </tr>
+    </table>
+    
+    <table border="1">
+        <tr>
+            <td>Food: </td> <td id="InventoryFood">4</td>
+        </tr>
+    </table>
+</div>
+
+<div class="col-md-4">
+    <!-- Image of location -->
+    <div id="DivLocationImage">
+        
+    </div>
+
+
+
+<!-- Other Items -->
+<table border="1">
+    
+
+
+    <tr>
+        <td id="InventoryItem1"></td> <td>Amount: <span id="InventoryItem1Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(1)">Delete</td>
+    </tr>
+    
+    <tr>
+        <td id="InventoryItem2"></td> <td>Amount: <span id="InventoryItem2Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(2)">Delete</td>
+    </tr>
+
+    <tr>
+        <td id="InventoryItem3"></td> <td>Amount: <span id="InventoryItem3Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(3)">Delete</td>
+    </tr>
+
+    <tr>
+        <td id="InventoryItem4"></td> <td>Amount: <span id="InventoryItem4Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(4)">Delete</td>
+    </tr>
+
+    <tr>
+        <td id="InventoryItem5"></td> <td>Amount: <span id="InventoryItem5Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(5)">Delete</td>
+    </tr>
+</table>
+
+
+<!-- Spells --> <!-- Dropdown -->
+<button type="button" class="collapsible" onclick="HiddenSwitch('InventorySpellList')">Selected spell: <span id="InventoryChoosenSpell"></span></button>
+<div class="collapsibleListElements" id="InventorySpellList" hidden>
+ <table border="1">
+        <tr>
+            <td id="InventorySpell1" onclick="ChangeChoosenSpell(1)">Fireball</td> <td id="InventorySpell1Data"></td>
+        </tr>
+
+        <tr>
+            <td id="InventorySpell2" onclick="ChangeChoosenSpell(2)">Lightning strike</td> <td id="InventorySpell2Data"></td>
+        </tr>
+
+        <tr>
+            <td id="InventorySpell3" onclick="ChangeChoosenSpell(3)">3</td> <td id="InventorySpell3Data"></td>
+        </tr>
+
+ </table>
+</div>
+
+
+<!-- <button onclick="AddWeapon('')">Add sword</button> -->
+    <!-- <span id="PlayerWeaponDamage">1-3</span> -->
+
+
+
+
+
+<!-- Shop --> <!-- Hidden -->
+<div class="collapsibleListElements" id="DivShop">
+    <table border="1">
+        <tr>
+            <td>Weapons</td> <td>Armors</td> <td>Magic items</td> <td>Other</td>
+        </tr>
+
+                <tr>
+                    <td id="BuyWeapon1"><span id="ShopWeapon1Name">Sword</span>: Cost: <span id="ShopWeapon1Cost">6</span></td>
+                    <td>Armors</td>
+                    <td>Magic items</td>
+                    <td>Other</td>
+                </tr>
+
+    </table>
+</div>
+
+
+<!-- Player actions -->
+<p id="MeleeRangedMode">Mode: melee/ranged</p>
+<button id="NewRound" onclick="NewRound()">New round</button>
+
+<div id="DivPlayerActions">
+<button disabled onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack with choosen weapon</button>
+<button disabled id="PlayerActionSpell">Cast a spell</button>
+<button disabled id="PlayerActionItem">Use an item</button>
+<button disabled id="PlayerActionMode">Change mode</button>
+</div>
+
+
+
+<!-- Enemy attributes --> <!-- Hidden -->
+<div id="DivEnemyAttributes" hidden>
+    <table border="1">
+        <tr>
+            <td colspan="8" id="EnemyName"></td>
+        </tr>
+        <tr>
+            <td>Attack</td>
+            <td id="EnemyAttack"></td>
+            <td>Defense</td>
+            <td id="EnemyDefense"></td>
+            <td>HP</td>
+            <td id="EnemyHP"></td>
+            <td>Damage</td>
+            <td id="EnemyDamage"></td>
+            <td>Magic</td>
+            <td id="EnemyMagic"></td>
+        </tr>
+
+    </table>
+</div>
+
+<!-- Map -->
+<div id="DivMap">
+<table id="Map" border="1" style="width: 200px; height:200px">
+    <tr>
+        <td id="Map1">1</td> <!--/\-->  <td id="Map2">2</td> <!--/\--> <td id="Map3">3</td>
+    </tr>
+    <tr>
+        <td id="Map4">4</td> <!--/\--> <td id="Map5">5</td> <!--/\--> <td id="Map6">6</td>
+    </tr>
+    <tr>
+        <td id="Map7">7</td> <!--/\--> <td id="Map8">8</td> <!--/\--> <td id="Map9">9</td>
+    </tr>
+</table>
+</div>
+
+
+
+
+
+
+    <script src="scriptNewGame.js"></script>
+    <script src="scriptPlay.js"></script>
+    <script src="scriptInventory.js"></script>
+    <script>
+
+    //Get data from new game page to this page 
+        window.onload=function() {
+  
+            let attack = localStorage.getItem('SendAttack');
+            let defense = localStorage.getItem('SendDefense');
+            let hp = localStorage.getItem('SendHP');
+            let magic = localStorage.getItem('SendMagic');
+            let name = localStorage.getItem('SendName');
+            let difficulty = localStorage.getItem('Difficulty');
+            document.getElementById("SettingsDifficulty").value=difficulty
+            let startLocationType = localStorage.getItem('startLocationType');
+
+            if (startLocationType=="Random") {
+                let a = RandomNumber(1,9)
+                let b = document.querySelector(`[id=Map${a}]`).id
+                b = `${b} MapStart`
+                document.querySelector(`[id=Map${a}]`).id=b
+                ShowMap()
+            }
+            switch (difficulty) {
+            case "Easy":
+                SetText("InventoryCoins", "8")
+                SetText("InventoryFood", "6")
+                SetText("SettingDifficulty", "Easy")
+                break;
+            case "Medium":
+                SetText("InventoryCoins", "6")
+                SetText("InventoryFood", "4")
+                SetText("SettingDifficulty", "Medium")
+                break;
+            case "Hard":
+                SetText("InventoryCoins", "3")
+                SetText("InventoryFood", "2")
+                SetText("SettingDifficulty", "Hard")
+                break;
+        
+            default:
+                break;
+        }
+
+            SetPlayerAttributes(attack,defense,hp,magic);
+            document.getElementById("PlayerName").innerHTML=name;
+
+        }
+
+
+    </script>
+
+</body>
+</html>
