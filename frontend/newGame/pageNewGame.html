@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New game</title>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
+    <link rel="stylesheet" href="../styleGeneral.css">
+    <link rel="stylesheet" href="styleNewGame.css">
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutters ó">
+
+            <div class="col backgroundDark">
+            </div> <!--/- Col -\-->
+        
+        <!--/\-\- Content /-/\-->
+        <!-- <div class="col-sm-10 text-center" id="BackgroundLight"> -->
+        <div class="col-sm-10" id="BackgroundLight">
+        
+            <div class="headerHome center">
+                <p>Baldriod</p>
+            </div>
+        <div class="column2">
+                
+    <!-- /\-\- Difficulty /-/\-->
+    <span id="AreaNewGameDifficulty">
+        <button id="ButtonNewGameDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">Medium</span></button> <br>
+        <div class="collapsibleListElements" id="NewGameDifficulty" hidden>
+            <table class="tableBig">
+                <tr><td onclick="NewGameDifficulty('Easy')">Easy</td></tr>
+                <tr><td onclick="NewGameDifficulty('Medium')">Medium</td></tr>
+                <tr><td onclick="NewGameDifficulty('Hard')">Hard</td></tr>
+            </table>
+        </div>
+    </span>
+    <br>
+<!-- <div class="row">
+    <div class="col-xs-6"> -->
+
+
+    <!-- <select id="NewGameDifficulty" onchange="NewGameDifficulty()">
+        <option>Easy</option>
+        <option selected>Medium</option>
+        <option>Hard</option>
+    </select><br><br> -->
+
+<!-- Player attributes -->
+    <textarea id="NewGamePlayerName" cols="30" rows="1" placeholder="Player name"></textarea>
+    <br><br>
+
+    <span id="AreaNewGameAttributes">
+        <button  id="ButtonNewGameAttributes">Set attributes:  <span id="LabelAttributesMode">Random</span></button> <br>
+        <div class="collapsibleListElements" id="NewGameAttributes" hidden>
+            <table class="tableBig">
+                <tr><td onclick="NewGameAttributes('Random')">Random</td></tr>
+                <tr><td onclick="NewGameAttributes('Selectable')" id="OptionSelectable">Selectable (total: 46)</td></tr>
+            </table>
+        </div>
+    </span>
+    <br>
+
+    <!-- <select id="NewGameAttributes" onchange="NewGameAttributes()">
+        <option id="NewGameAttributesGenerate" selected>Random</option>
+        <option id="NewGameAttributesSet">Set values (total: 46)</option>
+    </select><br> -->
+
+    <button class="buttonBoxShadow" id="NewGameAttributesGenerateButtons" onclick="Generate()">Generate attributes</button>
+    <br><br>
+    <div id="Attributes">
+        <input type="number" id="SetAmount" value="10" min="1" max="52" oninput="this.value = Math.abs(this.value)" disabled/>
+        <br><br>
+    <table class="">
+        <!-- Attack -->
+        <tr>
+            <td>Attack: </td>  <td id="NewGamePlayerAttack">0</td> 
+
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(true,1)" disabled>+</td>
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(false,1)" disabled>-</td>
+        </tr>
+
+        <!-- Defense -->
+        <tr>
+            <td>Defense: </td>  <td id="NewGamePlayerDefense">0</td> 
+    
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(true,2)" disabled>+</td>
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(false,2)" disabled>-</td>
+        </tr>
+
+        <!-- HP -->
+        <tr>
+            
+            <td>HP: </td>  <td id="NewGamePlayerHP">0</td> 
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(true,3)" disabled>+</td>
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(false,3)" disabled>-</td>
+        </tr>
+
+        <!-- Magic -->
+        <tr>
+            <td>Magic: </td>  <td id="NewGamePlayerMagic">0</td> 
+    
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(true,4)" disabled>+</td>
+                <td class="setAttribute setAttributeDisabled" onclick="SetAttribute(false,4)" disabled>-</td>
+        </tr>              
+    </table><br>
+</div>
+
+    <!-- Choose location -->
+    <span id="AreaNewGameLocation">
+        <button id="ButtonNewGameLocation">Starting location:  <span id="LabelLocation">Random</span></button> <br>
+        <div class="collapsibleListElements" id="NewGameLocation" hidden>
+            <table class="tableBig">
+                <tr><td onclick="NewGameLocation('Random')">Random</td></tr>
+                <tr><td onclick="NewGameLocation('Select')">Select</td></tr>
+            </table>
+        </div>
+    </span>
+    <!-- <label for="">Starting location</label>
+    <select id="NewGameLocation">
+        <option selected>Random</option>
+        <option>Choose</option>
+    </select>--><br><br> 
+
+    <!-- Buttons -->
+    <button class="bottomButton buttonBoxShadow" onclick="location.href = '../play/pagePlay.html';StartGame()" id="pagePlay">Start game</button>
+    <button class="bottomButton buttonBoxShadow" onclick="location.href = '../home/pageHome.html'">Back to home page</button>
+
+</div> <!--/- Col -\-->
+
+<!-- <div class="col-xs-6"> -->
+<div class="column2">
+    <img class="map" src="../images/Baldriod Map.png" alt="">
+</div> <!--/- Col -\-->
+
+
+</div> <!--/- Col BackgroundLight -\-->
+
+
+<div class="col backgroundDark">
+</div> <!--/- Col -\-->
+
+</div> <!--/- Row -\-->
+</div>
+
+
+
+    <script src="scriptNewGame.js"></script>
+    <script src="../scriptGeneral.js"></script>
+
+</body>
+</html>

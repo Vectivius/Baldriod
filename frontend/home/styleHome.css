@@ -1,0 +1,50 @@
+#DivHomePageButtons {
+   box-shadow: 0 0 4px var(--red1);
+   text-align: center !important;
+   border: 2px solid var(--red1);
+   background-color: var(--light2);
+   border-radius: 0.8%;
+   margin: auto;
+    width: 20%; 
+    padding-top: 40px;
+    padding-bottom: 40px;
+ }
+
+ /* #BackgroundLight {
+   background-image: url(../images/Baldriod\ map.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+ } */
+
+#DivHomePageButtons form {
+   /* width: 30%; */
+
+}
+
+#SpanHomePageButtons {
+   box-shadow: 0 0 4px var(--red1);
+   height: 100%;
+   width: 100%;
+    /* padding: 150px;  */
+    /* width: 150px; */
+    }
+
+#DivHomePageButtons button {
+   margin: 10px;
+   width: 100px;
+}
+#DivHomePageButtons button:hover {
+   transition: 200ms linear;
+   border-radius: 2px;
+   border: 1px solid var(--red1);
+   box-shadow: 0 0 20px var(--red1);
+   margin: 10px;
+   width: 100px;
+}
+
+/* #DivHomePageButtons button:hover {
+   border: 1px solid var(--red1);
+   box-shadow: 0 0 10px var(--red1);
+   border-radius: 2px;
+   -webkit-transition: box-shadow 100ms linear;
+} */

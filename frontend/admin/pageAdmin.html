@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baldriod - admin</title>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
+    <link rel="stylesheet" href="../styleGeneral.css">
+    <link rel="stylesheet" href="styleAdmin.css">
+
+</head>
+<body> 
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col backgroundDark">
+        </div> <!--/- Col -\-->
+    
+    <!--/\-\- Content /-/\-->
+    <div class="col-sm-10" id="BackgroundLight">
+        <div class="header center">
+            <p>Baldriod</p>
+        </div>
+
+        <!--/\-\- Menu /-/\-->
+        <div id="DivMenu">
+            <a onclick="LoadTable('enemy')">Enemies</a>   
+            <a onclick="LoadTable('location')">Locations</a> 
+            <a onclick="LoadTable('Enemy locations')">Enemy locations</a>  
+            <a onclick="LoadTable('weapon')">Weapons</a>  
+            <a onclick="LoadTable('armor')">Armors</a>  
+            <a onclick="LoadTable('spell')">Spells</a>  
+            <a onclick="LoadTable('item')">Items</a>  
+        </div>
+
+        <!--/\-\- Load data /-/\-->
+        <!-- <table>
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Attack</th>
+                <th scope="col">Defense</th>
+                <th scope="col">Hp</th>
+                <th scope="col">MinDamage</th>
+                <th scope="col">MinDamage</th> 
+                <th scope="col">Armor</th> 
+                <th scope="col">Magic</th> 
+                <th scope="col"></th> 
+                <th scope="col"></th> 
+            </thead>
+ --><div id="DivTable">
+  
+                <table>
+                    <tr id="TrData" style="font-weight: bold;">
+                    </tr>
+                    <tbody id="TbodyData">
+                        
+                    </tbody>
+            
+                </table>
+ </div>
+        
+
+        </table>
+
+        <br>
+
+        <!--/\-\- New data /-/\-->
+            <div class="center"><button id="ButtonNewData" onclick="HiddenSwitch('DivNewData')">New data</button></div>
+                <div id="DivNewData" hidden class="divNewData absoluteCenter">
+         <div class="center">
+                        <button onclick="HiddenSwitch('DivNewDataEnemy')" id="ButtonFirst">Enemies</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonMid">Locations</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonMid">Enemy locations</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonMid">Weapons</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonMid">Armors</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonMid">Spells</button>
+                        <button onclick="HiddenSwitch('DivNewData')" id="ButtonLast">Items</button>
+         </div>
+        
+<br>
+                <div hidden class=" " id="DivNewDataEnemy">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataEnemyName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td> <th><input type="text" id="NewDataEnemyAttack"></th>
+                        </tr>
+                        <tr>
+                                <td>Defense:</td> <th><input type="text" id="NewDataEnemyDefense"></th>
+                        </tr>          
+                        <tr>
+                                <td>Hp:</td> <th><input type="text" id="NewDataEnemyHp"></th>
+                        </tr>          
+                        <tr>
+                                <td>Damage:</td> <th><input type="text" id="NewDataEnemyDamage"></th>
+                        </tr>          
+                        <tr>
+                                <td>Armor:</td> <th><input type="text" id="NewDataEnemyArmor"></th>
+                        </tr>          
+                        <tr>
+                                <td>Magic:</td> <th><input type="text" id="NewDataEnemyMagic"></th>
+                        </tr>          
+
+                        
+                    </table>
+                    <button  onclick="NewData('enemy')">Save data</button>
+                </div>
+            </div>
+
+        <!--/\-\- Edit enemy data /-/\-->
+                <div class="center"><br>
+
+               
+
+
+                    <div id="DivEdit" hidden><br>
+
+                        <!-- <select name="" id="EditType">
+                            <option>Name</option>
+                        </select> <br> -->
+                        <span id="AreaEditType">
+                            <button type="button" id="ButtonEditType">Type: <span id="TextEditType"></span> </button><br>
+                            <span class="collapsibleListElements" id="SpanEditType" hidden> 
+                                <table id="TableEditType" class="tableBig tableInventoryHidden">
+                             
+                                </table>
+                            </span>
+                        </span>
+
+
+
+
+                        <input id="NewValue" type="text" placeholder="New value"><br>
+                          <button onclick="Edit()">Save</button>
+
+                    </div>
+
+
+
+                </div>
+            
+        
+            <!--<div class="center"><button class="buttonBoxShadow" onclick="HiddenSwitch('DivEditData')">Edit enemy data</button></div>
+                <div id="DivEditData" hidden class="center absoluteCenter">
+
+                </div> -->
+
+
+        <!-- <form action="/enemy/:id/:tipus/:ertek" method="post">
+            <input name="EnemyName" type="text" /> <br />
+            <input type="submit" /> --> 
+
+        <!-- <div class="column">
+            <p>ff</p>
+        </div>
+        <div class="column">
+            <p>ff</p>
+        </div> -->
+
+            
+
+        
+     </div> <!--/- Col -\ -->
+
+
+    
+    <div class="col backgroundDark">
+    </div> <!--/- Col -\-->
+
+    </div> <!--/- Row -\-->
+
+</div>
+
+<script src="sciptAdmin.js"></script>
+<script src="../../backend/app.js"></script>
+<script src="../scriptGeneral.js"></script>
+</body>
+</html>

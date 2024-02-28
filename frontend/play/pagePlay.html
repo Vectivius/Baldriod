@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baldriod Play</title>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
+    <link rel="stylesheet" href="../styleGeneral.css">
+    <link rel="stylesheet" href="stylePlay.css">
+
+    <link rel="stylesheet" href="../../jquery-ui-1.13.2.custom/jquery-ui.css">
+    <link rel="stylesheet" href="../../jquery-ui-1.13.2.custom/jquery-ui.min.css">
+    <script src="../../jquery-ui-1.13.2.custom/external/jquery/jquery.js"></script>
+    <script src="../../jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+  
+</head>
+
+<style>
+    body#tooltipsEnabled .ui-tooltip {
+        box-shadow:0 0 4px var(--dark), 0 0 4px var(--red1)!important;
+        border:1px solid var(--dark), 1px solid var(--red1)!important;
+        border-radius: 1px!important;
+        background-color: var(--light6);
+        font-family: 'Times New Roman', Times, serif;
+        color: rgb(0, 0, 0)
+      }
+      body#tooltipsDisabled .ui-tooltip {
+        visibility: hidden;
+      }
+</style>
+
+<body id="tooltipsEnabled">
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col backgroundDark">
+            </div> <!--/- Col -\-->
+        
+            
+                
+            
+        <!--/\-\- Content /-/\-->
+        <div class="col-sm-10" id="BackgroundLight">
+
+            
+            
+        
+    <!--/\-\- Popup message /-/\-->
+    <div id="DivMessageBg" class="">
+        <div id="DivMessage">
+
+        <div id="DivMessage1" class="collapsibleListElements">
+            <p id="Message1"></p>
+            <button id="MessageButtonContinue" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Continue')">Continue</button>
+            <p hidden id="NextFunction"></p>
+        </div>
+
+        <div id="DivMessage2" class="collapsibleListElements">
+            <p id="Message2"></p>
+            <button id="MessageButtonYes" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Yes')">Yes</button>
+            <button id="MessageButtonNo"  onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg';Continue('No');">No</button>
+            <p hidden id="NextFunction2"></p>
+        </div>
+
+    </div>
+    </div>
+        
+    <!--/\-\- Menu /-/\-->
+    <div class="header">
+       <div class="center playLogo"> <p>Baldriod</p><br></div>
+    </div>
+
+
+    <div id="DivMenu">
+       <table>
+            <tr>
+                <a onclick="location.href = '../home/pageHome.html'">Back to home page</a>   
+                <a>Save game</a> 
+                <a>Load game</a>  
+                <a onclick="location.href = '../newGame/pageNewGame.html'">New game</a>  
+                <a id="ButtonSettings" onclick="HiddenSwitch('DivSettings')">Settings</a>  
+            </tr>
+       </table>
+    </div>
+
+        
+        
+
+    <!--/\-\- Settings /-/\-->    <!-- Hidden -->
+    <div class="collapsibleListElements absoluteCenter" hidden id="DivSettings">
+        <div class="text-center">
+            
+                
+                <!-- Show tooltips -->
+                <span id="AreaSettingsTooltip">
+                <button id="ButtonSettingsTooltip">Show tooltips:  <span id="LabelSettingsTooltip">yes</span></button> <br>
+                <div class="collapsibleListElements" id="DivSettingsTooltip" hidden>
+                    <table class="tableBig">
+                        <tr><td onclick="SettingsTooltip('yes')">Yes</td></tr>
+                        <tr><td onclick="SettingsTooltip('no')">No</td></tr>
+                    </table>
+                </div>
+                </span>
+
+                <!-- Difficulty -->
+                <span id="AreaDifficulty">
+                <button id="ButtonDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">medium</span></button> <br>
+                <div class="collapsibleListElements" id="Difficulty" hidden>
+                    <table class="tableBig">
+                        <tr><td onclick="SetDifficulty('Easy')">Easy</td></tr>
+                        <tr><td onclick="SetDifficulty('Medium')">Medium</td></tr>
+                        <tr><td onclick="SetDifficulty('Hard')">Hard</td></tr>
+                    </table>
+                </div>
+                </span>
+
+        <!-- <textarea id="SaveLocation" cols="30" rows="1"></textarea> -->
+    </div>
+    </div>
+
+    <div class="column3">
+        <div id="MainColumn1">
+
+                <!-- Player attributes -->
+                <div id="DivPlayerAttributes">
+                    <table id="tablePlayerAttributes">
+                        <tr>
+                            <th id="PlayerName"></th> <td></td> <td></td> <td></td> <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Attack</td>
+                            <td id="PlayerStartAttack"></td>
+                            <td id="PlayerCurrentAttack"></td>
+                            <td id="PlayerAttackModifier"></td>
+                        </tr> <span id="PlayerWeaponAttack" hidden></span> <span id="PlayerMinusAttack" hidden></span>
+                
+                        <tr>
+                            <td colspan="2">Defense</td>
+                            <td id="PlayerStartDefense"></td>
+                            <td id="PlayerCurrentDefense"></td>
+                            <td id="PlayerDefenseModifier"></td>
+                        </tr> <span id="PlayerArmorDefense" hidden></span><span id="PlayerMinusDefense" hidden></span>
+                
+                        <tr>
+                            <td colspan="2">HP</td>
+                            <td id="PlayerStartHp"></td>
+                            <td id="PlayerCurrentHp"></td>
+                            <td id="PlayerHpModifier"></td>
+                        </tr>
+                
+                        <tr>
+                            <td colspan="2">Magic</td>
+                            <td id="PlayerStartMagic"></td>
+                            <td id="PlayerCurrentMagic"></td>
+                            <td id="PlayerMagicModifier"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="fight" id="DivFight"><br>
+                    <!-- Player actions-->
+                    <div class="text-center"><button style="width: 100%;" onclick="NewRound()">New round</button></div>
+                   
+                    <!-- <p id="MeleeRangedMode">Mode: melee/ranged</p> -->
+
+                    <div id="DivPlayerActions" class="text-center">
+                        <table>
+                            <tr>
+                                <!-- <td class="buttonActionDisabled" onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack</td>                                
+                                <td class="buttonActionDisabled" onclick="PlayerActionSpell()" id="PlayerActionSpell">Cast a spell</td>
+                                <td class="buttonActionDisabled" id="PlayerActionItem">Use an item</td>
+                                <td class="buttonActionDisabled" id="PlayerActionMode">Change mode</td> -->
+                                <td style="width: 50%;" class="tdClickable" hidden disabled onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack</td>
+                                <td class="tdClickable" hidden disabled onclick="PlayerActionSpell()" id="PlayerActionSpell">Cast a spell</td>
+                                <!-- <td class="tdClickable" hidden disabled id="PlayerActionItem">Use an item</td>
+                                <td class="tdClickable" hidden disabled id="PlayerActionMode">Change mode</td> -->
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="DivEnemyAttributes" hidden>
+                    <!-- Enemy attributes --> <!-- Hidden -->
+                    <table id="TableEnemyAttributes">
+                        <tr>
+                            <th colspan="12" id="EnemyName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack</td>
+                            <td id="EnemyAttack"></td>
+                        </tr>
+                            <tr>
+                                <td>Defense</td>
+                                <td id="EnemyDefense"></td>
+                            </tr>
+                            <tr>
+                                <td>HP</td>
+                                <td id="EnemyHp"></td>
+                            </tr>
+                            <tr>
+                                <td>Damage</td>
+                                <td id="EnemyDamage"></td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td id="EnemyArmor"></td>
+                            </tr>
+                            <tr>
+                                <td>Magic</td>
+                                <td id="EnemyMagic"></td>
+                            </tr>                 
+                    </table>
+                </div>
+
+                <!-- Shop --> <!-- Hidden -->
+                <button hidden onclick="MapChange(currentLocation);HiddenSwitch('LeaveTown'); HiddenSwitch('DivShop');HiddenSwitch('DivFight')" id="LeaveTown">Leave town</button><br>
+                          
+                          <div class="collapsibleListElementse" id="DivShop" hidden>
+                            <table id="tableShop">
+                                <tr>
+                                    <th>Weapons</th> <th>Defenses</th> <th>Other items</th>
+                                </tr>
+                                <tbody id="tbodyShop">
+                                    <tr>
+                                        <td>Sword</td> <td>Chain armor</td> <td>Food</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Spear</td> <td>Leather armor</td> <td>Fireball scroll</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dagger </td> <td>Small shield</td> <td>Lantern</td>
+                                    </tr>
+                                    
+                                </tbody>
+                        
+                                        <!-- <tr>
+                                            <td class="tdClickable"><button id="BuyWeapon1"><span class="ShopWeapon1Name" id="BuyWeapon1">Sword</span>: Cost: 6<span id="ShopWeapon1Cost"></span> 
+                                                <p hidden><span id="ShopWeapon1Attack">2</span> <span id="ShopWeapon1Defense"></span><span id="ShopWeapon1Damage"></span></p></button></td>
+                        
+                                            <td>Armors</td>
+                                            <td>Magic items</td>
+                                            <td>Other</td>
+                                        </tr> -->
+                        
+                            </table>
+                        </div>
+
+
+
+                    </div>
+            </div> <!--/- Column3 -\-->
+
+            <!-- -- --- -- -- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- --- -- --- -- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="column3"> 
+                <div id="MainColumn2">
+                    <!-- Weapons --> <!-- Dropdown -->
+            <span id="AreaWeaponList">
+            <button type="button" id="ButtonWeaponList">Weapon: <span id="InventorySelectedWeapon">none</span> <span hidden id="InventorySelectedWeaponSlot"></span> <span id="InventorySelectedWeaponDurability"></span> </button>
+            <span class="collapsibleListElements" id="InventoryWeaponList" hidden>
+                <table class="tableBig tableInventoryHidden">
+                    <tr>
+                        <td id="InventoryWeapon1" onclick="ChangeSelectedItem(1, 'weapon')"></td>
+                        <td> <span id="InventoryWeapon1Attack"></span> </td>
+                        <td> <span id="InventoryWeapon1Defense"></span> </td>
+                        <td> <span id="InventoryWeapon1Damage"></span> </td>
+                        <td> <span id="InventoryWeapon1Durability"></span> <span id="InventoryWeapon1CurrentDurability"></span> </td>
+                        <td id="InventoryWeapon1Sell" onclick="sellItem = true;RemoveItem1(1, 'weapon')"></td>
+                        <td hidden id="InventoryWeapon1TextDelete" onclick="sellItem = false;RemoveItem1(1)"></td>
+                    </tr>
+    
+                    <tr>
+                        <td id="InventoryWeapon2" onclick="ChangeSelectedItem(2, 'weapon')"></td>
+                        <td> <span id="InventoryWeapon2Attack"></span> </td>
+                        <td> <span id="InventoryWeapon2Defense"></span> </td>
+                        <td> <span id="InventoryWeapon2Damage"></span> </td>
+                        <td> <span id="InventoryWeapon2Durability"></span> <span id="InventoryWeapon2CurrentDurability"></span> </td>
+                        <td id="InventoryWeapon2Sell" onclick="sellItem = true;RemoveItem1(2, 'weapon')"></td>
+                    </tr>
+    
+                    <tr>
+                        <td id="InventoryWeapon3" onclick="ChangeSelectedItem(3, 'weapon')"></td>
+                        <td> <span id="InventoryWeapon3Attack"></span> </td>
+                        <td> <span id="InventoryWeapon3Defense"></span> </td>
+                        <td> <span id="InventoryWeapon3Damage"></span> </td>
+                        <td> <span id="InventoryWeapon3Durability"></span> <span id="InventoryWeapon3CurrentDurability"></span> </td>
+                        <td id="InventoryWeapon3Sell" onclick="sellItem = true;RemoveItem1(3, 'weapon')"></td>
+                    </tr>
+    
+                    <tr>
+                        <td id="InventoryWeapon4" onclick="ChangeSelectedItem(4, 'weapon')"></td>
+                        <td> <span id="InventoryWeapon4Attack"></span> </td>
+                        <td> <span id="InventoryWeapon4Defense"></span> </td>
+                        <td> <span id="InventoryWeapon4Damage"></span> </td>
+                        <td> <span id="InventoryWeapon4Durability"></span> <span id="InventoryWeapon4CurrentDurability"></span> </td>
+                        <td id="InventoryWeapon4Sell" onclick="sellItem = true;RemoveItem1(4, 'weapon')"></td>
+                    </tr>
+    
+                    <tr>
+                        <td id="InventoryWeapon5" onclick="ChangeSelectedItem(5, 'weapon')"></td>
+                        <td> <span id="InventoryWeapon5Attack"></span> </td>
+                        <td> <span id="InventoryWeapon5Defense"></span> </td>
+                        <td> <span id="InventoryWeapon5Damage"></span> </td>
+                        <td> <span id="InventoryWeapon5Durability"></span> <span id="InventoryWeapon5CurrentDurability"></span> </td>
+                        <td id="InventoryWeapon5Sell" onclick="sellItem = true;RemoveItem1(5, 'weapon')"></td>
+                    </tr>
+
+                  
+                </table>
+               
+            </span>
+            </span>
+    
+            <!-- Armors --> <!-- Dropdown -->
+            <span id="AreaArmorList">
+                <button type="button" class="collapsible" id="ButtonArmorList">Armor: <span id="InventorySelectedArmor">none</span> <span hidden id="InventorySelectedArmorSlot"></span> <span id="InventorySelectedArmorDurability"></span></button><br>
+                <div class="collapsibleListElements" id="InventoryArmorList" hidden>
+                <table class="tableBig tableInventoryHidden">
+                <tr>
+                    <td id="InventoryArmor1" onclick="ChangeSelectedItem(1, 'armor')"></td>
+                    <td> <span id="InventoryArmor1Defense"></span> </td>
+                    <td> <span id="InventoryArmor1DamageReduction"></span> </td>
+                    <td> <span id="InventoryArmor1Durability"></span> <span id="InventoryArmor1CurrentDurability"></span> </td>
+                    <td id="InventoryArmor1Sell" onclick="sellItem = true;RemoveItem1(1, 'armor')"></td>
+                </tr>
+
+                <tr>
+                    <td id="InventoryArmor2" onclick="ChangeSelectedItem(2, 'armor')"></td>
+                    <td> <span id="InventoryArmor2Defense"></span> </td>
+                    <td> <span id="InventoryArmor2DamageReduction"></span> </td>
+                    <td> <span id="InventoryArmor2Durability"></span> <span id="InventoryArmor2CurrentDurability"></span> </td>
+                    <td id="InventoryArmor2Sell" onclick="sellItem = true;RemoveItem1(2, 'armor')"></td>
+                </tr>
+
+                <tr>
+                    <td id="InventoryArmor3" onclick="ChangeSelectedItem(3, 'armor')"></td>
+                    <td> <span id="InventoryArmor3Defense"></span> </td>
+                    <td> <span id="InventoryArmor3DamageReduction"></span> </td>
+                    <td> <span id="InventoryArmor3Durability"></span> <span id="InventoryArmor3CurrentDurability"></span> </td>
+                    <td id="InventoryArmor3Sell" onclick="sellItem = true;RemoveItem1(3, 'armor')"></td>
+                </tr>
+            </table>
+            
+
+                </div>
+            </span>
+    
+           
+    
+            <!-- Shields --> <!-- Dropdown -->
+            <span id="AreaShieldList">
+                <button type="button" class="collapsible" id="ButtonShieldList">Shield: <span id="InventorySelectedShield">none</span>  <span hidden id="InventorySelectedShieldSlot"></span> <span id="InventorySelectedShieldDurability"></span></button><br>
+                <div class="collapsibleListElements" id="InventoryShieldList" hidden>
+                    <table class="tableBig tableInventoryHidden">
+                        <tr>
+                            <td id="InventoryShield1" onclick="ChangeSelectedItem(1, 'shield')"></td>
+                            <td> <span id="InventoryShield1Defense"></span> </td>
+                            <td> <span id="InventoryShield1Durability"></span> <span id="InventoryShield1CurrentDurability"></span> </td>
+                            <td> <span id="InventoryShield1TwoHandedPenalty"></span> </td>
+                            <td id="InventoryShield1Sell" onclick="sellItem = true;RemoveItem1(1, 'shield')"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="InventoryShield2" onclick="ChangeSelectedItem(2,  'shield')"></td>
+                            <td> <span id="InventoryShield2Defense"></span> </td>
+                            <td> <span id="InventoryShield2Durability"></span> <span id="InventoryShield2CurrentDurability"></span> </td>
+                            <td> <span id="InventoryShield2TwoHandedPenalty"></span> </td>
+                            <td id="InventoryShield2Sell" onclick="sellItem = true;RemoveItem1(2, 'shield')"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="InventoryShield3" onclick="ChangeSelectedItem(3, 'shield')"></td>
+                            <td> <span id="InventoryShield3Defense"></span> </td>
+                            <td> <span id="InventoryShield3Durability"></span> <span id="InventoryShield3CurrentDurability"></span> </td>
+                            <td> <span id="InventoryShield3TwoHandedPenalty"></span> </td>
+                            <td id="InventoryShield3Sell" onclick="sellItem = true;RemoveItem1(3, 'shield')"></td>
+                        </tr>
+        
+                    </table>
+                </div>
+            </span>
+    
+
+                <table class="tableSmall" style="text-align: center;">
+                        <tr>
+                            <td>Coins: <span id="InventoryCoins">6 </span> </td>
+                            <!-- <td style="border-left: none;">Food: <span id="InventoryFood">4</span></td> -->
+                        </tr>
+                </table>
+            
+
+                    <!-- Other Items -->
+                             <table id="tableOtherItems">
+                                <tr><th colspan="4" style="text-align: center;">Other items</th></tr>
+                                 <tr>
+                                     <td id="InventoryItem1"></td> <td><span id="InventoryItem1TextAmount"></span> <span id="InventoryItem1Amount"></span></td>  <td onclick="UseItem(1)" id="InventoryItem1TextUse"></td> <td id="InventoryItem1TextDelete" onclick="RemoveFromPlayerItemList(1)"></td>
+                                 </tr>
+
+                                 <tr>
+                                    <td id="InventoryItem2"></td> <td><span id="InventoryItem2TextAmount"></span> <span id="InventoryItem2Amount"></span></td>  <td onclick="UseItem(2)" id="InventoryItem2TextUse"></td> <td id="InventoryItem2TextDelete" onclick="RemoveFromPlayerItemList(2)"></td>
+                                </tr>
+
+                                <tr>
+                                    <td id="InventoryItem3"></td> <td><span id="InventoryItem3TextAmount"></span> <span id="InventoryItem3Amount"></span></td>  <td onclick="UseItem(3)" id="InventoryItem3TextUse"></td> <td id="InventoryItem3TextDelete" onclick="RemoveFromPlayerItemList(3)"></td>
+                                </tr>
+
+                                <tr>
+                                    <td id="InventoryItem4"></td> <td><span id="InventoryItem4TextAmount"></span> <span id="InventoryItem4Amount"></span></td>  <td onclick="UseItem(4)" id="InventoryItem4TextUse"></td> <td id="InventoryItem4TextDelete" onclick="RemoveFromPlayerItemList(4)"></td>
+                                </tr>
+
+                                <tr>
+                                    <td id="InventoryItem5"></td> <td><span id="InventoryItem5TextAmount"></span> <span id="InventoryItem5Amount"></span></td>  <td onclick="UseItem(5)" id="InventoryItem5TextUse"></td> <td id="InventoryItem5TextDelete" onclick="RemoveFromPlayerItemList(5)"></td>
+                                </tr>
+
+                             
+                                 <!-- <tr>
+                                     <td id="InventoryItem2"></td> <td>Amount: <span id="InventoryItem2Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(2)">Delete</td>
+                                 </tr>
+                             
+                                 <tr>
+                                     <td id="InventoryItem3"></td> <td>Amount: <span id="InventoryItem3Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(3)">Delete</td>
+                                 </tr>
+                             
+                                 <tr>
+                                     <td id="InventoryItem4"></td> <td>Amount: <span id="InventoryItem4Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(4)">Delete</td>
+                                 </tr>
+                             
+                                 <tr>
+                                     <td id="InventoryItem5"></td> <td>Amount: <span id="InventoryItem5Amount">0</span></td>  <td>Use</td> <td onclick="RemoveFromPlayerItemList(5)">Delete</td>
+                                 </tr> -->
+                             </table>
+    
+                             <br>
+    
+    <!-- Spells --> <!-- Dropdown -->
+    <span id="AreaSpellList">
+            <button id="ButtonSpellList" type="button" class="collapsible">Selected spell: <span id="InventoryChoosenSpell">none</span></button> <br>
+          <div class="collapsibleListElements" id="InventorySpellList" hidden>
+         <table>
+                <tr>
+                    <td id="InventorySpell1" onclick="ChangeChoosenSpell(1)"></td> <td id="InventorySpell1Type"></td> <td id="InventorySpell1Attack"></td> <td id="InventorySpell1Defense"></td> <td id="InventorySpell1Hp">  <td id="InventorySpell1Cost"></td>
+                </tr>
+        
+                <tr>
+                    <td id="InventorySpell2" onclick="ChangeChoosenSpell(2)"></td> <td id="InventorySpell2Type"></td> <td id="InventorySpell2Attack"></td> <td id="InventorySpell2Defense"></td> <td id="InventorySpell2Hp"></td>  <td id="InventorySpell2Cost"></td>
+                </tr>
+        
+                <tr>
+                    <td id="InventorySpell3" onclick="ChangeChoosenSpell(3)"></td> <td id="InventorySpell3Type"></td> <td id="InventorySpell3Attack"></td> <td id="InventorySpell3Defense"></td> <td id="InventorySpell3Hp"></td>  <td id="InventorySpell3Cost"></td>
+                </tr>
+        
+                <tr>
+                    <td id="InventorySpell4" onclick="ChangeChoosenSpell(4)"></td> <td id="InventorySpell4Type"></td> <td id="InventorySpell4Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell4Hp"></td>  <td id="InventorySpell4Cost"></td>
+                </tr>
+        
+                <tr>
+                    <td id="InventorySpell5" onclick="ChangeChoosenSpell(5)"></td> <td id="InventorySpell5Type"></td> <td id="InventorySpell5Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell5Hp"></td>  <td id="InventorySpell5Cost"></td>
+                </tr>
+        
+         </table>
+        </div>
+    </span>
+    <br>
+    <!-- <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea> -->
+
+
+</div> <!--/- Inventory -\-->
+            </div> <!--/- Column3 -\-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="column3" id="MainColumn3">
+                    <div id="DivLocationImage">
+                    </div>
+
+
+                    <!-- Image Map Generated by http://www.image-map.net/ -->
+                <!-- <img src="Baldriod map.png" usemap="#image-map">
+
+                <map>
+                </map> -->
+        
+                    
+    
+                <div id="DivMap">
+                    <img class="map mapEnabled" src="../images/Baldriod Map.png" alt="Map" usemap="#Baldriod">
+                    <map name="Baldriod">
+                </div>
+
+                    <div id="DivMapTable">
+                        <table style="text-align: center;">
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td id="TdMap-1"></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td id="TdMap-6"></td> <td></td> <td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td id="TdMap-2"></td> <td></td> <td id="TdMap-3"></td> <td></td> <td></td> <td></td> <td></td><td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td id="TdMap-5"></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td><td></td>
+                            </tr>
+
+                            <tr>
+                                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td ></td> <td></td><td></td><td></td>
+                            </tr>
+                            <tr>
+                                <td></td> <td></td> <td id="TdMap-4"></td><td></td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td>
+                            </tr>
+                            <tr>
+                                <!-- <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td> -->
+                            </tr>
+                        </table>
+                    </div>
+
+                <br>
+                <button id="EnterTown" onclick="MapHide();HiddenSwitch('DivShop'); HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivFight'); LoadTable('Shop')">Enter town</button>
+
+    
+                
+    
+
+            </div> <!--/- Column3 -\-->
+
+            <button onclick="AddInv(`${document.getElementById('itemtest').value}`)">Add Inventory</button>
+            <button onclick="AddItem(`${document.getElementById('itemtest').value}`)">Add Item</button>
+            <textarea id="itemtest" cols="8" rows="4"></textarea>
+            <button onclick="NewEnemy(`${5}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
+            <button onclick="SetText('InventoryCoins', 600)">Money</button>
+
+
+
+
+
+            </div> <!--/- Col BackgroundLight -\-->
+
+            
+        
+
+
+    
+    
+        <div class="col backgroundDark">
+        </div> <!--/- Col -\-->
+
+    </div> <!--/- Row -\-->
+    </div> <!--/- container-fluid -\-->
+
+    
+
+    
+
+
+
+    <!--Visible transition test-->
+   <b id="ggg" class="visible">ggggg</b>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Test -->
+<Div id="test">
+
+</div>
+
+
+
+    <script src="../scriptGeneral.js"></script>
+    <script src="../newGame/scriptNewGame.js"></script>
+    <script src="scriptPlay.js"></script>
+    <script src="scriptInventory.js"></script>
+    <script>
+
+
+
+    //Get data from new game page to this page
+        window.onload=function() {
+
+
+            let attack = localStorage.getItem('SendAttack');
+            let defense = localStorage.getItem('SendDefense');
+            let hp = localStorage.getItem('SendHP');
+            let magic = localStorage.getItem('SendMagic');
+            let name = localStorage.getItem('SendName');
+            let difficulty = localStorage.getItem('Difficulty');
+            SetText("SettingsLabelDifficulty", difficulty)
+            let startLocationType = localStorage.getItem('startLocationType');
+
+            if (startLocationType=="Random") {
+                let a = RandomNumber(1,9)
+                let b = document.querySelector(`[id=Map${a}]`).id
+                b = `${b} MapStart`
+                document.querySelector(`[id=Map${a}]`).id=b
+                ShowMap()
+            }
+            switch (difficulty) {
+            case "easy":
+                SetText("InventoryCoins", "8")
+                //SetText("InventoryFood", "6")
+                break;
+            case "medium":
+                SetText("InventoryCoins", "600")
+                //SetText("InventoryFood", "4")
+                break;
+            case "hard":
+                SetText("InventoryCoins", "3")
+                //SetText("InventoryFood", "2")
+                break;
+
+            default:
+                break;
+        }
+
+            SetPlayerAttributes(attack,defense,hp,magic);
+            document.getElementById("PlayerName").innerHTML=name;
+        }
+
+
+    </script>
+
+</div>
+
+</div>
+</body>
+</html>

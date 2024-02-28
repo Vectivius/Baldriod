@@ -1,0 +1,565 @@
+
+.column3 {
+    float: left;
+    width: 33%;
+    padding: 20px;
+}
+#MainColumn1 , #MainColumn2 {
+    border: 2px solid var(--red1);
+    background-color: var(--light2);
+    padding: 20px;
+    box-shadow: 0 0 4px var(--red1);
+    border-radius: 0.8%;
+}
+#MainColumn1 {
+    height: 550px;
+}
+
+/* @media only screen and (max-width: 1800px) {
+    #MainColumn3 img.map {
+      height: 550px;
+    }
+  } */
+
+#ButtonSettings.hover {
+    background-color: var(--light6);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Message --/*/
+
+#DivMessageBg {
+    visibility: hidden;
+    transition: 100ms linear;
+    width: 100%;
+	height: 100%;
+    position: absolute;	
+    top: 0;
+    left: 0;
+    z-index: 999;
+    filter: alpha(opacity = 50);
+}
+#DivMessageBgVisible {
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.329);
+    transition: 100ms linear;
+    width: 100%;
+	height: 100%;
+    position: absolute;	
+    top: 0;
+    left: 0;
+    z-index: 999;
+    filter: alpha(opacity = 50);
+}
+
+
+
+
+#DivMessage1, #DivMessage2  {
+    top: 20%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    background-color: var(--light5);
+    padding: 20px;
+    text-align: center;
+}
+
+#DivMessage button:hover {
+    background-color: var(--light4);
+}
+#DivMessage1 button {
+    background-color: var(--light1);
+    width: 100%;
+}
+#DivMessage1 button:hover {
+    background-color: var(--light4);
+}
+#DivMessage2 button:hover {
+    background-color: var(--light4);
+}
+#DivMessage2 button {
+    background-color: var(--light1);
+    width: 49%;
+}
+
+
+
+#test {
+    margin-top: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//-- Settings --//*/
+#DivSettings {
+    margin-top: -30px;
+    width: 100%;
+    background-color: var(--light6);
+    border-bottom: 2px solid var(--red1);
+    padding: 10px;
+}
+#DivSettings span, button {
+    display: inline;
+}
+
+#DivSettings .collapsibleListElements {
+    padding: 7px;
+}
+
+#DivSettings button {
+    width: 150px;
+}
+
+
+
+
+
+#DivSettings button:hover, #DivSettings button.hover {
+    background-color: var(--light5);
+    box-shadow: 0 0 10px var(--red1);
+    transition: 100ms linear;
+    color: black;
+}
+#DivSettings td {
+    padding: 5px
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//-- Attributes, fight, shop --//*/
+
+#tablePlayerAttributes, #TableEnemyAttributes, #tableShop {
+    border: var(--brown) solid 1px;
+    border-radius: 0.8%;
+}
+#tablePlayerAttributes td, #TableEnemyAttributes td, #tableShop td, #tablePlayerAttributes th, #TableEnemyAttributes th, #tableShop th {
+    border-right: none;
+    border-left: none;
+    padding-left: 4px;
+}
+#tablePlayerAttributes td {
+    width: 25%;
+}
+[id*=Modifier] {
+    width: 40px;
+}
+
+    /*Player actions*/
+#DivPlayerActions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    }
+#DivPlayerActions table {
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+/* #DivPlayerActions td {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-shadow: none;
+}*/
+#DivPlayerActions button {
+    /* width: 25%; */
+    padding: 2;
+    /* width: 60px; */
+
+    /* display:inline-block;
+    border: 0;
+    margin: 0;
+    box-shadow: none; */
+} 
+.buttonActionEnabled {
+    background-color: var(--light3);
+}
+.buttonActionEnabled:hover {
+    background-color: var(--light6);
+    text-shadow: var(--red4) 1px 1px 8px;
+    transition: 100ms linear;
+    box-shadow: 0 0 10px var(--red1);
+    cursor: pointer;
+}
+.buttonActionDisabled {
+    background-color: var(--light3);
+    background-color: #87796c;
+    border: 1px solid var(--brown);
+    color: black;
+    cursor: default;
+}
+
+
+
+/*//-- Shop --//*/
+#tableShop td {
+    width: 33%;
+}
+#DivShop {
+    margin-top: 20px;
+}
+#LeaveTown {
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//-- Inventory --//*/
+
+#MainColumn2 .tdSelected {
+    cursor: pointer;
+    background-color: var(--light6);
+    text-shadow: var(--red1) 1px 1px 8px;
+    transition: 100ms linear;
+}
+
+#MainColumn2 button, table:not(.tableInventoryHidden) {
+    width: 100%;
+}
+#MainColumn2 button {
+    text-align: center;
+    margin-bottom: 10px;
+}
+#MainColumn2 .tableSmall {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#MainColumn2 td {
+    width: 30px;
+    padding-left: 4px;
+}
+#MainColumn2 .collapsibleListElements {
+    margin-top: -11px;
+}
+#MainColumn2 #InventoryItem1 {
+    width: 100px;
+}
+#MainColumn2 .collapsibleListElements td {
+    padding-left: 2px;
+    text-align: left;
+    width: 130px;
+    height: 30px;
+    /* padding: 5px; */
+    margin: 0;
+    border-right: none;
+    border-left: none;
+}
+
+#MainColumn2 .collapsibleListElements {
+    padding: 10px;
+}
+
+/* Other Items */
+#tableOtherItems {
+    border: var(--brown) solid 1px;
+}
+#tableOtherItems td {
+    border-right: none;
+    border-left: none;
+    height: 30px;
+    width: 130px;
+}
+
+
+
+
+
+
+.inventory2 table {
+    width: 100%;
+    border: var(--brown) solid 1px;
+}
+.inventory2 td {
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Player attributes --/*/
+
+#DivPlayerAttributes table {
+}
+
+#DivPlayerAttributes td {
+    /* padding: 5px; */
+}
+
+#AreaSpellList {
+    /* margin-top: 50px; */
+}
+
+.inventory1 {
+    padding-top: 4px;
+    border-top: 2px solid var(--red1);
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+.inventory2 {
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+.inventory3 {
+    padding-top: 10px;
+    margin-top: -250px;
+    padding-bottom: 4px;
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    border-bottom: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+#AreaSpellList {
+    margin-top: 20px;
+}
+
+
+.fight button {
+    margin: -1.5px;
+    padding: 5px;
+}
+
+/* .fight button:enabled {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--light3);
+    border: 1px solid var(--brown);
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer; 
+} */
+
+#ButtonNewRound:hover {
+    border: 1px solid var(--red1);
+    box-shadow: 0 0 10px var(--red1);
+    border-radius: 1px;
+    transition: box-shadow 10ms linear;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//-- Map --//*/
+
+#MainColumn3 button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+img {
+/* aspect-ratio: 4/5; */
+}
+
+#MainColumn3 {
+    display: grid;
+}
+#DivMap, #DivMapTable {
+    grid-column: 1;
+    grid-row: 1;
+}
+#DivMapTable table {
+    border: none;
+    box-shadow: none;
+}
+#DivMapTable td {
+    border: none;
+    background-color:rgba(163, 5, 5, 0);
+    width: 100px;
+    height: 57px;
+    overflow: visible;
+}
+
+
+#DivMap img.map {
+    border: 2px solid var(--red1);
+    box-shadow: 0 0 4px var(--red1);
+    border-radius: 0.8%;
+    opacity: 1;
+    /* height: 100px; */
+}
+
+#TdMap-2 {
+    z-index: 999;
+}
+
+/* desert */
+.map1 {
+    margin-top: -1100px;
+    margin-left: 150px;
+}
+/* plains */
+.map2 {
+    margin-top: -600px;
+    margin-left: 50px;
+}
+/* swamp */
+.map3 {
+    margin-top: -650px;
+    margin-left: 150px;
+}
+/* tundra */
+.map4 {
+    margin-top: -150px;
+    margin-left: 70px;
+}
+/* mountains */
+.map5 {
+    margin-top: -400px;
+    margin-left: 400px;
+}
+/* island */
+.map6 {
+    margin-top: -700px;
+    margin-left: 330px;
+}
+
+
+
+
+
+
+
+/* 
+
+#Map {
+    border-collapse: collapse;
+}
+.mapEnabled {
+    background-color: rgb(216, 16, 16);
+}
+[id*="MapStart"] {
+    background-color: var(--red1);
+    content: url("img.png");
+}
+area {
+    background-color: brown;
+    z-index: 999;
+    display: block;
+} */
+
+
+
+
+
+
+
+
+/*Visible transition test*/
+.hidden {
+    transition: 100ms linear;
+    visibility: hidden;
+    
+}
+.visible {
+    background-color: rgba(0, 0, 0, 0.329);
+    transition: 100ms linear;
+    visibility: visible;
+}
+
+

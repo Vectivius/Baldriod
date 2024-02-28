@@ -1,0 +1,640 @@
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Background --/*/
+
+body, button {
+    text-shadow: rgba(0, 0, 0, 0.139) 1px 1px 1px;
+}
+table {
+    text-shadow: rgba(0, 0, 0, 0.043) 1px 1px 1px;
+}
+
+/* * {
+    box-shadow: none!important;
+    text-shadow: none!important;
+} */
+
+.backgroundDark {
+    background-color: var(--dark);
+}
+
+#BackgroundLight {
+    box-shadow: 0 0 5px var(--red1) inset;
+
+
+    padding: 0px;
+    background-color: var(--light1);
+    font-family: 'Times New Roman', Times, serif;
+    border-right: 3px solid var(--red1);
+    border-left: 3px solid var(--red1);
+
+    padding-bottom: 900px; 
+    position: relative;
+}
+
+#BackgroundLight .row {
+        padding-left: 30px;
+        padding-right: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Inventory --/*/
+
+/* #DivPlayerAttributes table {
+    width: 90%;
+}
+
+#DivPlayerAttributes td {
+    padding: 10px;
+}
+
+.inventory1 {
+    padding-top: 4px;
+    border-top: 2px solid var(--red1);
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+.inventory2 {
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+.inventory3 {
+    padding-top: 10px;
+    margin-top: -250px;
+    padding-bottom: 4px;
+    border-right: 2px solid var(--red1);
+    border-left: 2px solid var(--red1);
+    border-bottom: 2px solid var(--red1);
+    background-color: var(--light2);
+}
+
+
+
+.inventory1 button {
+    width: 100%;
+    margin: 2px;
+}
+
+.inventory3 button {
+    width: 100%;
+    margin: 2px;
+}
+
+
+#AreaSpellList {
+    margin-top: 20px;
+}
+
+
+.fight button {
+    margin: -1.5px;
+    padding: 5px;
+}
+
+.fight button:enabled {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--light3);
+    border: 1px solid var(--brown);
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer; 
+}
+
+#ButtonNewRound:hover {
+    border: 1px solid var(--red1);
+    box-shadow: 0 0 10px var(--red1);
+    border-radius: 1px;
+    transition: box-shadow 10ms linear;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Menu --/*/
+
+.headerHome {
+    text-shadow: rgba(131, 77, 77, 0.882) 1px 2px 3px;
+    background-color: #e2c573;
+
+    padding-top: 35px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid var(--red1);
+    box-shadow: 0 0 10px var(--red1);
+    margin-bottom: 60px;
+
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+.header {
+    text-shadow: rgba(131, 77, 77, 0.882) 1px 2px 3px;
+
+    
+    background-color: #e2c573;
+
+    padding-top: 35px;
+    padding-bottom: 25px;
+
+    /* padding-top: 100px; */
+    /* margin-bottom: 60px; */
+
+    box-shadow: 0 0 3px var(--red1) inset;
+
+
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+#DivMenu {
+    box-shadow: 0 0 5px var(--red1);
+
+    border-bottom: 1px solid var(--red1);
+    margin-bottom: 30px;
+    /* position: relative;
+    width: 100%; */
+    overflow: auto;
+}
+
+.headerHome p {
+    font-size: 60px;
+}
+
+.header p {
+    font-size: 60px;
+}
+
+/* .playLogo {
+    padding-top: -30px;
+} */
+
+#DivMenu.child:nth-child(odd){
+    border-right:none;
+ }
+
+
+/*Menu buttons*/
+ #DivMenu a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.2s ease;
+    font-size: 20px;
+    background-color: var(--light3);
+    border: 1px solid var(--brown);
+    /* padding-bottom: 5%; */
+}
+/* #DivMenu td:hover {
+} */
+/* @media (max-width: @screen-xs) {
+    body{font-size: 10px;}
+} */
+
+/* @media (max-width: screen-sm) {
+    DivMenu a{font-size: 10px;}
+} */
+
+
+h5{
+    font-size: 1.4rem;
+}    
+
+
+
+
+
+
+
+/*/-- // --- Buttons --- // --/*/
+
+
+button:enabled {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--light3);
+    border: 1px solid var(--brown);
+    padding: 8px 10px;
+    font-size: 16px;
+    cursor: pointer; 
+    transition: 100ms linear;
+}
+
+button:enabled:hover {
+    cursor: pointer;
+    background-color: var(--light5);
+    /* text-shadow: var(--red1) 1px 1px 8px; */
+    transition: 100ms linear;
+
+    background-color: var(--light6);
+    /* text-shadow: var(--red4) 1px 1px 8px; */
+    text-shadow: var(--red1) 0px 0px 8px;
+    transition: 100ms linear;
+    box-shadow: 0 0 10px var(--red1);
+}
+
+button.hover {
+    background-color: var(--light6);
+    text-shadow: var(--red1) 1px 1px 8px;
+    box-shadow: 0 0 10px var(--red1);
+}
+
+button:disabled {
+    background-color: #87796c;
+    border: 1px solid var(--brown);
+    color: black;
+    cursor: default;
+    padding: 8px 10px;
+    transition: 100ms linear;
+}
+
+button:enabled.buttonBoxShadow:hover {
+    box-shadow: 0 0 10px var(--red1);
+    border-radius: 2px;
+    transition: 100ms linear;
+}
+
+a, textarea, input, button, .collapsibleListElements {
+    box-shadow: 0 0 2px var(--brown);
+}
+table {
+    box-shadow: 0 0 2px var(--brown);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Menu --/*/
+#DivMenu a {
+    box-shadow: 0 0 2px var(--brown);
+}
+
+#DivMenu a:hover {
+    text-shadow: var(--red1) 1px 1px 8px;
+    background-color: var(--light6);
+    border: 1px solid var(--brown);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--red1);
+}
+
+
+
+
+
+#NewGameDifficulty p {
+    background-color: #b5a291;
+    padding: 15px;
+    border: 1px black solid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Tables --/*/
+
+/* Dont collapse empty cells */
+td:empty::before{content:'\00a0';visibility:hidden}
+
+
+.tdSelected {
+    background-color: var(--light5);
+    text-shadow: var(--red1) 1px 1px 8px;
+    transition: 100ms linear;
+}
+
+td, th {
+    transition: 100ms linear;
+    border: var(--brown) solid 1px;
+    background-color: var(--light3);
+    /* height: 5px; */
+    /* width: 100px; */
+}
+
+td.hover {
+    cursor: pointer;
+    background-color: var(--light5);
+    text-shadow: var(--red1) 1px 1px 8px;
+    transition: 100ms linear;
+}
+
+
+
+.tableBig {
+    box-shadow: 0 0 2px var(--red1);
+    border:  solid 2px var(--red3);
+    /* margin: 5px; */
+}
+
+.tableSmall {
+    /* margin: 5px; */
+}
+
+/* Clickable td */
+.tdClickable:hover {
+    background-color: var(--light5);
+    cursor: pointer;
+    text-shadow: var(--red1) 1px 1px 8px, rgba(0, 0, 0, 0.139) 1px 1px 1px;;
+    transition: 100ms linear;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/-- Message --/*/
+
+#DivMessageBg {
+    width: 100%;
+	height: 100%;
+    position: absolute;	
+    top: 0;
+    left: 0;
+    z-index: 999;
+    filter: alpha(opacity = 50);
+}
+
+#DivMessage {
+    top: 20%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    background-color: var(--light3);
+    padding: 10px;
+}
+
+#DivMessage button {
+    background-color: var(--light1);
+}
+
+#DivMessage button:hover {
+    background-color: var(--light4);
+}
+
+
+
+#test {
+    margin-top: 150px;
+}
+
+
+
+/*/-- Center absolute positoned divs --/*/
+.absoluteCenter {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 100px;  
+    /* text-align: left; */
+}
+
+.centre {
+    margin: auto;
+}
+
+/*/-- Center divs --/*/
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .center-screen {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+    }  
+
+
+::selection {
+    color: rgb(255, 213, 0);
+    background: maroon;
+}
+::-moz-selection {
+    color: rgb(255, 213, 0);
+    background: maroon;
+  }
+
+textarea {
+    transition: 100ms linear;
+}
+textarea, input {
+    resize: none;
+    background-color: var(--light3);
+    font-family: 'Times New Roman', Times, serif; 
+    border: 1px solid var(--brown);
+    transition: 100ms linear;
+}
+textarea:focus, input:focus {
+    outline: none !important;
+    border: 1px solid var(--red1);
+    box-shadow: 0 0 10px var(--red1);
+    transition: 100ms linear;
+    border-radius: 2px;
+  }
+
+.collapsibleListElements {
+    position: absolute;
+    border: 1px solid var(--brown);
+    background-color: var(--light6);
+    /* border: 1px black solid; */
+    /* margin: -2px; */
+    display: inline;
+}
+.collapsibleListElements table {
+    /* box-shadow: 0 0 2px var(--brown); */
+    /* margin: 5px;
+    padding: 5px; */
+}
+
+
+:root {
+    --light1: #ECDEB9;      /* Background */
+    --light2: #e2d1b4;    /* Inventory background */
+    --light3: #D9C3AF;       /* button:enabled, a, td, textarea, input, #DivMessage */
+    --light4: #e4d5ad;
+    --light5: #c1a58a;      /* td hover */
+    --light6: #b6916f;      /* Button hover*/
+    --brown: #976C18;
+    --yellow: #e2c573;
+    --red1: rgb(163, 5, 5);      /* Background */
+    --red2: rgba(163, 5, 5, 0.507);       /* Hover border */
+    --red3: rgb(174, 31, 31);       /* Table border */
+    --red4: rgb(106, 12, 12);
+    --dark: #3e1906;          /* Background */
+}
+
+
+
+
+
+
+
+
+/* 
+  [data-tooltip]:hover::after {
+    display: block;
+    position: absolute;
+    content: attr(data-tooltip);
+    border: 1px solid black;
+    background: var(--light5);
+
+    opacity: 0.5;
+    background-color: var(--light6);
+    text-shadow: none;
+    transition: 200ms linear;
+    box-shadow: none;
+
+    margin: 15px;
+    margin-top: -70px;
+    padding: .05em;
+  } */
