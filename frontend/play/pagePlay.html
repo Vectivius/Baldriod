@@ -413,23 +413,23 @@
                              <table id="tableOtherItems">
                                 <tr><th colspan="4" style="text-align: center;">Other items</th></tr>
                                  <tr>
-                                     <td id="InventoryItem1"></td> <td><span id="InventoryItem1TextAmount"></span> <span id="InventoryItem1Amount"></span></td>  <td onclick="UseItem(1)" id="InventoryItem1TextUse"></td> <td id="InventoryItem1TextDelete" onclick="RemoveFromPlayerItemList(1)"></td>
+                                     <td id="InventoryItem1"></td> <td> <span id="InventoryItem1Amount"></span></td>  <td onclick="UseItem(1)" id="InventoryItem1Use"></td> <td id="InventoryItem1Sell" onclick="sellItem = true;RemoveItem1(1, 'item')"></td>
                                  </tr>
 
                                  <tr>
-                                    <td id="InventoryItem2"></td> <td><span id="InventoryItem2TextAmount"></span> <span id="InventoryItem2Amount"></span></td>  <td onclick="UseItem(2)" id="InventoryItem2TextUse"></td> <td id="InventoryItem2TextDelete" onclick="RemoveFromPlayerItemList(2)"></td>
+                                    <td id="InventoryItem2"></td> <td> <span id="InventoryItem2Amount"></span></td>  <td onclick="UseItem(2)" id="InventoryItem2Use"></td> <td id="InventoryItem2Sell" onclick="sellItem = true;RemoveItem1(2, 'item')"></td>
                                 </tr>
 
                                 <tr>
-                                    <td id="InventoryItem3"></td> <td><span id="InventoryItem3TextAmount"></span> <span id="InventoryItem3Amount"></span></td>  <td onclick="UseItem(3)" id="InventoryItem3TextUse"></td> <td id="InventoryItem3TextDelete" onclick="RemoveFromPlayerItemList(3)"></td>
+                                    <td id="InventoryItem3"></td> <td> <span id="InventoryItem3Amount"></span></td>  <td onclick="UseItem(3)" id="InventoryItem3Use"></td> <td id="InventoryItem3Sell" onclick="sellItem = true;RemoveItem1(3, 'item')"></td>
                                 </tr>
 
                                 <tr>
-                                    <td id="InventoryItem4"></td> <td><span id="InventoryItem4TextAmount"></span> <span id="InventoryItem4Amount"></span></td>  <td onclick="UseItem(4)" id="InventoryItem4TextUse"></td> <td id="InventoryItem4TextDelete" onclick="RemoveFromPlayerItemList(4)"></td>
+                                    <td id="InventoryItem4"></td> <td> <span id="InventoryItem4Amount"></span></td>  <td onclick="UseItem(4)" id="InventoryItem4Use"></td> <td id="InventoryItem4Sell" onclick="sellItem = true;RemoveItem1(4, 'item')"></td>
                                 </tr>
 
                                 <tr>
-                                    <td id="InventoryItem5"></td> <td><span id="InventoryItem5TextAmount"></span> <span id="InventoryItem5Amount"></span></td>  <td onclick="UseItem(5)" id="InventoryItem5TextUse"></td> <td id="InventoryItem5TextDelete" onclick="RemoveFromPlayerItemList(5)"></td>
+                                    <td id="InventoryItem5"></td> <td> <span id="InventoryItem5Amount"></span></td>  <td onclick="UseItem(5)" id="InventoryItem5Use"></td> <td id="InventoryItem5Sell" onclick="sellItem = true;RemoveItem1(5, 'item')"></td>
                                 </tr>
 
                              
@@ -589,6 +589,8 @@
             <textarea id="itemtest" cols="8" rows="4"></textarea>
             <button onclick="NewEnemy(`${5}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
             <button onclick="SetText('InventoryCoins', 600)">Money</button>
+            <button onclick="SetText('EnemyHp', 0)">Enemy hp 0</button>
+            <button onclick="dura1()">Durability 1</button>
 
 
 

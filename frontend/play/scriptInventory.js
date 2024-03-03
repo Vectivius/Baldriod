@@ -7,14 +7,21 @@ function RemoveItem1(id, type) {
         if (sellItem == false) {
             Message(`Do you want to delete this ${type}?`,2, ["", `RemoveItem2`, `CloseItemList`])
         } else if (sellItem == true) {
-            let sellValue = GetSellValue(item.name, type, GetText(`Inventory${capitalizeFirstLetter(type)}${id}CurrentDurability`))
-            Message(`Do you want to sell this ${type} for ${sellValue} coins?`,2, ["", `RemoveItem2`, `CloseItemList`])
+            let sellValue = 0
+            if (type == "item") {
+                Message(`Do you want to sell this ${type} for ${item.cost} coins?`,2, ["", `RemoveItem2`, ``])
+            } else {
+                sellValue = GetSellValue(item.name, type, GetText(`Inventory${capitalizeFirstLetter(type)}${id}CurrentDurability`))
+                Message(`Do you want to sell this ${type} for ${sellValue} coins?`,2, ["", `RemoveItem2`, `CloseItemList`])    
+            }
         }
         itemType = type
         generalId = id
         //Tábla nyitvatartása üzenőablak közben
-        GetElement(`Inventory${capitalizeFirstLetter(type)}List`).id = `Inventory${capitalizeFirstLetter(type)}ListOpen`
-        GetElement(`Button${capitalizeFirstLetter(type)}List`).id = `Button${capitalizeFirstLetter(type)}ListOpen`
+        if (type != "item") {
+            GetElement(`Inventory${capitalizeFirstLetter(type)}List`).id = `Inventory${capitalizeFirstLetter(type)}ListOpen`
+            GetElement(`Button${capitalizeFirstLetter(type)}List`).id = `Button${capitalizeFirstLetter(type)}ListOpen`    
+        }
     }
 }
 function RemoveItem2() {
@@ -26,8 +33,11 @@ function RemoveItem2() {
     let defense = Number(GetText("PlayerStartDefense"));
     let minusAttack = Number(GetText("PlayerMinusAttack"));
     let minusDefense = Number(GetText("PlayerMinusDefense"));
-    SetText(`InventorySelected${capitalizeFirstLetter(itemType)}Slot`, "")
-    SetText(`InventorySelected${capitalizeFirstLetter(itemType)}Durability`, "")
+
+    if (itemType != "item") {
+        SetText(`InventorySelected${capitalizeFirstLetter(itemType)}Slot`, "")
+        SetText(`InventorySelected${capitalizeFirstLetter(itemType)}Durability`, "")    
+    }
 
     switch (itemType) {
         case "weapon":
@@ -61,7 +71,20 @@ function RemoveItem2() {
             ReloadShieldList()
             break;
 
-                
+        case "item":
+            let amount = GetText(`InventoryItem${generalId}Amount`).split(":")[1]
+            if (amount > 1) {
+                SetText(`InventoryItem${generalId}Amount`, `Amount: ${Number(amount)-1}`);
+                //ReloadItemList()
+            } else {
+                SetText(`InventoryItem${generalId}`,"")
+                SetText(`InventoryItem${generalId}Amount`,"");
+                SetText(`InventoryItem${generalId}Use`,"");
+                SetText(`InventoryItem${generalId}Sell`,"");    
+                ReloadItemList()
+            }
+            
+            break;
     
         default:
             break;
@@ -69,8 +92,10 @@ function RemoveItem2() {
 
 
 
-    SetText(`InventorySelected${capitalizeFirstLetter(itemType)}`,"none");
-    SetPlayerAttackDefense(attack-minusAttack,defense-minusDefense)
+    if (itemType != "item") {
+        SetText(`InventorySelected${capitalizeFirstLetter(itemType)}`,"none");
+        SetPlayerAttackDefense(attack-minusAttack,defense-minusDefense)    
+    }
 }
 
 
@@ -621,7 +646,7 @@ function ChangeSelectedItem(id, type) {
         SetText(`InventorySelected${capitalizeFirstLetter(type)}Durability`, "")
         SetPlayerAttackDefense()
     }
-
+    player = GetPlayer()
 }
     
 //     let itemName = null
@@ -743,8 +768,15 @@ function AddInv() {
     AddSpell("Healing")
     AddSpell("Protection")
 
-    AddItem(true, "Fireball scroll")
+    ReloadItemList("Fireball scroll")
 
+    GetPlayer()
+}
+
+function dura1() {
+    let player = GetPlayer()
+    SetText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + 1 + ")");
+    SetText(`InventoryWeapon1CurrentDurability`, 1)
 }
 
 
@@ -968,6 +1000,9 @@ function GetSellValue(itemName, itemType, currentDurability) {
         case "shield":
             item = GetShield(itemName)
             break;
+        case "item":
+            item = GetOtherItem(itemName)
+            break;
         default:
             break;
     }
@@ -1120,7 +1155,8 @@ AreaWeaponList.addEventListener("mouseleave", function() {
     
 })
 document.body.addEventListener("mouseover", function (event) {
-    if (fighting == false && event.target.id == "AreaWeaponList" || fighting == false && event.target.id == "ButtonWeaponList") {
+    //if (fighting == false && event.target.id == "AreaWeaponList" || fighting == false && event.target.id == "ButtonWeaponList") {
+    if (event.target.id == "AreaWeaponList" || event.target.id == "ButtonWeaponList" ) {
     Hidden("InventoryWeaponList", false)
     Hidden("InventoryArmorList", true)
     Hidden("InventoryShieldList", true)
@@ -1202,78 +1238,209 @@ function ChangeChoosenSpell(id) {
 
 
 
-function AddItem(buy = true, item) {
-    item = GetOtherItem(`${item}`)
-    let coins = GetText("InventoryCoins")
-    
-    if (coins >= item.cost || buy == false) {
-
-        if (buy == true) {
-             SetText("InventoryCoins", coins-item.cost)
-        }
+//Tábla betöltése
+function ReloadItemListtt(itemName = "") {
     let list = [];
-    let listAmount = [0,0,0,0,0];
+    let listAmount = [];
+
+    //Tárgyak lekérése
+    for (let i = 0; i < itemListLength; i++) {
+        list[i]=GetText(`InventoryItem${i+1}`)
+        listAmount[i]=GetText(`InventoryItem${i+1}Amount`)
+
+        // if (listAttack[i].includes(":")) {
+        //     listAmount[i] = listAmount[i].split(":")[1]
+        // }
+    }
+    //Üres helyek kiszedése
+    let list2 = list.filter((str) => str !== '');
+    let listAmount2 = listAmount.filter((str) => str !== '');
+
+
+    //Üres helyek a listák végére (undefined helyett)
+    for (let i = 0; i < weaponListLength; i++) {
+        list2.push("")      
+        listAttack2.push("")      
+        listDefense2.push("")      
+        listDamage2.push("")      
+        listDurability2.push("")      
+        listCurrentDurability2.push("")      
+    }
+
+    //Új lista betöltése
+    for (let i = 0; i < weaponListLength; i++) {
+        SetText(`InventoryWeapon${i+1}`, String(list2[i]))
+        SetText(`InventoryWeapon${i+1}Attack`, "Attack: " + String(listAttack2[i]))
+        SetText(`InventoryWeapon${i+1}Defense`, "Defense: " + String(listDefense2[i])) 
+        SetText(`InventoryWeapon${i+1}Damage`, "Damage: " + String(listDamage2[i]))
+        SetText(`InventoryWeapon${i+1}Durability`, "Durability: " + String(listDurability2[i]) + "/")
+        SetText(`InventoryWeapon${i+1}CurrentDurability`, String(listCurrentDurability2[i]))
+
+        GetElement(`InventoryWeapon${i+1}`).classList.remove("tdSelected")
+        GetElement(`InventoryWeapon${i+1}Sell`).classList.add("tdClickable")
+        SetText(`InventoryWeapon${i+1}Sell`, "Sell")
+        GetElement(`InventoryWeapon${i+1}`).classList.add("tdClickable")
+}
+
+
+for (let i = 0; i < 5; i++) {
+    if (GetText(`InventoryWeapon${i+1}`)=="") {
+        GetElement(`InventoryWeapon${i+1}`).classList.remove("tdClickable");
+        SetText(`InventoryWeapon${i+1}Sell`, "")
+        GetElement(`InventoryWeapon${i+1}Sell`).classList.remove("tdClickable");
+
+        SetText(`InventoryWeapon${i+1}Attack`, "")
+        SetText(`InventoryWeapon${i+1}Defense`, "")
+        SetText(`InventoryWeapon${i+1}Damage`, "")
+        SetText(`InventoryWeapon${i+1}Durability`, "")
+        SetText(`InventoryWeapon${i+1}Durability`, "")
+        SetText(`InventoryWeapon${i+1}CurrentDurability`, "")
+    }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ReloadItemList(itemName = null) {
+    let item = null
+    if (itemName != null) {
+        item = GetOtherItem(`${itemName}`)
+    }
+    
+    let list = [];
+    let listAmount = [];
     //Get items
-    for (let i = 0; i < 5; i++) {
-        list[i]=document.querySelector(`[id=InventoryItem${i+1}]`).innerHTML;
-        
-        listAmount[i]=Number(document.querySelector(`[id=InventoryItem${i+1}Amount]`).innerHTML);
-        
+    for (let i = 0; i < itemListLength; i++) {
+        list[i]=GetText(`InventoryItem${i+1}`)
+        listAmount[i]=GetText(`InventoryItem${i+1}Amount`)
+
+        if (listAmount[i].includes(":")) {
+            listAmount[i]=Number(GetText(`InventoryItem${i+1}Amount`).split(":")[1])
+        }
     }
     //alert(list+"           "+listAmount)
 
     //Remove blank elements
-    let list2 = list.filter((str) => str !== '');
+    let list2 = list.filter((str) => str !== '')
+    let listAmount2 = listAmount.filter((str) => str !== '')
+
+    
 
 
     // if (list2.includes(`${item}`)) {
     //     let a = GetText(`InventoryItem${i+1}Amount`);
     // }
+
+
         
     //Check if there are already items of the same kind
-  if (list2.includes(`${item.name}`)) {
-        let a = list2.indexOf(`${item.name}`);
-        //alert(a)
-        if (listAmount[a]<item.stackSize)  listAmount[a] +=1;
-  } else {
-        list2.push(`${item.name}`)
-        // let a = list2.indexOf(`${item}`);
-        // listAmount[a] +=1;
-   }
+    if (item != null) {
+        if (list2.includes(`${item.name}`)) {
+            let a = list2.indexOf(`${item.name}`);
+            //alert(a)s
+            
+            if (listAmount2[a]<item.stackSize) {
+                listAmount2[a] += 1
+            } 
+      } else {
+            list2.push(`${item.name}`)
+            listAmount2.push(1)
+            // let a = list2.indexOf(`${item}`);
+            // listAmount[a] +=1;
+       }
+    }
+    
+
+            //Üres helyek a listák végére (undefined helyett)
+            for (let i = 0; i < itemListLength; i++) {
+                list2.push("")
+                listAmount2.push("")
+                //listAmount.push("")      
+            }
+            
 
    //alert(list+"           "+listAmount)
    //alert(listAmount[i])
     //Reload inventory
-    for (let i = 0; i < 5; i++) {
-       if (list2.includes(`${list2[i]}`)) {
-        document.querySelector(`[id=InventoryItem${i+1}]`).innerHTML=String(list2[i]);
+    for (let i = 0; i < itemListLength; i++) {
+        
+       //if (list2.includes(`${list2[i]}`)) {
+        SetText(`InventoryItem${i+1}`, String(list2[i]))
         //alert(list2[i])
         //alert(list2+"         "+listAmount)
         //nothing
-        if (listAmount[i]==0) {
-            listAmount[i]+=1
-        }
-        document.querySelector(`[id=InventoryItem${i+1}TextUse]`).classList.add("tdClickable");
-        document.querySelector(`[id=InventoryItem${i+1}TextDelete]`).classList.add("tdClickable");
+        // if (listAmount[i]==0) {
+        //     listAmount[i]+=1
+        // }
+        //listAmount[i]+=1
 
-        document.querySelector(`[id=InventoryItem${i+1}TextAmount]`).innerHTML="Amount: ";
-        document.querySelector(`[id=InventoryItem${i+1}TextUse]`).innerHTML="Use";
-        document.querySelector(`[id=InventoryItem${i+1}TextDelete]`).innerHTML="Delete";
+        SetText(`InventoryItem${i+1}Amount`, "Amount: " + Number(listAmount2[i]))
+        SetText(`InventoryItem${i+1}Use`, "Use")
+        GetElement(`InventoryItem${i+1}Use`).classList.add("tdClickable")
+        SetText(`InventoryItem${i+1}Sell`, "Sell")
+        GetElement(`InventoryItem${i+1}Sell`).classList.add("tdClickable")
 
-        document.querySelector(`[id=InventoryItem${i+1}Amount]`).innerHTML=Number(listAmount[i]);
+        //SetText(`InventoryItem${i+1}Amount`, Number(listAmount[i]))
         //alert(listAmount[i])
-
-        }
+        //}
 }
-} else {
-    // SetText("MessageButtonYes", "Continue")
-    // SetText("NextFunction", "")
-    Message("You don't have enough money to buy this item!",1, ["","",""])
+for (let i = 0; i < itemListLength; i++) {
+    if (GetText(`InventoryItem${i+1}`) == "") {
+        SetText(`InventoryItem${i+1}Amount`, "")
+        SetText(`InventoryItem${i+1}Use`, "")
+        GetElement(`InventoryItem${i+1}Use`).classList.remove("tdClickable")
+        SetText(`InventoryItem${i+1}Sell`, "")
+        GetElement(`InventoryItem${i+1}Sell`).classList.remove("tdClickable")
+    }
 }
 }
 
 
-function RemoveFromPlayerItemList(id) {
+function RemoveOtherItem(id) {
     let listAmount = [];
     //Get items
     for (let i = 0; i < 5; i++) {
@@ -1501,6 +1668,7 @@ function UseItem(id) {
     let item = GetOtherItem(GetText(`InventoryItem${id}`))
     
 
+    //Learn spell
     if (item.spellId != null && fighting == false) {
         let spell = GetSpellById(item.spellId)
         let difficulty = GetText("SettingsLabelDifficulty")
@@ -1532,9 +1700,14 @@ function UseItem(id) {
             }
 
 
-        
+    //Use spell
     } else if (item.spellId != null && fighting == true)  {
-        PlayerActionSpell(item.name, id)
+        generalId = id
+        itemType = "item"
+        itemName = item.name
+        RemoveItem2()
+
+        PlayerActionSpell()
 
     } else if (item.name == "Food") {
         let id = FindItemInInventory("Food")+1
@@ -1544,7 +1717,11 @@ function UseItem(id) {
         if (hpCurrent == hpStart) {
             Message("You don't need to eat",1, ["","",""])
         } else {
-            RemoveFromPlayerItemList(id)
+            itemType = "item"
+            itemName = item.name
+            generalId = id
+            RemoveItem2()
+            //RemoveFromPlayerItemList(id)
             let hpGained = Number(RandomNumber(1,6))
             if (hpGained + hpCurrent > hpStart) {
                 hpGained = hpStart - hpCurrent
@@ -1580,8 +1757,11 @@ function AddSpell(spellName) {
     }
 }
 
-function LearnSpell(spellName, itemId) {
-    RemoveFromPlayerItemList(itemId)
+function LearnSpell(spellName) {
+    itemType = "item"
+    itemName = spellName
+    RemoveItem2()
+    //RemoveFromPlayerItemList(itemId)
     AddSpell(spellName)
 
     let magic = GetText("PlayerCurrentMagic")
@@ -1771,7 +1951,8 @@ function BuyFromShop(itemName, itemType) {
             GetElement(shopId).id = ""
             break;
         case "item":
-            AddItem(true,itemName,null)
+            ReloadItemList(itemName)
+            //AddItem(true,itemName,null)
             SetText(shopId, "")
             GetElement(shopId).className = ""
             GetElement(shopId).id = ""

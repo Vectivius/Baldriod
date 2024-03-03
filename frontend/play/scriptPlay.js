@@ -78,6 +78,8 @@ let spellList = []
 
 let enemyList = []
 
+let player = GetPlayer()
+
 //Increase or decrease during fight
 let attackModifier = 0
 let defenseModifier = 0
@@ -267,15 +269,37 @@ function GetPlayer() {
     let a=Number(GetText("PlayerCurrentAttack"));
     let d=Number(GetText("PlayerCurrentDefense"));
     let h=Number(GetText("PlayerCurrentHp"));
-    let ar=Number(GetText("PlayerCurrentMagic"));
     let m=Number(GetText("PlayerCurrentMagic"));
     let wd=0
+    
+    let w=null
+    let ar = null
+    let s = null
+    
+
+    //Weapon
     if (GetText("InventorySelectedWeaponSlot") != "") {
-        weaponSlot = GetText("InventorySelectedWeaponSlot")
-        wd = GetText(`InventoryWeapon${weaponSlot}CurrentDurability`)
+        w = GetWeapon(GetText("InventorySelectedWeapon"))
+        w.slot = GetText("InventorySelectedWeaponSlot")
+        w.currentDurability = GetText(`InventoryWeapon${w.slot}CurrentDurability`)
     }
-    let player = {name: n, attack: a, defense: d, hp: h, armor: 0, magic: m, weaponCurrentDurability: wd}
-    return player
+
+    //Armor
+    if (GetText("InventorySelectedArmorSlot") != "") {
+        ar = GetArmor(GetText("InventorySelectedArmor"))
+        ar.slot = GetText("InventorySelectedArmorSlot")
+        ar.currentDurability = GetText(`InventoryArmor${ar.slot}CurrentDurability`)
+    }
+
+    //Shield
+    if (GetText("InventorySelectedShieldSlot") != "") {
+        s = GetShield(GetText("InventorySelectedShield"))
+        s.slot = GetText("InventorySelectedShieldSlot")
+        s.currentDurability = GetText(`InventoryShield${s.slot}CurrentDurability`)
+    }
+
+    let data = {name: n, attack: a, defense: d, hp: h, magic: m, weapon:w, armor:ar, shield:s}
+    return data
 }
 
 function GetCurrentEnemy() {
@@ -512,9 +536,6 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
 }
 
 function PlayerActionSpell2() {
-    if (generalId != 0) {
-        RemoveFromPlayerItemList(generalId)
-    }
     SetColor("PlayerCurrentAttack", "var(--light3)")
     SetColor("PlayerCurrentDefense", "var(--light3)")
     SetColor("PlayerCurrentHp", "var(--light3)")
@@ -572,7 +593,7 @@ function PlayerActionAttack() {
     weapon = GetWeapon(GetText("InventorySelectedWeapon"))
     weaponSlot = GetText("InventorySelectedWeaponSlot")
     enemy = GetCurrentEnemy()
-    weaponCurrentDurability = player.weaponCurrentDurability
+    //weaponCurrentDurability = player.weapon.currentDurability
 
     //Get weapon durability (if there is choosen weapon)
     // if (weaponSlot != "") {
@@ -668,8 +689,10 @@ function PlayerActionDamage2() {
         attackModifier = 0
         defenseModifier = 0
 
+        //Reload weapon and modifiers
         let weaponSlot = GetText("InventorySelectedWeaponSlot")
         if (weaponSlot != "") {
+            ChangeSelectedItem(weaponSlot, "weapon")
             ChangeSelectedItem(weaponSlot, "weapon")
         }
     
@@ -704,19 +727,21 @@ function PlayerActionDamage2() {
         
         //SetDamageThisRound(1)
 
+        EndRound()
                      //Durability -1
-                     if (weaponSlot != "") {
-                        weaponCurrentDurability--
-                        if (weaponCurrentDurability<1) {
-                            //RemoveWeapon1(Number(weaponSlot))
-                            generalId = weaponSlot
-                            RemoveWeapon2()
-                            Message("Your weapon has broken!",1, ["", "", ""])
+                    //  if (weaponSlot != "") {
+                    //     player.weapon.currentDurability--
+                    //     if (player.weapon.currentDurability<1) {
+                    //         //RemoveWeapon1(Number(weaponSlot))
+                    //         generalId = weaponSlot
+                    //         RemoveWeapon2()
+                    //         Message("Your weapon has broken!",1, ["", "", ""])
                
-                        } else {
-                            SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,weaponCurrentDurability);
-                        }
-                    }
+                    //     } else {
+                    //         SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,player.weapon.currentDurability);
+                    //         SetText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + player.weapon.currentDurability + ")");
+                    //     }
+                    // }
        
     } else {
         //Enemy damaged
@@ -727,22 +752,9 @@ function PlayerActionDamage2() {
         SetColor("EnemyHp", "var(--light3)")
         
 
-             //Durability -1
-             if (weaponSlot != "") {
-                 weaponCurrentDurability--
-                 if (weaponCurrentDurability<1) {
-                     //RemoveWeapon1(Number(weaponSlot))
-                     generalId = weaponSlot
-                     RemoveWeapon2()
-                     Message("Your weapon has broken!",1, ["EnemyAction", "", ""])
-        
-                 } else {
-                     SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,weaponCurrentDurability);
-                     EnemyAction()
-                 }
-             } else {
+ //else {
                 EnemyAction()
-             }
+             //}
 
         
     }
@@ -1034,7 +1046,73 @@ function EnemyActionDamage2() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function EndRound() {
+
+            //Lose weapon durability
+            let weaponSlot = GetText("InventorySelectedWeaponSlot")
+            //Durability -1
+            if (weaponSlot != "") {
+               player.weapon.currentDurability--
+               if (player.weapon.currentDurability<1) {
+                   //RemoveWeapon1(Number(weaponSlot))
+                   generalId = weaponSlot
+                   RemoveWeapon2()
+                   Message("Your weapon has broken!",1, ["", "", ""])
+      
+               } else {
+                  SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,player.weapon.currentDurability);
+                  SetText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + player.weapon.currentDurability + ")");
+               }
+           }
+
+            //Lose armor durability
+            let armorSlot = GetText("InventorySelectedArmorSlot")
+            //Durability -1
+            if (armorSlot != "") {
+               player.armor.currentDurability--
+               if (player.armor.currentDurability<1) {
+                   generalId = armorSlot
+                   RemoveArmor2()
+                   Message("Your armor has broken!",1, ["", "", ""])
+                 
+               } else {
+                  SetText(`InventoryArmor${armorSlot}CurrentDurability`,player.armor.currentDurability);
+                  SetText(`InventorySelectedArmorDurability`,"(" + player.armor.durability + "/" + player.armor.currentDurability + ")");
+               }
+           }
+
+                      
+
+            //Lose shield durability
+            let shieldSlot = GetText("InventorySelectedShieldSlot")
+            //Durability -1
+            if (shieldSlot != "") {
+               player.shield.currentDurability--
+               if (player.shield.currentDurability<1) {
+                   //RemoveWeapon1(Number(weaponSlot))
+                   generalId = shieldSlot
+                   RemoveWeapon2()
+                   Message("Your shield has broken!",1, ["", "", ""])
+      
+               } else {
+                  SetText(`InventoryShield${shieldSlot}CurrentDurability`,player.shield.currentDurability);
+                  SetText(`InventorySelectedShieldDurability`,"(" + player.shield.durability + "/" + player.shield.currentDurability + ")");
+               }
+           }
+
     SetColor("EnemyAttack", "var(--light3)")
     SetColor("EnemyHp", "var(--light3)")
     SetColor("PlayerCurrentAttack", "var(--light3)")
@@ -1503,6 +1581,13 @@ function GetGeneralItem(name, type) {
                 }
             }
             break;
+        case "item":
+            for (let i = 0; i < itemList.length; i++) {
+                if (itemList[i].name==String(name)) {
+                    return itemList[i]
+                }
+            }
+            break;
     
         default:
             break;
@@ -1560,12 +1645,14 @@ function Continue(type) {
         case "EnemyActionDamage2":
             EnemyActionDamage2()
             break;
+
         case "LearnSpell":
-            LearnSpell(itemName, generalId)
+            LearnSpell(itemName)
             break;
         case "BuyFromShop":
             BuyFromShop(itemName, itemType)
             break;
+
         case "EnemyActionSpell2":
             EnemyActionSpell2()
             break;
@@ -1577,32 +1664,32 @@ function Continue(type) {
             RemoveItem2()
             CloseItemList()
             break;
-
         case "CloseItemList":
             CloseItemList()
             break;
-        // case "RemoveWeapon2":
-        //     RemoveWeapon2()
-        //     CloseWeaponList()
-        //     break;
-        // case "RemoveArmor2":
-        //     RemoveArmor2()
-        //     CloseArmorList()
-        //     break;
-        // case "RemoveShield2":
-        //     RemoveShield2()
-        //     CloseShieldList()
-        //     break;
 
-        // case "CloseWeaponList":
-        //     CloseWeaponList()
-        //     break;
-        // case "CloseArmorList":
-        //     CloseArmorList()
-        //     break;
-        // case "CloseShieldList":
-        //     CloseShieldList()
-        //     break;
+        case "RemoveWeapon2":
+            RemoveWeapon2()
+            CloseWeaponList()
+            break;
+        case "RemoveArmor2":
+            RemoveArmor2()
+            CloseArmorList()
+            break;
+        case "RemoveShield2":
+            RemoveShield2()
+            CloseShieldList()
+            break;
+
+        case "CloseWeaponList":
+            CloseWeaponList()
+            break;
+        case "CloseArmorList":
+            CloseArmorList()
+            break;
+        case "CloseShieldList":
+            CloseShieldList()
+            break;
     
         case "EndRound":
             EndRound()
