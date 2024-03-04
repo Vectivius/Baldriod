@@ -79,7 +79,7 @@
 
 
 /*/-- Edit data --/*/
-table {
+table:not(#DivMenu table) {
     margin: auto;
     border: 1px solid var(--brown);
     border: 2px solid var(--red1);
@@ -87,7 +87,7 @@ table {
     border-radius: 0.8%;
 
 }
-td, th {
+td:not(#DivMenu td), th {
     padding: 5px;
     border-right: none;
     border-left: none;

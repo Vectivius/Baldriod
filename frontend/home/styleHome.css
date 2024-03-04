@@ -10,17 +10,6 @@
     padding-bottom: 40px;
  }
 
- /* #BackgroundLight {
-   background-image: url(../images/Baldriod\ map.png);
-   background-repeat: no-repeat;
-   background-size: cover;
- } */
-
-#DivHomePageButtons form {
-   /* width: 30%; */
-
-}
-
 #SpanHomePageButtons {
    box-shadow: 0 0 4px var(--red1);
    height: 100%;
@@ -35,9 +24,9 @@
 }
 #DivHomePageButtons button:hover {
    transition: 200ms linear;
-   border-radius: 2px;
+   border-radius: 1px;
    border: 1px solid var(--red1);
-   box-shadow: 0 0 20px var(--red1);
+   box-shadow: 0 0 15px 2px var(--red1);
    margin: 10px;
    width: 100px;
 }

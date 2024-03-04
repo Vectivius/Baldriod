@@ -139,12 +139,17 @@ a {
     background-color: var(--light6);
     border-bottom: 2px solid var(--red1);
     padding: 10px;
+    border-top: none;
 }
-#DivSettings span, button {
-    display: inline;
+#DivSettings table {
+    width: 100%;
 }
 
+#AreaSettingsTooltip, #AreaDifficulty {
+    position: relative;
+}
 #DivSettings .collapsibleListElements {
+    display: block;
     padding: 7px;
 }
 
@@ -188,6 +193,9 @@ a {
 
 
 /*//-- Attributes, fight, shop --//*/
+#MainColumn1 table {
+    width: 100%;
+}
 
 #tablePlayerAttributes, #TableEnemyAttributes, #tableShop {
     border: var(--brown) solid 1px;
@@ -204,6 +212,15 @@ a {
 [id*=Modifier] {
     width: 40px;
 }
+
+/* Fight */
+#DivFight button {
+    width: 100%;
+}
+#DivPlayerActions td {
+    width: 33%;
+}
+
 
     /*Player actions*/
 #DivPlayerActions {
@@ -289,7 +306,7 @@ a {
     transition: 100ms linear;
 }
 
-#MainColumn2 button, table:not(.tableInventoryHidden) {
+#MainColumn2 button, #MainColumn2 table /* table:not(.tableInventoryHidden)*/ {
     width: 100%;
 }
 #MainColumn2 button {
@@ -417,12 +434,12 @@ a {
     cursor: pointer; 
 } */
 
-#ButtonNewRound:hover {
+/* #ButtonNewRound:hover {
     border: 1px solid var(--red1);
     box-shadow: 0 0 10px var(--red1);
     border-radius: 1px;
     transition: box-shadow 10ms linear;
-}
+} */
 
 
 

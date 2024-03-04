@@ -65,20 +65,24 @@
     </div>
     </div>
         
-    <!--/\-\- Menu /-/\-->
     <div class="header">
        <div class="center playLogo"> <p>Baldriod</p><br></div>
     </div>
 
-
+    <!--/\-\- Menu /-/\-->
     <div id="DivMenu">
        <table>
             <tr>
-                <a onclick="location.href = '../home/pageHome.html'">Back to home page</a>   
+                <td onclick="location.href = '../home/pageHome.html'">Back to home page</td>   
+                <td>Save game</td> 
+                <td>Load game</td>  
+                <td onclick="location.href = '../newGame/pageNewGame.html'">New game</td>  
+                <td id="ButtonSettings" onclick="OpenSettings()">Settings</a>  
+                <!-- <a onclick="location.href = '../home/pageHome.html'">Back to home page</a>   
                 <a>Save game</a> 
                 <a>Load game</a>  
                 <a onclick="location.href = '../newGame/pageNewGame.html'">New game</a>  
-                <a id="ButtonSettings" onclick="HiddenSwitch('DivSettings')">Settings</a>  
+                <a id="ButtonSettings" onclick="HiddenSwitch('DivSettings');GetElement('ButtonSettings').classList.add('hover')">Settings</a>   -->
             </tr>
        </table>
     </div>
@@ -89,34 +93,56 @@
     <!--/\-\- Settings /-/\-->    <!-- Hidden -->
     <div class="collapsibleListElements absoluteCenter" hidden id="DivSettings">
         <div class="text-center">
-            
-                
+
+
                 <!-- Show tooltips -->
                 <span id="AreaSettingsTooltip">
-                <button id="ButtonSettingsTooltip">Show tooltips:  <span id="LabelSettingsTooltip">yes</span></button> <br>
-                <div class="collapsibleListElements" id="DivSettingsTooltip" hidden>
+                <button id="ButtonSettingsTooltip">Show tooltips:  <span id="LabelSettingsTooltip">yes</span></button>
+                <span class="collapsibleListElements absoluteCenter" id="DivSettingsTooltip" hidden>
                     <table class="tableBig">
-                        <tr><td onclick="SettingsTooltip('yes')">Yes</td></tr>
-                        <tr><td onclick="SettingsTooltip('no')">No</td></tr>
+                        <tr><td class="tdClickable" onclick="SettingsTooltip('yes')">Yes</td></tr>
+                        <tr><td class="tdClickable" onclick="SettingsTooltip('no')">No</td></tr>
                     </table>
-                </div>
+                </span>
                 </span>
 
                 <!-- Difficulty -->
                 <span id="AreaDifficulty">
-                <button id="ButtonDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">medium</span></button> <br>
-                <div class="collapsibleListElements" id="Difficulty" hidden>
+                <button id="ButtonDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">medium</span></button>
+                <span class="collapsibleListElements absoluteCenter" id="Difficulty" hidden>
                     <table class="tableBig">
-                        <tr><td onclick="SetDifficulty('Easy')">Easy</td></tr>
-                        <tr><td onclick="SetDifficulty('Medium')">Medium</td></tr>
-                        <tr><td onclick="SetDifficulty('Hard')">Hard</td></tr>
+                        <tr><td class="tdClickable" onclick="SetDifficulty('Easy')">Easy</td></tr>
+                        <tr><td class="tdClickable" onclick="SetDifficulty('Medium')">Medium</td></tr>
+                        <tr><td class="tdClickable" onclick="SetDifficulty('Hard')">Hard</td></tr>
                     </table>
-                </div>
+                </span>
                 </span>
 
         <!-- <textarea id="SaveLocation" cols="30" rows="1"></textarea> -->
     </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="column3">
         <div id="MainColumn1">
@@ -159,7 +185,7 @@
 
                 <div class="fight" id="DivFight"><br>
                     <!-- Player actions-->
-                    <div class="text-center"><button style="width: 100%;" onclick="NewRound()">New round</button></div>
+                    <div class="text-center"><button onclick="NewRound()">New round</button></div>
                    
                     <!-- <p id="MeleeRangedMode">Mode: melee/ranged</p> -->
 
@@ -170,10 +196,10 @@
                                 <td class="buttonActionDisabled" onclick="PlayerActionSpell()" id="PlayerActionSpell">Cast a spell</td>
                                 <td class="buttonActionDisabled" id="PlayerActionItem">Use an item</td>
                                 <td class="buttonActionDisabled" id="PlayerActionMode">Change mode</td> -->
-                                <td style="width: 50%;" class="tdClickable" hidden disabled onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack</td>
-                                <td class="tdClickable" hidden disabled onclick="PlayerActionSpell()" id="PlayerActionSpell">Cast a spell</td>
-                                <!-- <td class="tdClickable" hidden disabled id="PlayerActionItem">Use an item</td>
-                                <td class="tdClickable" hidden disabled id="PlayerActionMode">Change mode</td> -->
+                                <td class="tdClickable" hidden onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack</td>
+                                <td class="tdClickable" hidden onclick="PlayerActionSpell()" id="PlayerActionSpell">Spell</td>
+                                <td class="tdClickable" hidden onclick="PlayerActionItem()" id="PlayerActionItem">Item</td>
+                                <!-- <td class="tdClickable" hidden disabled id="PlayerActionMode">Change mode</td> -->
                             </tr>
                         </table>
                     </div>
@@ -524,7 +550,7 @@
                     
     
                 <div id="DivMap">
-                    <img class="map mapEnabled" src="../images/Baldriod Map.png" alt="Map" usemap="#Baldriod">
+                    <img hidden class="map mapEnabled" src="../images/Baldriod Map.png" alt="Map" usemap="#Baldriod">
                     <map name="Baldriod">
                 </div>
 

@@ -636,6 +636,12 @@ function ChangeSelectedItem(id, type) {
                 break;
         }
 
+        //Disable while fighting after one action
+        if (fighting == true) {
+            inventoryEnabled = false
+            EnemyAction()
+        }
+
     } else if (GetElement(`Inventory${capitalizeFirstLetter(type)}${id}`).classList.contains("tdSelected")) {
         //Deselect item
         GetElement(`Inventory${capitalizeFirstLetter(type)}${id}`).classList.remove("tdSelected")
@@ -1155,8 +1161,7 @@ AreaWeaponList.addEventListener("mouseleave", function() {
     
 })
 document.body.addEventListener("mouseover", function (event) {
-    //if (fighting == false && event.target.id == "AreaWeaponList" || fighting == false && event.target.id == "ButtonWeaponList") {
-    if (event.target.id == "AreaWeaponList" || event.target.id == "ButtonWeaponList" ) {
+    if (inventoryEnabled == true && event.target.id == "AreaWeaponList" || inventoryEnabled == true && event.target.id == "ButtonWeaponList") {
     Hidden("InventoryWeaponList", false)
     Hidden("InventoryArmorList", true)
     Hidden("InventoryShieldList", true)
@@ -1664,6 +1669,7 @@ function AddSpelll(spell) {
 
 
 function UseItem(id) {
+    sellItem = false
     
     let item = GetOtherItem(GetText(`InventoryItem${id}`))
     

@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 /*/-- Background --/*/
 
 body, button {
@@ -29,16 +19,14 @@ table {
 
 #BackgroundLight {
     box-shadow: 0 0 5px var(--red1) inset;
-
-
     padding: 0px;
     background-color: var(--light1);
     font-family: 'Times New Roman', Times, serif;
     border-right: 3px solid var(--red1);
     border-left: 3px solid var(--red1);
-
     padding-bottom: 900px; 
     position: relative;
+    /* height: 100vh; */
 }
 
 #BackgroundLight .row {
@@ -204,12 +192,11 @@ table {
 
 #DivMenu {
     box-shadow: 0 0 5px var(--red1);
-
-    border-bottom: 1px solid var(--red1);
     margin-bottom: 30px;
-    /* position: relative;
-    width: 100%; */
     overflow: auto;
+}
+#DivMenu table {
+    width: 100%;
 }
 
 .headerHome p {
@@ -228,6 +215,32 @@ table {
     border-right:none;
  }
 
+ #DivMenu {
+    display: flex;
+    justify-content: space-between;
+ }
+
+ 
+ 
+ #DivMenu td{
+    padding: 10px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid var(--red1);
+    border-top: 1px solid var(--red1);
+ }
+ #DivMenu td:hover{
+    z-index: 999;
+    cursor: pointer;
+    background-color: var(--light5);
+    background-color: var(--light6);
+    text-shadow: var(--red1) 0px 0px 8px;
+    transition: 100ms linear;
+    box-shadow: 0 0 10px var(--red1);
+ }
+ #DivMenu .buttonSelected{
+    border-bottom: none;
+ }
 
 /*Menu buttons*/
  #DivMenu a {
@@ -238,8 +251,9 @@ table {
     transition: all 0.2s ease;
     font-size: 20px;
     background-color: var(--light3);
-    border: 1px solid var(--brown);
+    /*border: 1px solid var(--brown);
     /* padding-bottom: 5%; */
+    border: none;
 }
 /* #DivMenu td:hover {
 } */
@@ -275,18 +289,16 @@ button:enabled {
     transition: 100ms linear;
 }
 
-button:enabled:hover {
+button:enabled:hover, .buttonSelected {
     cursor: pointer;
     background-color: var(--light5);
-    /* text-shadow: var(--red1) 1px 1px 8px; */
     transition: 100ms linear;
-
     background-color: var(--light6);
-    /* text-shadow: var(--red4) 1px 1px 8px; */
     text-shadow: var(--red1) 0px 0px 8px;
     transition: 100ms linear;
     box-shadow: 0 0 10px var(--red1);
 }
+
 
 button.hover {
     background-color: var(--light6);
@@ -527,7 +539,8 @@ td.hover {
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    width: 100px;  
+    width: 100%;
+    /* width: 100px;   */
     /* text-align: left; */
 }
 

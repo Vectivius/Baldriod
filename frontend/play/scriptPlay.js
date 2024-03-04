@@ -105,7 +105,10 @@ let shopId = ""
 let spellCost = 0
 let generalId = 0
 let currentLocation = 2
+
 let fighting = false
+let inventoryEnabled = true
+
 let sellItem = false
 
 function createWeapon(id,name,attack,defense, damage, cost, durability, twoHanded) {
@@ -209,8 +212,10 @@ function NewRound() {
 createEnemy(1, "Zombie", 8, 10, 12, "2-4", 0, 0)
 
 
+
 function NewEnemy(id) {
     fighting = true
+    inventoryEnabled = false
     SetText("EnemyName",enemyList[id].name);
     SetText("EnemyAttack",enemyList[id].attack);
     SetText("EnemyDefense",enemyList[id].defense);
@@ -218,6 +223,8 @@ function NewEnemy(id) {
     SetText("EnemyDamage",enemyList[id].damage);
     SetText("EnemyArmor",enemyList[id].armor);
     SetText("EnemyMagic",enemyList[id].magic);
+
+    enemy = GetCurrentEnemy()
     
 
     // document.getElementById("PlayerActionAttack").classList.add("buttonActionEnabled")
@@ -233,7 +240,7 @@ function NewEnemy(id) {
     Hidden("PlayerActionAttack", false)
     Hidden("PlayerActionSpell", false)
     // Hidden("PlayerActionMode", false)
-    // Hidden("PlayerActionItem", false)
+    Hidden("PlayerActionItem", false)
 
     // Enabled("PlayerActionAttack");
     // Enabled("PlayerActionSpell");
@@ -255,6 +262,8 @@ function NewEnemy(id) {
 //     Enabled("PlayerActionMode");
 //     Enabled("PlayerActionItem");
 // }
+
+
 
 
 
@@ -364,6 +373,10 @@ function SetDamageThisRound(hp=0, attack=0, defense=0, magic=0) {
 
 
 
+
+function PlayerActionItem() {
+    inventoryEnabled = true
+}
 
 
 
@@ -676,7 +689,7 @@ function PlayerActionDamage2() {
             player.magic++
             SetText("PlayerCurrentMagic", player.magic)
         }
-        SetText("InventoryCoins", Number(GetText("InventoryCoins")) + RandomNumber(2,7))
+        SetText("InventoryCoins", Number(GetText("InventoryCoins")) + GetEnemyCoins())
 
         SetText("PlayerCurrentAttack", GetText("PlayerCurrentAttack") - attackModifier)
         SetText("PlayerCurrentDefense", GetText("PlayerCurrentDefense") - defenseModifier)
@@ -728,20 +741,6 @@ function PlayerActionDamage2() {
         //SetDamageThisRound(1)
 
         EndRound()
-                     //Durability -1
-                    //  if (weaponSlot != "") {
-                    //     player.weapon.currentDurability--
-                    //     if (player.weapon.currentDurability<1) {
-                    //         //RemoveWeapon1(Number(weaponSlot))
-                    //         generalId = weaponSlot
-                    //         RemoveWeapon2()
-                    //         Message("Your weapon has broken!",1, ["", "", ""])
-               
-                    //     } else {
-                    //         SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,player.weapon.currentDurability);
-                    //         SetText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + player.weapon.currentDurability + ")");
-                    //     }
-                    // }
        
     } else {
         //Enemy damaged
@@ -1132,6 +1131,25 @@ function EndRound() {
 
 
 
+function GetEnemyCoins(enemyName) {
+    let enemy = GetEnemy(enemyName)
+    let min = Math.round(((enemy.attack*2)+enemy.defense+enemy.hp+(enemy.armor*2)+(enemy.magic*3))/10)
+    let max = Math.round(((enemy.attack*2)+enemy.defense+enemy.hp+(enemy.armor*2)+(enemy.magic*3))/7)
+    return RandomNumber(min, max)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1167,6 +1185,15 @@ function EndRound() {
 //     Hidden("DivSettings", false)
 //     document.getElementById("ButtonSettings").classList.add("hover")
 // })
+
+function OpenSettings() {
+    HiddenSwitch('DivSettings')
+    if (GetElement('DivSettings').hidden == false) {
+        GetElement('ButtonSettings').classList.add('buttonSelected')
+    } else {
+        GetElement('ButtonSettings').classList.remove('buttonSelected')
+    }
+}
 
 //Open difficulty list
 const AreaSettingsDifficulty = document.getElementById("AreaDifficulty")
