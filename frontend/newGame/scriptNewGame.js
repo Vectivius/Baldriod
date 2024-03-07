@@ -44,30 +44,42 @@ function NewGameDifficulty(difficulty) {
     switch (difficulty) {
         case "Easy":
             SetText("SettingsLabelDifficulty", `Easy`);
+            AddClass("SettingsOptionEasy", `tdSelected`, 1);
+            AddClass("SettingsOptionMedium", `tdSelected`, 0);
+            AddClass("SettingsOptionHard", `tdSelected`, 0);
+
             if (GetText("LabelAttributesMode").includes("Selectable")) {
                 SetText("LabelAttributesMode", `Selectable (total: 52)`);
             }
-            SetText("OptionSelectable", `Selectable (total: 52)`);
+            SetText("SettingsOptionSelect", `Selectable (total: 52)`);
             maxAttributes=52;
             SetNewGameAttributes();
             break;
 
         case "Medium":
             SetText("SettingsLabelDifficulty", `Medium`);
+            AddClass("SettingsOptionEasy", `tdSelected`, 0);
+            AddClass("SettingsOptionMedium", `tdSelected`, 1);
+            AddClass("SettingsOptionHard", `tdSelected`, 0);
+
             if (GetText("LabelAttributesMode").includes("Selectable")) {
                 SetText("LabelAttributesMode", `Selectable (total: 46)`);
             }
-            SetText("OptionSelectable", `Selectable (total: 46)`); 
+            SetText("SettingsOptionSelect", `Selectable (total: 46)`); 
             maxAttributes=46;
             SetNewGameAttributes();
             break;
 
         case "Hard":
             SetText("SettingsLabelDifficulty", `Hard`);
+            AddClass("SettingsOptionEasy", `tdSelected`, 0);
+            AddClass("SettingsOptionMedium", `tdSelected`, 0);
+            AddClass("SettingsOptionHard", `tdSelected`, 1);
+
             if (GetText("LabelAttributesMode").includes("Selectable")) {
                 SetText("LabelAttributesMode", `Selectable (total: 40)`);
             }
-            SetText("OptionSelectable", `Selectable (total: 40)`);  
+            SetText("SettingsOptionSelect", `Selectable (total: 40)`);  
             maxAttributes=40;
             SetNewGameAttributes();
             break;
@@ -83,6 +95,9 @@ function NewGameDifficulty(difficulty) {
 function NewGameAttributes(mode) {
     // let mode = document.getElementById("NewGameAttributes").value;
     if (mode=="Random") {
+        AddClass("SettingsOptionRandom", `tdSelected`, 1);
+        AddClass("SettingsOptionSelect", `tdSelected`, 0);
+
         SetText("LabelAttributesMode", "Random")
         Enabled("NewGameAttributesGenerateButtons");
         Disabled("SetAmount");
@@ -95,7 +110,10 @@ function NewGameAttributes(mode) {
         }
     }
     else {
-        SetText("LabelAttributesMode", String(GetText("OptionSelectable")))
+        AddClass("SettingsOptionRandom", `tdSelected`, 0);
+        AddClass("SettingsOptionSelect", `tdSelected`, 1);
+
+        SetText("LabelAttributesMode", String(GetText("SettingsOptionSelect")))
         Disabled("NewGameAttributesGenerateButtons");
         Enabled("SetAmount");
         document.getElementById("SetAmount").style.backgroundColor = "var(--light3)";

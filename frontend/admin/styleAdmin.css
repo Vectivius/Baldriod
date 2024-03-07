@@ -25,19 +25,19 @@
     position: absolute;
     margin-top: 5px;
 }
-#ButtonMid {
+button.buttonMid {
     border-top: 1px solid var(--brown);
     border-bottom: 1px solid var(--brown);
     border-right: none;
     border-left: none;
     height: 60px;
 }
-#ButtonFirst {
+button.buttonFirst {
     border-left: 1px solid var(--brown);
     border-right: none;
     height: 60px;
 }
-#ButtonLast {
+button.buttonLast {
     border-right: 1px solid var(--brown);
     border-left: none;
     height: 60px;
@@ -65,8 +65,8 @@
     margin-bottom: 0px;
     border: 0;
 }
-#DivNewDataEnemy input:focus {
-    box-shadow: none;
+#DivNewData input:focus {
+    box-shadow: 0 0 10px var(--red1);
 }
 
 

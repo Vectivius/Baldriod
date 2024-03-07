@@ -100,8 +100,8 @@
                 <button id="ButtonSettingsTooltip">Show tooltips:  <span id="LabelSettingsTooltip">yes</span></button>
                 <span class="collapsibleListElements absoluteCenter" id="DivSettingsTooltip" hidden>
                     <table class="tableBig">
-                        <tr><td class="tdClickable" onclick="SettingsTooltip('yes')">Yes</td></tr>
-                        <tr><td class="tdClickable" onclick="SettingsTooltip('no')">No</td></tr>
+                        <tr><td id="SettingsOptionYes" class="tdClickable" onclick="SettingsTooltip('yes')">Yes</td></tr>
+                        <tr><td id="SettingsOptionNo" class="tdClickable" onclick="SettingsTooltip('no')">No</td></tr>
                     </table>
                 </span>
                 </span>
@@ -111,9 +111,9 @@
                 <button id="ButtonDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">medium</span></button>
                 <span class="collapsibleListElements absoluteCenter" id="Difficulty" hidden>
                     <table class="tableBig">
-                        <tr><td class="tdClickable" onclick="SetDifficulty('Easy')">Easy</td></tr>
-                        <tr><td class="tdClickable" onclick="SetDifficulty('Medium')">Medium</td></tr>
-                        <tr><td class="tdClickable" onclick="SetDifficulty('Hard')">Hard</td></tr>
+                        <tr><td id="SettingsOptionEasy" class="tdClickable" onclick="SetDifficulty('Easy')">Easy</td></tr>
+                        <tr><td id="SettingsOptionMedium" class="tdClickable" onclick="SetDifficulty('Medium')">Medium</td></tr>
+                        <tr><td id="SettingsOptionHard" class="tdClickable" onclick="SetDifficulty('Hard')">Hard</td></tr>
                     </table>
                 </span>
                 </span>
@@ -238,38 +238,7 @@
                     </table>
                 </div>
 
-                <!-- Shop --> <!-- Hidden -->
-                <button hidden onclick="MapChange(currentLocation);HiddenSwitch('LeaveTown'); HiddenSwitch('DivShop');HiddenSwitch('DivFight')" id="LeaveTown">Leave town</button><br>
-                          
-                          <div class="collapsibleListElementse" id="DivShop" hidden>
-                            <table id="tableShop">
-                                <tr>
-                                    <th>Weapons</th> <th>Defenses</th> <th>Other items</th>
-                                </tr>
-                                <tbody id="tbodyShop">
-                                    <tr>
-                                        <td>Sword</td> <td>Chain armor</td> <td>Food</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Spear</td> <td>Leather armor</td> <td>Fireball scroll</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dagger </td> <td>Small shield</td> <td>Lantern</td>
-                                    </tr>
-                                    
-                                </tbody>
-                        
-                                        <!-- <tr>
-                                            <td class="tdClickable"><button id="BuyWeapon1"><span class="ShopWeapon1Name" id="BuyWeapon1">Sword</span>: Cost: 6<span id="ShopWeapon1Cost"></span> 
-                                                <p hidden><span id="ShopWeapon1Attack">2</span> <span id="ShopWeapon1Defense"></span><span id="ShopWeapon1Damage"></span></p></button></td>
-                        
-                                            <td>Armors</td>
-                                            <td>Magic items</td>
-                                            <td>Other</td>
-                                        </tr> -->
-                        
-                            </table>
-                        </div>
+
 
 
 
@@ -300,6 +269,7 @@
 
             <div class="column3"> 
                 <div id="MainColumn2">
+                
                     <!-- Weapons --> <!-- Dropdown -->
             <span id="AreaWeaponList">
             <button type="button" id="ButtonWeaponList">Weapon: <span id="InventorySelectedWeapon">none</span> <span hidden id="InventorySelectedWeaponSlot"></span> <span id="InventorySelectedWeaponDurability"></span> </button>
@@ -510,8 +480,8 @@
     <!-- <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea> -->
 
 
-</div> <!--/- Inventory -\-->
-            </div> <!--/- Column3 -\-->
+</div><!--/- Column3 -\-->
+        </div>
 
 
 
@@ -536,10 +506,48 @@
 
 
 
-            <div class="column3" id="MainColumn3">
-                    <div id="DivLocationImage">
-                    </div>
+            <div class="column3" id="">
+                <div id="MainColumn3">
 
+                <button hidden id="EnterTown" onclick="/*MapHide();*/HiddenSwitch('DivShop'); HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivFight'); LoadTable('Shop')">Enter town</button>
+
+                <button id="ButtonTown" onclick="OpenTown()">Enter town</button>
+
+                <button hidden id="ButtonReloadShop" onclick="ReloadShop1()">Reload shop</button>
+
+                
+                                <!-- Shop --> <!-- Hidden -->
+                                <button hidden onclick="/*MapChange(currentLocation);*/HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivShop');HiddenSwitch('DivFight')" id="LeaveTown">Leave town</button>
+                          
+                                <div hidden class="collapsibleListElementse" id="DivShop" >
+                                  <table id="tableShop">
+                                      <tr>
+                                          <th colspan="2">Weapons</th> <th colspan="2">Defenses</th> <th colspan="2">Other items</th>
+                                          <!-- <th>Weapons</th> <th>Defenses</th> <th>Other items</th> -->
+                                      </tr>
+                                      <tbody id="tbodyShop">
+                                          <tr>
+                                              <td>Sword</td> <td>Chain armor</td> <td>Food</td>
+                                          </tr>
+                                          <tr>
+                                              <td> Spear</td> <td>Leather armor</td> <td>Fireball scroll</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Dagger </td> <td>Small shield</td> <td>Lantern</td>
+                                          </tr>                       
+                                      </tbody>
+                                  </table>
+                              </div>
+               
+                              
+
+
+
+
+
+
+
+                 
 
                     <!-- Image Map Generated by http://www.image-map.net/ -->
                 <!-- <img src="Baldriod map.png" usemap="#image-map">
@@ -549,12 +557,12 @@
         
                     
     
-                <div id="DivMap">
-                    <img hidden class="map mapEnabled" src="../images/Baldriod Map.png" alt="Map" usemap="#Baldriod">
+                <div id="DivMap" hidden>
+                    <img class="map mapEnabled" src="../images/Baldriod Map.png" alt="Map" usemap="#Baldriod">
                     <map name="Baldriod">
                 </div>
 
-                    <div id="DivMapTable">
+                    <div id="DivMapTable" hidden>
                         <table style="text-align: center;">
 
                             <tr>
@@ -602,21 +610,28 @@
                     </div>
 
                 <br>
-                <button id="EnterTown" onclick="MapHide();HiddenSwitch('DivShop'); HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivFight'); LoadTable('Shop')">Enter town</button>
 
     
                 
     
-
+            </div>
             </div> <!--/- Column3 -\-->
 
-            <button onclick="AddInv(`${document.getElementById('itemtest').value}`)">Add Inventory</button>
-            <button onclick="AddItem(`${document.getElementById('itemtest').value}`)">Add Item</button>
-            <textarea id="itemtest" cols="8" rows="4"></textarea>
-            <button onclick="NewEnemy(`${5}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
-            <button onclick="SetText('InventoryCoins', 600)">Money</button>
-            <button onclick="SetText('EnemyHp', 0)">Enemy hp 0</button>
-            <button onclick="dura1()">Durability 1</button>
+
+            <!-- Test -->
+<Div id="divTest">
+    <button onclick="AddInv(`${document.getElementById('itemtest').value}`)">Add Inventory</button>
+    <button onclick="AddItem(`${document.getElementById('itemtest').value}`)">Add Item</button>
+    <textarea id="itemtest" cols="8" rows="4"></textarea>
+    <button onclick="NewEnemy(`${5}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
+    <button onclick="SetText('InventoryCoins', 600)">Money</button>
+    <button onclick="SetText('EnemyHp', 0)">Enemy hp 0</button>
+    <button onclick="dura1()">Durability 1</button>
+
+
+</div>
+
+
 
 
 
@@ -643,7 +658,7 @@
 
 
     <!--Visible transition test-->
-   <b id="ggg" class="visible">ggggg</b>
+   <!-- <b id="ggg" class="visible">ggggg</b> -->
 
 
 
@@ -675,10 +690,7 @@
 
 
 
-<!-- Test -->
-<Div id="test">
 
-</div>
 
 
 
@@ -692,8 +704,7 @@
 
     //Get data from new game page to this page
         window.onload=function() {
-
-
+            
             let attack = localStorage.getItem('SendAttack');
             let defense = localStorage.getItem('SendDefense');
             let hp = localStorage.getItem('SendHP');
@@ -708,20 +719,42 @@
                 let b = document.querySelector(`[id=Map${a}]`).id
                 b = `${b} MapStart`
                 document.querySelector(`[id=Map${a}]`).id=b
-                ShowMap()
+                //ShowMap()
             }
+            AddClass("SettingsOptionYes", "tdSelected", 1)
+
             switch (difficulty) {
             case "easy":
                 SetText("InventoryCoins", "8")
-                //SetText("InventoryFood", "6")
+                AddClass("SettingsOptionEasy", "tdSelected", 1)
+
+                //Food
+                SetText("InventoryItem1", "Food")
+                SetText("InventoryItem1Amount", "Amount: 4")
+                SetText("InventoryItem1Use", "Use")
+                SetText("InventoryItem1Sell", "Sell")
+                GetElement("InventoryItem1Use").classList.add("tdClickable")
+                GetElement("InventoryItem1Sell").classList.add("tdClickable")
                 break;
+
+
             case "medium":
                 SetText("InventoryCoins", "600")
-                //SetText("InventoryFood", "4")
+                AddClass("SettingsOptionMedium", "tdSelected", 1)
+
+                //Food
+                SetText("InventoryItem1", "Food")
+                SetText("InventoryItem1Amount", "Amount: 2")
+                SetText("InventoryItem1Use", "Use")
+                SetText("InventoryItem1Sell", "Sell")
+                GetElement("InventoryItem1Use").classList.add("tdClickable")
+                GetElement("InventoryItem1Sell").classList.add("tdClickable")
                 break;
+
+
             case "hard":
                 SetText("InventoryCoins", "3")
-                //SetText("InventoryFood", "2")
+                AddClass("SettingsOptionHard", "tdSelected", 1)
                 break;
 
             default:

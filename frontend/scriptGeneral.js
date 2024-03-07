@@ -1,4 +1,5 @@
 
+let route = "http://localhost:8001/"
 
 
 //Random number generator
@@ -45,6 +46,23 @@ function HiddenSwitch(id) {
     }
 }
 
+function ClassSwitch(id, className) {
+    let element = GetElement(id)
+    if (element.classList.contains(className)) {
+        element.classList.remove(className)
+    } else {
+        element.classList.add(className)
+    }
+}
+
+function AddClass(id, className, type=1) {
+    let element = GetElement(id)
+    if (type == 1) {
+        element.classList.add(className)
+    } else {
+        element.classList.remove(className)
+    }
+}
 
 
 

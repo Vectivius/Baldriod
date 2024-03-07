@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(id, name, attack, defense, hp, damage, armor, magic) {
+    constructor(id, name, attack, defense, hp, damage, armor, magic, level) {
         this.id=id
         this.name=name
         this.attack=attack
@@ -8,6 +8,7 @@ class Enemy {
         this.damage=damage
         this.armor=armor
         this.magic=magic
+        this.level=level
     }
 }
 
@@ -96,12 +97,18 @@ let nextFunctionContinue = ""
 let nextFunctionYes = ""
 let nextFunctionNo = ""
 
-let route = "http://localhost:8000/"
+let difficulty = "normal"
 
-let dayCounter = 0
+let shopLoaded = false
+
+
+
+
 let itemName = ""
 let itemType = ""
+
 let shopId = ""
+
 let spellCost = 0
 let generalId = 0
 let currentLocation = 2
@@ -132,8 +139,8 @@ function createSpell(id, name, type, attack, defense, hp, cost, length) {
     spellList.push(spell)
 }
 
-function createEnemy(id,name,attack,defense, hp, damage, armor, magic) {
-    let enemy = new Enemy(id, name,attack,defense, hp, damage, armor, magic)
+function createEnemy(id,name,attack,defense, hp, damage, armor, magic, level) {
+    let enemy = new Enemy(id, name,attack,defense, hp, damage, armor, magic, level)
     enemyList.push(enemy)
 }
 
@@ -167,7 +174,7 @@ getData(`${route}spell`).then((spell) => {
 
 getData(`${route}enemy`).then((enemy) => {
     for (let i = 0; i < enemy.length; i++) {
-        createEnemy(enemy[i].id, enemy[i].enemyName, enemy[i].enemyAttack, enemy[i].enemyDefense, enemy[i].enemyHp, enemy[i].enemyDamage, enemy[i].enemyArmor, enemy[i].enemyMagic)
+        createEnemy(enemy[i].id, enemy[i].enemyName, enemy[i].enemyAttack, enemy[i].enemyDefense, enemy[i].enemyHp, enemy[i].enemyDamage, enemy[i].enemyArmor, enemy[i].enemyMagic, enemy[i].enemyLevel)
     }
 })
 
@@ -175,31 +182,34 @@ getData(`${route}enemy`).then((enemy) => {
 
 
 
-let gameLocation="forest";
+
+
 let enemyId=0;
 
-function NewRound() {
+let difficultyLevel = 1
 
+let enemyKilled = 0
+let threeEnemyKilled = 0
+
+function NewRound() {
     SetText("NextFunction", "")
     // Hidden("MessageButtonNo", true)
     // SetText("MessageButtonYes", "Continue")
     // GetElement("MessageButtonYes").style.width = "100%"
-    MapHide()
-    HiddenSwitch("EnterTown")
+    //MapHide()
+    Hidden("ButtonTown", true)
+    //HiddenSwitch("EnterTown")
     let a = 0;
     Hidden("DivEnemyAttributes", false)
     //location.href = 'pageNewGame.html';
     let type=0    //RandomNumber(0,1);
     switch (type) {
         case 0:
-            switch (gameLocation) {
-                case "forest":
-                    enemyId=RandomNumber(1,enemyList.length-1);
-                    NewEnemy(enemyId)
-                    break;
-                    default:
-                        break;
-            }
+            do {
+                enemyId=RandomNumber(0,enemyList.length-1);
+            } while (enemyList[enemyId].level > difficultyLevel)
+                
+                NewEnemy(enemyId)
             break;
         case 1: 
             break;
@@ -209,13 +219,13 @@ function NewRound() {
 
 }
 
-createEnemy(1, "Zombie", 8, 10, 12, "2-4", 0, 0)
 
 
 
 function NewEnemy(id) {
     fighting = true
-    inventoryEnabled = false
+    EnableInventory(0)
+    //inventoryEnabled = false
     SetText("EnemyName",enemyList[id].name);
     SetText("EnemyAttack",enemyList[id].attack);
     SetText("EnemyDefense",enemyList[id].defense);
@@ -375,7 +385,12 @@ function SetDamageThisRound(hp=0, attack=0, defense=0, magic=0) {
 
 
 function PlayerActionItem() {
-    inventoryEnabled = true
+    player = GetPlayer()
+    GetElement("PlayerActionAttack").classList.remove("tdClickable")
+    GetElement("PlayerActionSpell").classList.remove("tdClickable")
+    GetElement("PlayerActionItem").classList.remove("tdClickable")
+    EnableInventory(2)
+    //inventoryEnabled = true
 }
 
 
@@ -685,11 +700,11 @@ function PlayerActionDamage2() {
         // SetText("PlayerCurrentAttack", GetText("PlayerStartAttack"))
         // SetText("PlayerCurrentDefense", GetText("PlayerStartDefense"))
 
-        if (player.magic <= GetText("PlayerStartMagic")) {
+        if (player.magic < GetText("PlayerStartMagic")) {
             player.magic++
             SetText("PlayerCurrentMagic", player.magic)
         }
-        SetText("InventoryCoins", Number(GetText("InventoryCoins")) + GetEnemyCoins())
+        SetText("InventoryCoins", Number(GetText("InventoryCoins")) + GetEnemyCoins(enemy.name))
 
         SetText("PlayerCurrentAttack", GetText("PlayerCurrentAttack") - attackModifier)
         SetText("PlayerCurrentDefense", GetText("PlayerCurrentDefense") - defenseModifier)
@@ -702,6 +717,17 @@ function PlayerActionDamage2() {
         attackModifier = 0
         defenseModifier = 0
 
+        enemyKilled+=1
+        threeEnemyKilled+=1
+        if (threeEnemyKilled == 3) {
+            threeEnemyKilled = 0
+            difficultyLevel+=1
+        }
+
+        fighting = false
+        EnableInventory(1)
+        //inventoryEnabled = true
+
         //Reload weapon and modifiers
         let weaponSlot = GetText("InventorySelectedWeaponSlot")
         if (weaponSlot != "") {
@@ -710,15 +736,18 @@ function PlayerActionDamage2() {
         }
     
         GetElement("PlayerActionAttack").classList.remove("hover")
-        fighting = false
-        MapChange(currentLocation)
+        
+        //MapChange(currentLocation)
         SetColor("EnemyHp", "var(--light3)")
         Hidden("DivEnemyAttributes", true)
         Hidden("PlayerActionAttack", true)
         Hidden("PlayerActionSpell", true)
+        Hidden("PlayerActionItem", true)
+
+        Hidden("ButtonTown", false)
         
         // Hidden("PlayerActionMode", true)
-        // Hidden("PlayerActionItem", true)
+        
     
 
         // document.getElementById("PlayerActionAttack").classList.remove("buttonActionEnabled")
@@ -749,13 +778,7 @@ function PlayerActionDamage2() {
         if (enemy.defense>=0) SetText("EnemyDefense",String(enemy.defense));
         if (enemy.magic>=0) SetText("EnemyMagic",String(enemy.magic));
         SetColor("EnemyHp", "var(--light3)")
-        
-
- //else {
-                EnemyAction()
-             //}
-
-        
+        EnemyAction()
     }
 }
 
@@ -790,7 +813,7 @@ function EnemyAction() {
         random = RandomNumber(0,1)
         if (random == 0) {
             EnemyActionSpell()
-        } else EnemyActionSpell()//EnemyActionAttack
+        } else EnemyActionAttack
     }
 }
 
@@ -972,6 +995,11 @@ function EnemyActionSpell2() {
 function EnemyActionAttack() {
     //Get attributes
     player = GetPlayer()
+    let playerArmor = 0
+    if (player.armor != null) {
+        playerArmor = player.armor.damageReduction
+    }
+
     weapon = GetWeapon(GetText("InventorySelectedWeapon"))
     enemy = GetCurrentEnemy()
 
@@ -989,10 +1017,13 @@ function EnemyActionAttack() {
         //Popup message
         Message(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} > ${player.defense} <br> Succesful attack!`,1, ["EnemyActionDamage", "", ""]);
 
-        SetDamageThisRound(RandomNumber(Number(enemyDamageMin), Number(enemyDamageMax))-player.armor)
+        
+        SetDamageThisRound(RandomNumber(Number(enemyDamageMin), Number(enemyDamageMax))-Number(playerArmor))
+
         //Set minimum damage if less than one
         if (damageThisRound.hp<1) {
             player.hp--
+            damageThisRound.hp = 1
         } 
         //Calculate damage
         else {
@@ -1116,6 +1147,11 @@ function EndRound() {
     SetColor("EnemyHp", "var(--light3)")
     SetColor("PlayerCurrentAttack", "var(--light3)")
     SetColor("PlayerCurrentHp", "var(--light3)")
+
+    GetElement("PlayerActionAttack").classList.add("tdClickable")
+    GetElement("PlayerActionSpell").classList.add("tdClickable")
+    GetElement("PlayerActionItem").classList.add("tdClickable")
+
 }
 
 
@@ -1206,16 +1242,29 @@ AreaSettingsDifficulty.addEventListener("mouseover", function () {
     document.getElementById("ButtonDifficulty").classList.add("hover")
 })
 
-function SetDifficulty(difficulty) {
-    switch (difficulty) {
+function SetDifficulty(difficultyName) {
+    switch (difficultyName) {
         case "Easy":
             SetText("SettingsLabelDifficulty", "easy")
+            AddClass("SettingsOptionEasy", "tdSelected", 1)
+            AddClass("SettingsOptionMedium", "tdSelected", 0)
+            AddClass("SettingsOptionHard", "tdSelected", 0)
+            difficulty = "easy"
             break;
         case "Medium":
             SetText("SettingsLabelDifficulty", "medium")
+            AddClass("SettingsOptionEasy", "tdSelected", 0)
+            AddClass("SettingsOptionMedium", "tdSelected", 1)
+            AddClass("SettingsOptionHard", "tdSelected", 0)
+
+            difficulty = "medium"
             break;
         case "Hard":
             SetText("SettingsLabelDifficulty", "hard")
+            AddClass("SettingsOptionEasy", "tdSelected", 0)
+            AddClass("SettingsOptionMedium", "tdSelected", 0)
+            AddClass("SettingsOptionHard", "tdSelected", 1)
+            difficulty = "hard"
             break;
         default:
             break;
@@ -1235,9 +1284,13 @@ AreaSettingsTooltip.addEventListener("mouseover", function () {
 
 function SettingsTooltip(yesOrNo) {
     if (yesOrNo == "yes") {
+        AddClass("SettingsOptionYes", "tdSelected", 1)
+        AddClass("SettingsOptionNo", "tdSelected", 0)
         GetElement("tooltipsDisabled").id = "tooltipsEnabled"
         SetText("LabelSettingsTooltip", "yes")
     } else {
+        AddClass("SettingsOptionYes", "tdSelected", 0)
+        AddClass("SettingsOptionNo", "tdSelected", 1)
         GetElement("tooltipsEnabled").id = "tooltipsDisabled"
         SetText("LabelSettingsTooltip", "no")
     }
@@ -1292,25 +1345,7 @@ function GetObject(type, name) {
 
 
 
-let shopLoaded = false
 
-function LoadTable(table) {
-    switch (table) {
-        case "Shop": if (shopLoaded == false) {
-            SetText("tbodyShop", "")
-            LoadShop()
-            shopLoaded = true
-        } else if (dayCounter == 1) {
-            SetText("tbodyShop", "")
-            LoadShop()
-            shopLoaded = true   
-        }
-            break;
-    
-        default:
-            break;
-    }
-}
 
 
 
@@ -1415,71 +1450,140 @@ function MapShow(idList = []) {
 
 
 
-let imgPlayer = document.createElement("img")
-imgPlayer.src = "../images/player.png"
-let divMap = document.getElementById("DivMap")
+// let imgPlayer = document.createElement("img")
+// imgPlayer.src = "../images/player.png"
+// let divMap = document.getElementById("DivMap")
 
-let TdMap1 = document.getElementById("TdMap-1")
-let TdMap2 = document.getElementById("TdMap-2")
-let TdMap3 = document.getElementById("TdMap-3")
-let TdMap4 = document.getElementById("TdMap-4")
-let TdMap5 = document.getElementById("TdMap-5")
-let TdMap6 = document.getElementById("TdMap-6")
+// let TdMap1 = document.getElementById("TdMap-1")
+// let TdMap2 = document.getElementById("TdMap-2")
+// let TdMap3 = document.getElementById("TdMap-3")
+// let TdMap4 = document.getElementById("TdMap-4")
+// let TdMap5 = document.getElementById("TdMap-5")
+// let TdMap6 = document.getElementById("TdMap-6")
 
-let imgMarker1 = document.createElement("img")
-imgMarker1.src = "../images/marker.png"
-imgMarker1.id = "ImgMarker-1"
-TdMap1.appendChild(imgMarker1)
-imgMarker1.hidden = true
+// let imgMarker1 = document.createElement("img")
+// imgMarker1.src = "../images/marker.png"
+// imgMarker1.id = "ImgMarker-1"
+// TdMap1.appendChild(imgMarker1)
+// imgMarker1.hidden = true
 
-let imgMarker2 = document.createElement("img")
-imgMarker2.src = "../images/marker.png"
-imgMarker2.id = "ImgMarker-2"
-TdMap2.appendChild(imgMarker2)
-imgMarker2.hidden = true
+// let imgMarker2 = document.createElement("img")
+// imgMarker2.src = "../images/marker.png"
+// imgMarker2.id = "ImgMarker-2"
+// TdMap2.appendChild(imgMarker2)
+// imgMarker2.hidden = true
 
-let imgMarker3 = document.createElement("img")
-imgMarker3.src = "../images/marker.png"
-imgMarker3.id = "ImgMarker-3"
-TdMap3.appendChild(imgMarker3)
-imgMarker3.hidden = true
+// let imgMarker3 = document.createElement("img")
+// imgMarker3.src = "../images/marker.png"
+// imgMarker3.id = "ImgMarker-3"
+// TdMap3.appendChild(imgMarker3)
+// imgMarker3.hidden = true
 
-let imgMarker4 = document.createElement("img")
-imgMarker4.src = "../images/marker.png"
-imgMarker4.id = "ImgMarker-4"
-TdMap4.appendChild(imgMarker4)
-imgMarker4.hidden = true
+// let imgMarker4 = document.createElement("img")
+// imgMarker4.src = "../images/marker.png"
+// imgMarker4.id = "ImgMarker-4"
+// TdMap4.appendChild(imgMarker4)
+// imgMarker4.hidden = true
 
-let imgMarker5 = document.createElement("img")
-imgMarker5.src = "../images/marker.png"
-imgMarker5.id = "ImgMarker-5"
-TdMap5.appendChild(imgMarker5)
-imgMarker5.hidden = true
+// let imgMarker5 = document.createElement("img")
+// imgMarker5.src = "../images/marker.png"
+// imgMarker5.id = "ImgMarker-5"
+// TdMap5.appendChild(imgMarker5)
+// imgMarker5.hidden = true
 
-let imgMarker6 = document.createElement("img")
-imgMarker6.src = "../images/marker.png"
-imgMarker6.id = "ImgMarker-6"
-TdMap6.appendChild(imgMarker6)
-imgMarker6.hidden = true
+// let imgMarker6 = document.createElement("img")
+// imgMarker6.src = "../images/marker.png"
+// imgMarker6.id = "ImgMarker-6"
+// TdMap6.appendChild(imgMarker6)
+// imgMarker6.hidden = true
 
-divMap.appendChild(imgPlayer)
-// imgPlayer.className = `imgPlayer map${currentLocation}`
-MapChange(currentLocation)
-
+// divMap.appendChild(imgPlayer)
+//MapChange(currentLocation)
 
 
 
 
 
 
+function OpenTown() {
+    text = GetText("ButtonTown")
+
+    //Enter
+    if (text == "Enter town") {
+        Hidden('ButtonReloadShop', false)
+        Hidden('DivShop', false)
+        Hidden('DivFight', true)
+        LoadTable('Shop')
+        SetText("ButtonTown", "Leave town")
+        //Leave
+    } else {
+        SetText("ButtonTown", "Enter town")
+        Hidden('ButtonReloadShop', true)
+        Hidden('DivShop', true)
+        Hidden('DivFight', false)
+    }
+}
+
+function ReloadShop1() {
+    let cost = 0
+    switch (difficulty) {
+        case "easy":
+            cost = 20
+            break;
+
+        case "normal":
+            cost = 30
+            break;
+
+        case "hard":
+            cost = 40
+            break;
+    
+        default:
+            break;
+    }
+    Message(`Do you want to reload the shop for ${cost} coins?`, 2, ["", "ReloadShop2", ""])
+}
+
+function ReloadShop2() {
+    let cost = 0
+    switch (difficulty) {
+        case "easy":
+            cost = 20
+            break;
+
+        case "normal":
+            cost = 30
+            break;
+
+        case "hard":
+            cost = 40
+            break;
+    
+        default:
+            break;
+    }
+
+    SetCoins(-cost)
+    shopLoaded = false
+    LoadTable('Shop')
+}
 
 
 
-
-
-
-
-
+function LoadTable(table) {
+    switch (table) {
+        case "Shop": if (shopLoaded == false) {
+            SetText("tbodyShop", "")
+            LoadShop()
+            shopLoaded = true
+        }
+            break;
+    
+        default:
+            break;
+    }
+}
 
 
 
@@ -1619,7 +1723,11 @@ function GetGeneralItem(name, type) {
         default:
             break;
     }
+}
 
+function SetCoins(number) {
+    let old = Number(GetText("InventoryCoins"))
+    SetText("InventoryCoins", old+number)
 }
 
 
@@ -1679,6 +1787,9 @@ function Continue(type) {
         case "BuyFromShop":
             BuyFromShop(itemName, itemType)
             break;
+        case "ReloadShop2":
+            ReloadShop2()
+            break;
 
         case "EnemyActionSpell2":
             EnemyActionSpell2()
@@ -1725,3 +1836,10 @@ function Continue(type) {
             break;
     }
 }
+
+
+
+
+
+
+

@@ -24,16 +24,16 @@
             <div class="headerHome center">
                 <p>Baldriod</p>
             </div>
-        <div class="column2">
+        <div class="column2" >
                 
     <!-- /\-\- Difficulty /-/\-->
     <span id="AreaNewGameDifficulty">
         <button id="ButtonNewGameDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">Medium</span></button> <br>
         <div class="collapsibleListElements" id="NewGameDifficulty" hidden>
             <table class="tableBig">
-                <tr><td onclick="NewGameDifficulty('Easy')">Easy</td></tr>
-                <tr><td onclick="NewGameDifficulty('Medium')">Medium</td></tr>
-                <tr><td onclick="NewGameDifficulty('Hard')">Hard</td></tr>
+                <tr><td id="SettingsOptionEasy" onclick="NewGameDifficulty('Easy')">Easy</td></tr>
+                <tr><td id="SettingsOptionMedium" onclick="NewGameDifficulty('Medium')" class="tdSelected">Medium</td></tr>
+                <tr><td id="SettingsOptionHard" onclick="NewGameDifficulty('Hard')">Hard</td></tr>
             </table>
         </div>
     </span>
@@ -56,8 +56,8 @@
         <button  id="ButtonNewGameAttributes">Set attributes:  <span id="LabelAttributesMode">Random</span></button> <br>
         <div class="collapsibleListElements" id="NewGameAttributes" hidden>
             <table class="tableBig">
-                <tr><td onclick="NewGameAttributes('Random')">Random</td></tr>
-                <tr><td onclick="NewGameAttributes('Selectable')" id="OptionSelectable">Selectable (total: 46)</td></tr>
+                <tr><td id="SettingsOptionRandom" onclick="NewGameAttributes('Random')" class="tdSelected">Random</td></tr>
+                <tr><td id="SettingsOptionSelect" onclick="NewGameAttributes('Selectable')">Selectable (total: 46)</td></tr>
             </table>
         </div>
     </span>
@@ -109,7 +109,7 @@
 </div>
 
     <!-- Choose location -->
-    <span id="AreaNewGameLocation">
+    <!-- <span id="AreaNewGameLocation">
         <button id="ButtonNewGameLocation">Starting location:  <span id="LabelLocation">Random</span></button> <br>
         <div class="collapsibleListElements" id="NewGameLocation" hidden>
             <table class="tableBig">
@@ -117,7 +117,7 @@
                 <tr><td onclick="NewGameLocation('Select')">Select</td></tr>
             </table>
         </div>
-    </span>
+    </span> -->
     <!-- <label for="">Starting location</label>
     <select id="NewGameLocation">
         <option selected>Random</option>
@@ -125,15 +125,15 @@
     </select>--><br><br> 
 
     <!-- Buttons -->
-    <button class="bottomButton buttonBoxShadow" onclick="location.href = '../play/pagePlay.html';StartGame()" id="pagePlay">Start game</button>
-    <button class="bottomButton buttonBoxShadow" onclick="location.href = '../home/pageHome.html'">Back to home page</button>
+    <button onclick="location.href = '../play/pagePlay.html';StartGame()" id="pagePlay">Start game</button>
+    <button onclick="location.href = '../home/pageHome.html'">Back to home page</button>
 
 </div> <!--/- Col -\-->
 
 <!-- <div class="col-xs-6"> -->
-<div class="column2">
+<!-- <div class="column2">
     <img class="map" src="../images/Baldriod Map.png" alt="">
-</div> <!--/- Col -\-->
+</div> /- Col -\ -->
 
 
 </div> <!--/- Col BackgroundLight -\-->

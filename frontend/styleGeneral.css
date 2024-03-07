@@ -228,15 +228,26 @@ table {
     border: none;
     border-bottom: 1px solid var(--red1);
     border-top: 1px solid var(--red1);
+    position: relative;
+ }
+ /* Box shadow on both sides*/    /* https://blog.dudak.me/2014/css-shadows-under-adjacent-elements/ */
+ #DivMenu td:hover:before, #DivMenu .buttonSelected:before {
+   content: "";
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   z-index: 999;
+   box-shadow: 0 0 10px var(--red1);
+   transition: 0ms linear;
  }
  #DivMenu td:hover{
-    z-index: 999;
     cursor: pointer;
-    background-color: var(--light5);
     background-color: var(--light6);
     text-shadow: var(--red1) 0px 0px 8px;
-    transition: 100ms linear;
-    box-shadow: 0 0 10px var(--red1);
+    transition: 0ms linear;
+    /* box-shadow: 0 0 10px var(--red1); */
  }
  #DivMenu .buttonSelected{
     border-bottom: none;
@@ -289,9 +300,9 @@ button:enabled {
     transition: 100ms linear;
 }
 
-button:enabled:hover, .buttonSelected {
+button:enabled:hover, button.buttonSelected, td.buttonSelected {
     cursor: pointer;
-    background-color: var(--light5);
+    /* background-color: var(--light5); */
     transition: 100ms linear;
     background-color: var(--light6);
     text-shadow: var(--red1) 0px 0px 8px;
@@ -431,9 +442,12 @@ td:empty::before{content:'\00a0';visibility:hidden}
 
 
 .tdSelected {
-    background-color: var(--light5);
+    background-color: var(--light6);
     text-shadow: var(--red1) 1px 1px 8px;
     transition: 100ms linear;
+}
+.tdSelected.tdClickable:hover {
+    background-color: var(--light6);
 }
 
 td, th {
@@ -503,7 +517,7 @@ td.hover {
     position: absolute;	
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 998;
     filter: alpha(opacity = 50);
 }
 
@@ -628,7 +642,9 @@ textarea:focus, input:focus {
 
 
 
-
+#divTest {
+    margin-top: 700px;
+}
 
 
 

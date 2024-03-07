@@ -63,7 +63,7 @@ function LoadTable(table) {
 
 
 function LoadEnemy() {
-    getData(`http://localhost:8000/enemy`).then((enemy) => {
+    getData(`${route}enemy`).then((enemy) => {
                 const Header = document.getElementById("TrData")
                 const Table = document.getElementById("TbodyData");
 
@@ -139,12 +139,13 @@ function LoadEnemy() {
 
             td = row.insertCell()
             td.innerHTML =`<td>Edit</td>`;
-            td.className = "tdClickable";
+            td.className = "tdClickable tdEdit";
             td.id = `EditEnemy-${enemy[i].id}`
         
             td = row.insertCell()
             td.innerHTML =`<td>Delete</td>`;
             td.className = "tdClickable";
+            td.id = `DeleteEnemy-${enemy[i].id}`
         } 
     
 
@@ -176,7 +177,7 @@ console.error("Hiba történt:", error);
 });
 }
 function LoadWeapon() {
-    getData(`http://localhost:8000/weapon`).then((weapon) => {
+    getData(`${route}weapon`).then((weapon) => {
                 const Header = document.getElementById("TrData")
                 const Table = document.getElementById("TbodyData");
 
@@ -241,10 +242,10 @@ function LoadWeapon() {
             td.innerHTML =`<td>${weapon[i].weaponDefense}</td>`;
             
             td = row.insertCell()
-            td.innerHTML =`<td>${weapon[i].weaponDurability}</td>`;
+            td.innerHTML =`<td>${weapon[i].weaponDamage}</td>`;
             
             td = row.insertCell()
-            td.innerHTML =`<td>${weapon[i].weaponDamage}</td>`;
+            td.innerHTML =`<td>${weapon[i].weaponDurability}</td>`;
                     
             td = row.insertCell()
             td.innerHTML =`<td>${weapon[i].weaponCost}</td>`;
@@ -278,9 +279,14 @@ console.error("Hiba történt:", error);
 
 
 
-
-
-
+function RemoveClasses(type, id) {
+    if (type == "edit") {
+        let elements = document.getElementsByClassName("tdEdit")
+        for (let i = 0; i < elements.length; i++) {
+            AddClass(`EditEnemy-${i+1}`, "tdSelected", 0)
+        }
+    }
+}
 
 
 
@@ -288,13 +294,28 @@ console.error("Hiba történt:", error);
 
 /* Edit detect */
 document.body.addEventListener("click", (event) => {
+
+    //Enemy
     if (event.target.id.includes('EditEnemy') ) {
         generalId = event.target.id.split("-")[1]
-        table = "Enemy"
-        Hidden('DivEdit', false)
-        Hidden('ButtonNewData', true)
-        Hidden('DivNewData', true)
+
+        //Close
+        if (GetElement(`EditEnemy-${generalId}`).classList.contains("tdSelected")) {
+            AddClass(`EditEnemy-${generalId}`, "tdSelected", 0)
+            Hidden('DivEdit', true)
+            
+
+        //Open
+        } else {
+            RemoveClasses("edit", generalId)
+            AddClass(`EditEnemy-${generalId}`, "tdSelected")
+            table = "Enemy"
+            Hidden('DivEdit', false)
+            Hidden('ButtonNewData', true)
+            Hidden('DivNewData', true)
+        }
     }
+    //Weapon
     if (event.target.id.includes('EditWeapon') ) {
         generalId = event.target.id.split("-")[1]
         table = "Weapon"
@@ -302,34 +323,58 @@ document.body.addEventListener("click", (event) => {
         Hidden('ButtonNewData', true)
         Hidden('DivNewData', true)
     }
+
+
+    //Enemy
+    if (event.target.id.includes('DeleteEnemy') ) {
+        generalId = event.target.id.split("-")[1]
+        table = "enemy"
+        Delete()
+    }
+
+
+
+
+    //Select type at edit
+    if (event.target.className == 'tdClickable type') {
+        SetText("TextEditType", event.target.innerHTML)
+    }
 })
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+
+function Delete() {
+    deleteData(`${route}${table}/${generalId}`).then(() => {
+        Log(`Succesful delete`)
+        LoadTable(`${table}`)
+    }).catch(() => {
+        Log("Error")
+    })
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function Edit() {
-    console.log("+")
     let newValue = GetValue("NewValue")
-    //let type = "Enemy" + GetValue("EditType")
     let type = table + GetText("TextEditType")
-    if (GetText("TextEditType" == "Two handed")) {
+    if (GetText("TextEditType") == "Two handed") {
         type = "Two handed"
     }
-    console.log(type)
     HiddenSwitch('DivEdit')
     HiddenSwitch('ButtonNewData')
-
-    // putData(`http://localhost:8000/${table}/${generalId}/${type}/${String(newValue)}`).then(() => {
-    //     console.log("Sikeres módosítás")
-    //     SetText("TrData", "")
-    //     SetText("TbodyData", "")
-    //     SetText("TableEditType", "")
-    //     loaded = false
-    //     LoadTable(`${table}`)
-    //     })
-let route = "http://localhost:8000/"
 
     switch (table) {
         case "Enemy":
@@ -339,7 +384,7 @@ let route = "http://localhost:8000/"
                 SetText("TrData", "")
                 SetText("TbodyData", "")
                 SetText("TableEditType", "")
-                loaded = false
+                //loaded = false
                 LoadTable("enemy")
                 })
                 break;
@@ -350,7 +395,7 @@ let route = "http://localhost:8000/"
                 SetText("TrData", "")
                 SetText("TbodyData", "")
                 SetText("TableEditType", "")
-                loaded = false
+                //loaded = false
                 LoadTable("weapon")
                 })
             break;
@@ -358,6 +403,9 @@ let route = "http://localhost:8000/"
             break;
     }
 }
+
+
+
 
 // function Edit() {
 //     let newValue = GetValue("NewValue")
@@ -421,6 +469,28 @@ let route = "http://localhost:8000/"
 
 
 
+function OpenNewDataDivs(type) {
+    if (GetElement(`ButtonNewData${type}`).classList.contains("buttonSelected")) {
+        AddClass('ButtonNewDataEnemy', "buttonSelected", 0)
+        AddClass('ButtonNewDataWeapon', "buttonSelected", 0)
+        Hidden(`DivNewDataEnemy`, true)
+        Hidden(`DivNewDataWeapon`, true)
+
+    } else {
+        AddClass('ButtonNewDataEnemy', "buttonSelected", 0)
+        AddClass('ButtonNewDataWeapon', "buttonSelected", 0)
+        Hidden(`DivNewDataEnemy`, true)
+        Hidden(`DivNewDataWeapon`, true)
+
+        AddClass(`ButtonNewData${type}`, "buttonSelected", 1)
+        Hidden(`DivNewData${type}`, false)    
+    }
+            
+
+
+    
+}
+
 
 
 
@@ -441,11 +511,11 @@ function NewData(type) {
     console.log(data)
 
 
-        postData(`http://localhost:8000/enemy`,data)
+        postData(`${route}enemy`,data)
         .then((response) => {
             console.log(data)
             console.log("Succesful save")
-            LoadTable()
+            LoadTable("enemy")
                 return response.json();
                 
             }).then((data) => {
@@ -458,12 +528,7 @@ function NewData(type) {
                 console.log(error);
               }).finally(() => {
               });
-    
-
 }
-
-
-
 
 
 
@@ -483,9 +548,14 @@ AreaEditType.addEventListener("mouseover", function () {
 
 
 
-document.body.addEventListener("click", (event) => {
-    if (event.target.className == 'tdClickable type') {
-        SetText("TextEditType", event.target.innerHTML)
-    }
-})
+
+
+
+
+
+
+
+
+
+
 
