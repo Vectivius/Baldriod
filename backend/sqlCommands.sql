@@ -96,14 +96,13 @@ CREATE TABLE IF NOT EXISTS admin(
     id INT PRIMARY KEY AUTO_INCREMENT,
     adminEmail TEXT,
     adminPassword TEXT,
-    adminToken TEXT
 );
 
 INSERT INTO `saves` VALUES
     (null, "test", "Wer")
 
 INSERT INTO `admin` VALUES
-    (null, "greg@g", "greg", "")
+    (null, "greg@g", "greg")
 
 
 
@@ -120,15 +119,6 @@ INSERT INTO `scroll` VALUES
     (null, 'Healing scroll', 17, (SELECT id from spell WHERE `spellName`='Healing')),
     (null, 'Strength scroll', 17, (SELECT id from spell WHERE `spellName`='Strength')),
     (null, 'Protection scroll', 17, (SELECT id from spell WHERE `spellName`='Protection'));
-
-INSERT INTO `item` VALUES
-    (null, 'Food', true, 10, 3, NULL),
-    (null, 'Fireball scroll', true, 3, 17, (SELECT id from spell WHERE `spellName`='Fireball')),
-    (null, 'Lightning strike scroll', true, 3, 17, (SELECT id from spell WHERE `spellName`='Lightning strike')),
-    (null, 'Healing scroll', true, 3, 17, (SELECT id from spell WHERE `spellName`='Healing')),
-    (null, 'Strength scroll', true, 3, 17, (SELECT id from spell WHERE `spellName`='Strength')),
-    (null, 'Protection scroll', true, 3, 17, (SELECT id from spell WHERE `spellName`='Protection'));
-
 
 INSERT INTO `enemy` VALUES
     (null,'Wolf', 6, 7, 12, "2-3", 0, 0, 1),
