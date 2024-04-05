@@ -4,9 +4,6 @@ const mysql = require('mysql2');
 const Config  = require('./config');
 const app = express();
 
-require("dotenv").config()
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
 
 const port = 8001;
 
@@ -390,41 +387,7 @@ console.log(`Alkalmazás publikálva ${port}-on`);
 
 
 
-let commanders = ["Manstein", "Guderian", "Dönitz"]
 
-let posts = [
-    {username: "Guderian", title: "1"},
-    {username: "Manstein", title: "2"},
-]
-
-app.get("/commanders", (req, res) => {
-    res.json(commanders)
-})
-
-
-
-//Webtoken
-let refreshTokens = []
-
-app.post("/token", (req, res) => {
-    const refreshToken = req.body.token
-    if (refreshToken == null) return res.sendStatus(401)
-    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403)
-        const accessToken = generateAccessToken({name: user.name})
-        res.json({accessToken: accessToken })
-    })
-})
-
-  app.get('/commanders', authenticateToken, (req, res) => {
-    res.json(posts.filter(post => post.username === req.user.name))
-  })
-
-//token generálás
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "30s"})
-}
 
 
 
@@ -452,50 +415,8 @@ app.post("/login", (req, res) => {
 
     })
 
-    /*
-    con.query('select * from admin where adminEmail = ?', [req.params.email], (err, result) =>{
-        console.log(err);
-        console.log("1: ")
-        console.log(result[0])
-        if (err) {
-            res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
-        }
-        else {
-            res.send(result)
-        }
-    })
-    */
-
-    // const user = {email: req.body.email, password: req.body.password}
-    // console.log(req.body.password)
-    // const accesToken = generateAccessToken(user)
-    // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-    // refreshTokens.push(refreshToken)
-    // res.json({accesToken: accesToken, refreshToken: refreshToken})
 })
 
 
 
 
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers["authorization"]
-    const token = authHeader && authHeader.split(" ")[1]
-    if (token == null) {
-        return res.sendStatus(401)
-    }
-
-    //van token
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403) //lejárt token
-        req.user = user
-        next()
-    })
-}
-
-
-//Kijelentkezés
-app.delete("/logout", (req, res) => {
-    refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-    res.sendStatus(204)
-})
