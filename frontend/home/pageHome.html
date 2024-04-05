@@ -15,26 +15,20 @@
     <div class="row no-gutters">
         <div class="col backgroundDark">
         </div> <!--/- Col -\-->
-    
-    <!--/\-\- Content /-/\-->
+
     <div class="col-sm-10" id="BackgroundLight">
         <div class="headerHome center">
             <p>Baldriod</p>
         </div>
 
-            <!-- <div class="row"> -->
-                <div classs="text-center" id="DivHomePageButtons">
-                        <button class="buttonBoxShadow" onclick="location.href = '../newGame/pageNewGame.html'">New game</button>
-          
-            
-                        <form>
-                            <button class="buttonBoxShadow" onclick="document.getElementById('LoadGame').click()">Load game</button>
-                            <input type='file' id="LoadGame" name="LoadGame" hidden>
-                        </form>
-    
-                    </div>
-                
-            <!-- </div> -->
+                <div classs="center" id="DivHomePageButtons">
+                    <h3>Main menu</h3> 
+
+                        <button class="buttonn" onclick="location.href = '../newGame/pageNewGame.html'">New game</button> <br>
+                        <button class="buttonn" onclick="LoadGame(GetValue('SaveName'))">Load game</button> <br>
+                        <textarea id="SaveName" cols="30" rows="1" placeholder="Save name"></textarea>
+
+                </div>
 
         
     </div> <!--/- Col -\-->
@@ -43,5 +37,10 @@
     </div> <!--/- Col -\-->
     </div> <!--/- Row -\-->
 </div>
+
+<script src="scriptLoadGame.js"></script>
+<script src="../scriptGeneral.js"></script>
+
+
 </body>
 </html>

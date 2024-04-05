@@ -20,6 +20,10 @@
     padding: 50px;
 }
 
+
+
+
+
 /*/-- New data --/*/
 #DivNewData {
     position: absolute;
@@ -109,4 +113,18 @@ td:not(#DivMenu td), th {
 #SpanEditType {
     padding: 10px;
     margin-top: -10px;
+}
+
+
+
+
+
+
+#DivAdmin {
+    margin-top: 20px;
+}
+
+
+#ButtonNewData, #ButtonAdmin, #ButtonLogout {
+    width: 150px;
 }

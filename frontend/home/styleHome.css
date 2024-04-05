@@ -5,9 +5,10 @@
    background-color: var(--light2);
    border-radius: 0.8%;
    margin: auto;
-    width: 20%; 
-    padding-top: 40px;
-    padding-bottom: 40px;
+   width: 20%; 
+   padding-top: 40px;
+   padding-bottom: 40px;
+
  }
 
 #SpanHomePageButtons {
@@ -19,14 +20,24 @@
     }
 
 #DivHomePageButtons button {
+   box-shadow: 0 0 3px 0px var(--red1);
    margin: 10px;
    width: 100px;
+   text-align: center;
+   border: 1px solid var(--red1);
+}
+
+#DivHomePageButtons textarea {
+   margin: 10px;
+   width: 100px;
+   text-align: center;
 }
 #DivHomePageButtons button:hover {
-   transition: 200ms linear;
+   background-color: var(--yellow);
+   transition: 150ms linear;
    border-radius: 1px;
    border: 1px solid var(--red1);
-   box-shadow: 0 0 15px 2px var(--red1);
+   box-shadow: 0 0 12px 1px var(--red1);
    margin: 10px;
    width: 100px;
 }

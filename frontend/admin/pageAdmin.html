@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baldriod - admin</title>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
+    <link rel="stylesheet" href="../styleGeneral.css">
+    <link rel="stylesheet" href="styleAdmin.css">
+
+</head>
+<body> 
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col backgroundDark">
+        </div> <!--/- Col -\-->
+    
+    <!--/\-\- Content /-/\-->
+    <div class="col-sm-10" id="BackgroundLight">
+        <div class="header center">
+            <p>Baldriod</p>
+        </div>
+
+                <!--/\-\- Üzenőablak /-/\-->
+                <div id="DivMessageBg">
+                    <div id="DivMessage" class="center">            
+            
+                    <div id="DivMessage1" class="collapsibleListElements">
+                        <p id="Message1"></p>
+                        <button id="MessageButtonContinue" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Continue')">Continue</button>
+                    </div>
+            
+                    <div id="DivMessage2" class="collapsibleListElements">
+                        <p id="Message2"></p>
+                        <button id="MessageButtonYes" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Yes')">Yes</button>
+                        <button id="MessageButtonNo"  onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg';Continue('No');">No</button>
+                    </div>
+            
+                </div>
+                </div>
+
+        <!--/\-\- Menu /-/\-->
+        <div id="DivMenu">
+            <table>
+                <tr>
+                    <td onclick="LoadTable('enemy')">Enemies</td>   
+                    <td onclick="LoadTable('weapon')">Weapons</td>  
+                    <td onclick="LoadTable('armor')">Armors</td>  
+                    <td onclick="LoadTable('spell')">Spells</td>  
+                    <td onclick="LoadTable('scroll')">Scrolls</td>  
+                    <td onclick="LoadTable('saves')">Saves</td>  
+                </tr>
+            </table>
+            <!-- <a onclick="LoadTable('enemy')">Enemies</a>   
+            <a onclick="LoadTable('location')">Locations</a> 
+            <a onclick="LoadTable('Enemy locations')">Enemy locations</a>  
+            <a onclick="LoadTable('weapon')">Weapons</a>  
+            <a onclick="LoadTable('armor')">Armors</a>  
+            <a onclick="LoadTable('spell')">Spells</a>  
+            <a onclick="LoadTable('item')">Items</a>   -->
+        </div>
+
+        <!--/\-\- Load data /-/\-->
+        <!-- <table>
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Attack</th>
+                <th scope="col">Defense</th>
+                <th scope="col">Hp</th>
+                <th scope="col">MinDamage</th>
+                <th scope="col">MinDamage</th> 
+                <th scope="col">Armor</th> 
+                <th scope="col">Magic</th> 
+                <th scope="col"></th> 
+                <th scope="col"></th> 
+            </thead>
+ --><div id="DivTable">
+  
+                <table>
+                    <tr id="TrData" style="font-weight: bold;">
+                    </tr>
+                    <tbody id="TbodyData">
+                        
+                    </tbody>
+            
+                </table>
+ </div>
+        
+
+   
+
+        <br>
+
+
+
+
+
+
+
+
+
+
+
+        <!--/\-\- Új adat feltöltése /-/\-->
+            <div class="centerHorizontal"><button id="ButtonNewData" onclick="OpenNewDataOptions()">New data</button></div>
+                <div id="DivNewData" hidden class="divNewData absoluteCenter">
+         <div class="centerHorizontal">
+                        <button onclick="OpenNewDataDivs('Enemy')"  id="ButtonNewDataEnemy" class="buttonFirst">Enemy</button>
+                        <!-- <button onclick="OpenNewDataDivs('Enemy')"  id="" class="buttonMid">Locations</button>
+                        <button onclick="OpenNewDataDivs('Enemy')"  id="" class="buttonMid">Enemy locations</button> -->
+                        <button onclick="OpenNewDataDivs('Weapon')"  id="ButtonNewDataWeapon" class="buttonMid">Weapon</button>
+                        <button onclick="OpenNewDataDivs('Armor')"  id="" class="buttonMid">Armor</button>
+                        <button onclick="OpenNewDataDivs('Spell')"  id="" class="buttonMid">Spell</button>
+                        <button onclick="OpenNewDataDivs('Scroll')"  id="" class="buttonLast">Scroll</button>
+         </div>
+<br>
+
+                <!-- Ellenség -->
+                <div hidden class=" " id="DivNewDataEnemy">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataEnemyName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td> <th><input type="text" id="NewDataEnemyAttack"></th>
+                        </tr>
+                        <tr>
+                                <td>Defense:</td> <th><input type="text" id="NewDataEnemyDefense"></th>
+                        </tr>          
+                        <tr>
+                                <td>Health:</td> <th><input type="text" id="NewDataEnemyHp"></th>
+                        </tr>          
+                        <tr>
+                                <td>Damage:</td> <th><input type="text" id="NewDataEnemyDamage"></th>
+                        </tr>          
+                        <tr>
+                                <td>Armor:</td> <th><input type="text" id="NewDataEnemyArmor"></th>
+                        </tr>          
+                        <tr>
+                                <td>Magic:</td> <th><input type="text" id="NewDataEnemyMagic"></th>
+                        </tr>
+                        <tr>
+                                <td>Level:</td> <th><input type="text" id="NewDataEnemyLevel"></th>
+                        </tr>
+                    </table>
+                    <button id="SaveNewDataEnemy" onclick="NewData('enemy')">Save data</button>
+                </div>
+
+                <!-- Fegyver -->
+                <div hidden class=" " id="DivNewDataWeapon">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataWeaponName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td> <th><input type="text" id="NewDataWeaponAttack"></th>
+                        </tr>
+                        <tr>
+                            <td>Defense:</td> <th><input type="text" id="NewDataWeaponDefense"></th>
+                        </tr>               
+                        <tr>
+                            <td>Damage:</td> <th><input type="text" id="NewDataWeaponDamage"></th>
+                        </tr>          
+                        <tr>
+                            <td>Durability:</td> <th><input type="text" id="NewDataWeaponDurability"></th>
+                        </tr>          
+                        <tr>
+                            <td>Cost:</td> <th><input type="text" id="NewDataWeaponCost"></th>
+                        </tr>          
+                        <tr>
+                            <td>Two-handed:</td> <th><input type="text" id="NewDataWeaponTwoHanded"></th>
+                        </tr>          
+     
+                    </table>
+                    <button  onclick="NewData('weapon')">Save data</button>
+                </div>
+
+                <!-- Páncél -->
+                <div hidden class=" " id="DivNewDataArmor">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataArmorName"></th>
+                        </tr>
+                        <tr>
+                            <td>Defense:</td> <th><input type="text" id="NewDataArmorDefense"></th>
+                        </tr>               
+                        <tr>
+                            <td>DamageReduction:</td> <th><input type="text" id="NewDataArmorDamageReduction"></th>
+                        </tr>          
+                        <tr>
+                            <td>Durability:</td> <th><input type="text" id="NewDataArmorDamageDurability"></th>
+                        </tr>          
+                        <tr>
+                            <td>Cost:</td> <th><input type="text" id="NewDataArmorDamageCost"></th>
+                        </tr>          
+                        <tr>
+                            <td>Two-handed penalty:</td> <th><input type="text" id="NewDataArmorTwoHandedPenalty"></th>
+                        </tr>          
+     
+                    </table>
+                    <button  onclick="NewData('armor')">Save data</button>
+                </div>
+
+                <!-- Fegyver -->
+                <div hidden class=" " id="DivNewDataSpell">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataSpellName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td> <th><input type="text" id="NewDataSpellAttack"></th>
+                        </tr>
+                        <tr>
+                                <td>Defense:</td> <th><input type="text" id="NewDataSpellDefense"></th>
+                        </tr>               
+                        <tr>
+                                <td>Damage:</td> <th><input type="text" id="NewDataSpellDamage"></th>
+                        </tr>          
+     
+                    </table>
+                    <button  onclick="NewData('enemy')">Save data</button>
+                </div>
+
+                <!-- Fegyver -->
+                <div hidden class=" " id="DivNewDataScroll">
+                    <table>
+                        <tr>
+                            <td>Name:</td> <th><input type="text" id="NewDataScrollName"></th>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td> <th><input type="text" id="NewDataScrollAttack"></th>
+                        </tr>
+                        <tr>
+                                <td>Defense:</td> <th><input type="text" id="NewDataScrollDefense"></th>
+                        </tr>               
+                        <tr>
+                                <td>Damage:</td> <th><input type="text" id="NewDataScrollDamage"></th>
+                        </tr>          
+     
+                    </table>
+                    <button  onclick="NewData('enemy')">Save data</button>
+                </div>
+                
+
+
+            </div>
+
+        
+                <div class="center"><br>
+
+                    <!--/\-\- Edit data /-/\-->
+                    <div id="DivEdit" hidden><br>
+                        <span id="AreaEditType">
+                            <button type="button" id="ButtonEditType">Type: <span id="TextEditType"></span> </button><br>
+                            <span class="collapsibleListElements" id="SpanEditType" hidden> 
+                                <table id="TableEditType" class="tableBig tableInventoryHidden">
+                             
+                                </table>
+                            </span>
+                        </span>
+                        <input id="NewValue" type="text" placeholder="New value"><br>
+                          <button id="EditForCypress" onclick="Edit()">Save</button>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div id="DivAdmin" class="centerHorizontal">
+                    <table>
+                        <tr>
+                            <td>Admin: <span id="AdminEmail"></span> </td> <td><button id="ButtonLogout" onclick="Logout()">Logout</button>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            
+        
+            <!--<div class="center"><button class="buttonBoxShadow" onclick="HiddenSwitch('DivEditData')">Edit enemy data</button></div>
+                <div id="DivEditData" hidden class="center absoluteCenter">
+
+                </div> -->
+
+
+        <!-- <form action="/enemy/:id/:tipus/:ertek" method="post">
+            <input name="EnemyName" type="text" /> <br />
+            <input type="submit" /> --> 
+
+        <!-- <div class="column">
+            <p>ff</p>
+        </div>
+        <div class="column">
+            <p>ff</p>
+        </div> -->
+
+            
+
+        
+     </div> <!--/- Col -\ -->
+
+
+    
+    <div class="col backgroundDark">
+    </div> <!--/- Col -\-->
+
+    </div> <!--/- Row -\-->
+
+</div>
+
+<script src="sciptAdmin.js"></script>
+<script src="../../backend/app.js"></script>
+<script src="../scriptGeneral.js"></script>
+</body>
+</html>

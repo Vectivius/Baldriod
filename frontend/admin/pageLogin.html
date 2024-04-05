@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/dist/css/bootstrap.css" />    
+    <title>Baldriod - Login</title>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
     <link rel="stylesheet" href="../styleGeneral.css">
+    <link rel="stylesheet" href="styleAdmin.css">
 
 </head>
 <body> 
+    
+                    <!--/\-\- Üzenőablak /-/\-->
+                    <div id="DivMessageBg">
+                        <div id="DivMessage" class="center">            
+                
+                        <div id="DivMessage1" class="collapsibleListElements">
+                            <p id="Message1"></p>
+                            <button id="MessageButtonContinue" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Continue')">Continue</button>
+                        </div>
+                
+                        <div id="DivMessage2" class="collapsibleListElements">
+                            <p id="Message2"></p>
+                            <button id="MessageButtonYes" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Yes')">Yes</button>
+                            <button id="MessageButtonNo"  onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg';Continue('No');">No</button>
+                        </div>
+                
+                    </div>
+                    </div>
+
 <div class="container-fluid">
     <div class="row no-gutters">
         <div class="col backgroundDark">
@@ -28,7 +48,7 @@
 
                     
 
-                    <button class="buttonBoxShadow">Login</button>
+                    <button onclick="Login()">Login</button>
         
 
                 </div>
@@ -42,4 +62,13 @@
     </div> <!--/- Row -\-->
 </div>
 </body>
+
+<script src="scriptLogin.js"></script>
+<script src="../scriptGeneral.js"></script>
+
+<style>
+    textarea, button {
+        width: 300px;
+    }
+</style>
 </html>

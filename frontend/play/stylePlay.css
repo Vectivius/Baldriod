@@ -6,9 +6,9 @@
 }
 #MainColumn1 , #MainColumn2, #MainColumn3 {
     margin: 5px;
-    border: 2px solid var(--red1);
     background-color: var(--light2);
     padding: 20px;
+    border: 2px solid var(--red1);
     box-shadow: 0 0 4px var(--red1);
     border-radius: 0.8%;
     min-height: 550px;
@@ -19,93 +19,86 @@
     .column3 {
       width: 50%;
     }
+    .thirdColumn {
+        float: none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 620px;
+    }
   }
+@media only screen and (max-width: 785px) {
+    #MainColumn2 .collapsibleListElements {
+      margin-left: -60px;
+    }
+    #MainColumn1 , #MainColumn2, #MainColumn3 {
+        padding: 10px;
+    }
+    .column3 {
+        padding: 5px;
+    }
+    .thirdColumn {
+        margin-top: 600px;
+    }
+  }
+@media only screen and (max-width: 676px) {
+    #MainColumn2 .collapsibleListElements {
+      margin-left: -90px;
+    }
+  }
+@media only screen and (max-width: 609px) {
+    #MainColumn2 .collapsibleListElements {
+      margin-left: -120px;
+    }
+  }
+@media only screen and (max-width: 609px) {
+    #MainColumn2 .collapsibleListElements {
+      margin-left: -120px;
+    }
+  }
+@media only screen and (max-width: 550px) {
+    .column3 {
+        float: left;
+        width: 100%;
+    }
+    .thirdColumn {
+        margin-top: 0px;
+        float: left;
+    }
+    #MainColumn2 .collapsibleListElements {
+        margin: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+@media only screen and (max-width: 500px) {
 
-#ButtonSettings.hover {
-    background-color: var(--light6);
-}
+  }
+@media only screen and (max-width: 450px) {
 
-a {
-    text-decoration: none;
-    color: black;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*/-- Message --/*/
-
-#DivMessageBg {
-    visibility: hidden;
-    transition: 100ms linear;
-    width: 100%;
-	height: 100%;
-    position: absolute;	
-    top: 0;
-    left: 0;
-    z-index: 998;
-    filter: alpha(opacity = 50);
-}
-#DivMessageBgVisible {
-    visibility: visible;
-    background-color: rgba(0, 0, 0, 0.329);
-    transition: 100ms linear;
-    width: 100%;
-	height: 100%;
-    position: absolute;	
-    top: 0;
-    left: 0;
-    z-index: 998;
-    filter: alpha(opacity = 50);
-}
-
-
+  }
+/* @media only screen and (max-width: 1550px) {
+    .backgroundDark {
+      display: none;
+    }
+  } */
 
 
-#DivMessage1, #DivMessage2  {
-    top: 20%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -150px;
-    background-color: var(--light5);
-    padding: 20px;
-    text-align: center;
-}
 
-#DivMessage button:hover {
-    background-color: var(--light4);
-}
-#DivMessage1 button {
-    background-color: var(--light1);
-    width: 100%;
-}
-#DivMessage1 button:hover {
-    background-color: var(--light4);
-}
-#DivMessage2 button:hover {
-    background-color: var(--light4);
-}
-#DivMessage2 button {
-    background-color: var(--light1);
-    width: 49%;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -132,14 +125,15 @@ a {
 
 
 
-/*//-- Settings --//*/
-#DivSettings {
+/*//-- Menu --//*/
+#DivSettings, #DivSave, #DivLoad {
     margin-top: -30px;
     width: 100%;
     background-color: var(--light6);
     border-bottom: 2px solid var(--red1);
     padding: 10px;
     border-top: none;
+    box-shadow: none
 }
 #DivSettings table {
     width: 100%;
@@ -157,19 +151,44 @@ a {
     width: 150px;
 }
 
+#DivSettings td {
+    padding: 5px
+}
+#DivSave button, #DivSave input, #DivLoad button, #DivLoad input {
+    text-align: center;
+    vertical-align: default;
+    margin: 10px;
+    height: 35px;
+    width: 150px;
+}
 
 
 
 
-#DivSettings button:hover, #DivSettings button.hover {
+/* Settings */
+#DivSettings button:hover, #DivSettings button.hover{
     background-color: var(--light5);
     box-shadow: 0 0 10px var(--red1);
     transition: 100ms linear;
     color: black;
 }
-#DivSettings td {
-    padding: 5px
+
+/* Save, load */
+#DivSave button, #DivLoad button {
+    background-color: var(--light1);
+    border: none;
+    border: solid 1px var(--red1);
+    box-shadow: 0 0 3px var(--red1);
+    line-height: normal;
 }
+
+#DivSave button:hover, #DivLoad button:hover {
+    background-color: var(--yellow);
+    box-shadow: 0 0 10px var(--red1);
+    transition: 100ms linear;
+    color: black;
+}
+
 
 
 
@@ -193,15 +212,21 @@ a {
 
 
 /*//-- Attributes, fight, shop --//*/
+
+/* Player */
 #MainColumn1 table {
     width: 100%;
 }
 
-#tablePlayerAttributes, #TableEnemyAttributes, #tableShop {
+#tablePlayerAttributes, #TableEnemyAttributes {
     border: var(--brown) solid 1px;
     border-radius: 0.8%;
 }
-#tablePlayerAttributes td, #TableEnemyAttributes td, #tableShop td, #tablePlayerAttributes th, #TableEnemyAttributes th, #tableShop th {
+/* #tablePlayerAttributes td.tdSelected, #TableEnemyAttributes td.tdSelected {
+    box-shadow: 1px 1px 6px var(--red1);
+} */
+
+#tablePlayerAttributes td, #TableEnemyAttributes td, #tablePlayerAttributes th, #TableEnemyAttributes th, #tableShop th {
     border-right: none;
     border-left: none;
     padding-left: 4px;
@@ -218,6 +243,7 @@ a {
     width: 100%;
 }
 #DivPlayerActions td {
+    position: relative;
     width: 33%;
 }
 
@@ -460,26 +486,19 @@ a {
     margin-bottom: 10px;
 }
 
-#tableShop td {
-    padding: 0;
-    padding-left: 10px;
-    padding-right: 3px;
-    /* width: 13%; */
-}
-#tableShop td[id*="Amount"] {
-    /* width: 33%; */
-    padding-left: 0;
-    padding-right: 25px;
-    /* border-right: 1px solid var(--brown);
-    box-shadow: -1 0 2px var(--brown); */
 
-}
-#DivShop {
-    /* margin-top: 20px; */
-}
 #DivShop table {
+    margin-bottom: 10px;
     width: 100%;
+    border: var(--brown) solid 1px;
+    border-radius: 0.8%;
 }
+#DivShop td {
+    border-right: none;
+    border-left: none;
+    padding-left: 4px;
+}
+
 #LeaveTown {
     margin-top: 20px;
     width: 100%;
@@ -493,14 +512,13 @@ a {
 
 
 
-
 img {
 /* aspect-ratio: 4/5; */
 }
 
-#MainColumn3 {
+/* #MainColumn3 {
     display: grid;
-}
+} */
 #DivMap, #DivMapTable {
     grid-column: 1;
     grid-row: 1;

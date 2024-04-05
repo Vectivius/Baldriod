@@ -1,8 +1,26 @@
+
+//Bejelentkezés ellenőrzés
+if (!localStorage.getItem("email") || !localStorage.getItem("password")) {
+    location.href="pageLogin.html"
+} else {
+    document.getElementById("AdminEmail").innerHTML = localStorage.getItem("email")
+}
+
+//Kijelentkezés
+function Logout() {
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    location.href="pageLogin.html"
+}
+
+
 let generalId = 0
 let table = ""
 let loaded = false
 
 
+
+//Adatok betöltése
 function LoadTable(table) {
 
     SetText("TrData", "")
@@ -14,30 +32,18 @@ function LoadTable(table) {
     switch (table) {
         case "enemy":
             LoadEnemy()
-            // if (loaded == false) {
-            //     LoadEnemy()
-            //     loaded = true    
-            // }
             break;
         case "weapon":
             LoadWeapon()
-
-            // if (loaded == false) {
-            //     LoadWeapon()
-            //     loaded = true    
-            // }
             break;
-        case "Armors":
-            if (loaded == false) {
-                LoadEnemy()
-                loaded = true    
-            }
+        case "armor":
+            LoadArmor()
             break;
-        case "Spells":
-            if (loaded == false) {
-                LoadEnemy()
-                loaded = true    
-            }
+        case "spell":
+            LoadSpell()
+            break;
+        case "scroll":
+            LoadScroll()
             break;
     
         default:
@@ -61,52 +67,58 @@ function LoadTable(table) {
 
 
 
-
+//Ellenségek
 function LoadEnemy() {
     getData(`${route}enemy`).then((enemy) => {
+        console.log(enemy)
                 const Header = document.getElementById("TrData")
                 const Table = document.getElementById("TbodyData");
 
-                let th = Header.insertCell(); th.outerHTML =`<th> Id </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Name </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Attack </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Defense </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Hp </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Damage </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Armor </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th> Magic </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th>  </th>`;
-                th = Header.insertCell(); th.outerHTML =`<th>  </th>`;
+                let th = Header.insertCell(); th.outerHTML =`<th> Id </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Name </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Attack </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Defense </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Hp </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Damage </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Armor </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Magic </th>`
+                th = Header.insertCell(); th.outerHTML =`<th> Level </th>`
+                th = Header.insertCell(); th.outerHTML =`<th>  </th>`
+                th = Header.insertCell(); th.outerHTML =`<th>  </th>`
 
                 let TableEditType = GetElement("TableEditType")
                 let row = TableEditType.insertRow()
                 let td = row.insertCell()
                 td.innerHTML =`<td>Name</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Attack</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Defense</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Hp</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Damage</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Armor</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Magic</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
+
+                td = row.insertCell()
+                td.innerHTML =`<td>Level</td>`;
+                td.className = "tdSelectable type"
 
     for(let i = 0; i<10; i++)  {           
         row = Table.insertRow();
@@ -138,44 +150,27 @@ function LoadEnemy() {
             td.innerHTML =`<td>${enemy[i].enemyMagic}</td>`;
 
             td = row.insertCell()
+            td.innerHTML =`<td>${enemy[i].enemyLevel}</td>`;
+
+            td = row.insertCell()
             td.innerHTML =`<td>Edit</td>`;
-            td.className = "tdClickable tdEdit";
+            td.className = "tdSelectable tdEdit";
             td.id = `EditEnemy-${enemy[i].id}`
         
             td = row.insertCell()
             td.innerHTML =`<td>Delete</td>`;
-            td.className = "tdClickable";
+            td.className = "tdSelectable";
             td.id = `DeleteEnemy-${enemy[i].id}`
-        } 
-    
-
-     //Check if data exists
-    
-    else {
-        //tdd = row.insertCell()  //Insert empty cell
-    }
-
-     //Check if data exists
-     if (enemy[i] != undefined) {
-        
-    } else {
-        //tdd = row.insertCell()  //Insert empty cell
-    }
-
-     //Check if data exists
-     if (enemy[i] != undefined) {
-        
-    } else {
-        //tdd = row.insertCell()  //Insert empty cell
-    }
+        }
     }; 
-            })
-        
-
+})
 .catch((error) => {
 console.error("Hiba történt:", error);
 });
 }
+
+
+//Fegyverek
 function LoadWeapon() {
     getData(`${route}weapon`).then((weapon) => {
                 const Header = document.getElementById("TrData")
@@ -196,31 +191,31 @@ function LoadWeapon() {
                 let row = TableEditType.insertRow()
                 let td = row.insertCell()
                 td.innerHTML =`<td>Name</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Attack</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Defense</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Damage</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Durability</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Cost</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
                 td = row.insertCell()
                 td.innerHTML =`<td>Two handed</td>`;
-                td.className = "tdClickable type"
+                td.className = "tdSelectable type"
 
 
 
@@ -255,12 +250,13 @@ function LoadWeapon() {
 
             td = row.insertCell()
             td.innerHTML =`<td>Edit</td>`;
-            td.className = "tdClickable";
+            td.className = "tdSelectable";
             td.id = `EditWeapon-${weapon[i].id}`
         
             td = row.insertCell()
             td.innerHTML =`<td>Delete</td>`;
-            td.className = "tdClickable";
+            td.className = "tdSelectable";
+            td.id = `DeleteWeapon-${weapon[i].id}`
         } 
     }; 
 })
@@ -292,10 +288,20 @@ function RemoveClasses(type, id) {
 
 
 
-/* Edit detect */
+
+
+
+
+
+
+
+
+
+
 document.body.addEventListener("click", (event) => {
 
-    //Enemy
+//Adatok módosítása
+    //Ellenség
     if (event.target.id.includes('EditEnemy') ) {
         generalId = event.target.id.split("-")[1]
 
@@ -303,7 +309,6 @@ document.body.addEventListener("click", (event) => {
         if (GetElement(`EditEnemy-${generalId}`).classList.contains("tdSelected")) {
             AddClass(`EditEnemy-${generalId}`, "tdSelected", 0)
             Hidden('DivEdit', true)
-            
 
         //Open
         } else {
@@ -315,20 +320,38 @@ document.body.addEventListener("click", (event) => {
             Hidden('DivNewData', true)
         }
     }
-    //Weapon
+    //Fegyver
     if (event.target.id.includes('EditWeapon') ) {
         generalId = event.target.id.split("-")[1]
-        table = "Weapon"
-        Hidden('DivEdit', false)
-        Hidden('ButtonNewData', true)
-        Hidden('DivNewData', true)
+
+        //Close
+        if (GetElement(`EditWeapon-${generalId}`).classList.contains("tdSelected")) {
+            AddClass(`EditWeapon-${generalId}`, "tdSelected", 0)
+            Hidden('DivEdit', true)
+
+        //Open
+        } else {
+            RemoveClasses("edit", generalId)
+            AddClass(`EditWeapon-${generalId}`, "tdSelected")
+            table = "Weapon"
+            Hidden('DivEdit', false)
+            Hidden('ButtonNewData', true)
+            Hidden('DivNewData', true)
+        }
     }
 
 
-    //Enemy
+//Adatok törlése
+    //Ellenség
     if (event.target.id.includes('DeleteEnemy') ) {
         generalId = event.target.id.split("-")[1]
         table = "enemy"
+        Delete()
+    }
+    //Fegyver
+    if (event.target.id.includes('DeleteWeapon') ) {
+        generalId = event.target.id.split("-")[1]
+        table = "weapon"
         Delete()
     }
 
@@ -336,14 +359,19 @@ document.body.addEventListener("click", (event) => {
 
 
     //Select type at edit
-    if (event.target.className == 'tdClickable type') {
+    if (event.target.className == 'tdSelectable type') {
         SetText("TextEditType", event.target.innerHTML)
     }
 })
 
 
+//Törlés
 function Delete() {
-    deleteData(`${route}${table}/${generalId}`).then(() => {
+    Message("Are you sure you want to delete this?", 2, ["", "Delete2", ""])
+}
+
+function Delete2() {
+    deleteData(`${route}delete/${table}/${generalId}`).then(() => {
         Log(`Succesful delete`)
         LoadTable(`${table}`)
     }).catch(() => {
@@ -366,7 +394,7 @@ function Delete() {
 
 
 
-
+//Módosítás
 function Edit() {
     let newValue = GetValue("NewValue")
     let type = table + GetText("TextEditType")
@@ -384,7 +412,6 @@ function Edit() {
                 SetText("TrData", "")
                 SetText("TbodyData", "")
                 SetText("TableEditType", "")
-                //loaded = false
                 LoadTable("enemy")
                 })
                 break;
@@ -395,7 +422,6 @@ function Edit() {
                 SetText("TrData", "")
                 SetText("TbodyData", "")
                 SetText("TableEditType", "")
-                //loaded = false
                 LoadTable("weapon")
                 })
             break;
@@ -463,18 +489,23 @@ function Edit() {
 
 
 
+function OpenNewDataOptions() {
+    ClassSwitch('ButtonNewData', 'buttonSelected')
+    HiddenSwitch('DivNewData')
+    HiddenSwitch('DivAdmin')
+}
 
 
 
 
-
-
+//Új adat látható
 function OpenNewDataDivs(type) {
     if (GetElement(`ButtonNewData${type}`).classList.contains("buttonSelected")) {
         AddClass('ButtonNewDataEnemy', "buttonSelected", 0)
         AddClass('ButtonNewDataWeapon', "buttonSelected", 0)
         Hidden(`DivNewDataEnemy`, true)
         Hidden(`DivNewDataWeapon`, true)
+        
 
     } else {
         AddClass('ButtonNewDataEnemy', "buttonSelected", 0)
@@ -484,11 +515,9 @@ function OpenNewDataDivs(type) {
 
         AddClass(`ButtonNewData${type}`, "buttonSelected", 1)
         Hidden(`DivNewData${type}`, false)    
+
+        
     }
-            
-
-
-    
 }
 
 
@@ -496,26 +525,48 @@ function OpenNewDataDivs(type) {
 
 
 
-
+//Új adat feltöltés
 function NewData(type) {
 
-    let data = {
-        enemyName: GetValue("NewDataEnemyName"),
-        enemyAttack: GetValue("NewDataEnemyAttack"),
-        enemyDefense: GetValue("NewDataEnemyDefense"),
-        enemyHp: GetValue("NewDataEnemyHp"),
-        enemyDamage: GetValue("NewDataEnemyDamage"),
-        enemyArmor: GetValue("NewDataEnemyArmor"),
-        enemyMagic: GetValue("NewDataEnemyMagic"),
+    let data = null 
+    switch (type) {
+        case "enemy":
+            data = {
+                enemyName: GetValue("NewDataEnemyName"),
+                enemyAttack: GetValue("NewDataEnemyAttack"),
+                enemyDefense: GetValue("NewDataEnemyDefense"),
+                enemyHp: GetValue("NewDataEnemyHp"),
+                enemyDamage: GetValue("NewDataEnemyDamage"),
+                enemyArmor: GetValue("NewDataEnemyArmor"),
+                enemyMagic: GetValue("NewDataEnemyMagic"),
+                enemyLevel: GetValue("NewDataEnemyLevel"),
+            }
+            break;
+
+        case "weapon":
+            data = {
+                weaponName: GetValue("NewDataWeaponName"),
+                weaponAttack: GetValue("NewDataWeaponAttack"),
+                weaponDefense: GetValue("NewDataWeaponDefense"),
+                weaponDamage: GetValue("NewDataWeaponDamage"),
+                weaponDurability: GetValue("NewDataWeaponDurability"),
+                weaponCost: GetValue("NewDataWeaponName"),
+                twoHanded: GetValue("NewDataWeaponTwoHanded")
+            }
+            break;
+    
+        default:
+            break;
     }
+
     console.log(data)
 
 
-        postData(`${route}enemy`,data)
+        postData(`${route}${type}`,data)
         .then((response) => {
             console.log(data)
             console.log("Succesful save")
-            LoadTable("enemy")
+            LoadTable(`${type}`)
                 return response.json();
                 
             }).then((data) => {
