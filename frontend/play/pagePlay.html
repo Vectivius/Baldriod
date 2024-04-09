@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baldriod - Play</title>
+    <title>Baldriod - play</title>
     <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
     <link rel="stylesheet" href="../styleGeneral.css">
     <link rel="stylesheet" href="stylePlay.css">
@@ -71,11 +71,15 @@
     <div id="DivMenu">
        <table>
             <tr>
-                <td onclick="location.href = '../home/pageHome.html'">Back to home page</td>   
-                <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td> 
-                <td id="ButtonLoad" onclick="OpenLoadGame()">Load game</td>  
-                <td onclick="location.href = '../newGame/pageNewGame.html'">New game</td>  
-                <td id="ButtonSettings" onclick="OpenSettings()">Settings</a>  
+                <td onclick="location.href = '../home/pageHome.html'">Back to home page</td>
+                <td onclick="SaveGame2(true)">Save game</td>
+
+                <!-- <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>
+                <td id="ButtonLoad" onclick="OpenLoadGame()">Load game</td> -->
+
+                <td onclick="location.href = '../newGame/pageNewGame.html'">New game</td>
+                <td id="ButtonSettings" onclick="OpenSettings()">Settings</a>
+                <td hidden id="ButtonAccount" onclick="OpenAccount()">Account</a>
             </tr>
        </table>
     </div>
@@ -83,7 +87,7 @@
         
 
     <!--/\-\- Beállítások /-/\-->    <!-- Rejtett -->
-    <div class="collapsibleListElements absoluteCenter" hidden id="DivSettings">
+    <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivSettings">
         <div class="text-center">
 
 
@@ -120,7 +124,7 @@
     <div class="collapsibleListElements absoluteCenter" hidden id="DivSave">
         <div class="center">
         <input id="SaveName" placeholder="name">
-        <button onclick="SaveGame(GetValue('SaveName'))">Save</button>
+        <button id="ButtonSaveGame" onclick="SaveGame(GetValue('SaveName'))">Save</button>
 
     </div>
     </div>
@@ -132,6 +136,17 @@
 
         <input id="LoadName" placeholder="name">
         <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button>
+
+    </div>
+    </div>
+
+
+    <!--/\-\- Fehasználó /-/\-->    <!-- Rejtett -->
+    <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivAccount">
+        <div class="center">
+
+        <!-- <input id="LoadName" placeholder="name">
+        <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button> -->
 
     </div>
     </div>
@@ -555,12 +570,12 @@
 
             <!-- Test -->
 <Div id="divTest" hidden>
-    <button onclick="AddInv(`${document.getElementById('itemtest').value}`)">Add Inventory</button>
+    <button onclick="AddInv()">Add Inventory</button>
     <button onclick="NewEnemy(`${4}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
     <button onclick="SetText('InventoryCoins', 600)">Money</button>
-    <button onclick="SetText('EnemyHp', 0)">Enemy hp 0</button>
+    <button onclick="SetText('EnemyHp', 1)">Enemy hp 1</button>
     <button onclick="dura1()">Durability 1</button>
-    <button onclick="showCollapsible()">Show collapsible inv</button>
+    <!-- <button onclick="showCollapsible()">Show collapsible inv</button> -->
 
 
 </div>
@@ -597,6 +612,7 @@
     <script src="scriptPlay.js"></script>
     <script src="scriptInventory.js"></script>
     <script src="scriptShop.js"></script>
+    <script src="scriptLoad.js"></script>
 
 
 

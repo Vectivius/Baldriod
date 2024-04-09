@@ -276,5 +276,7 @@ function StartGame() {
     localStorage.setItem("startMagic", Magic);
     localStorage.setItem("playerName", Name);
     localStorage.setItem("difficulty", difficulty);
+
+    localStorage.removeItem("playerAttack")
 }
 

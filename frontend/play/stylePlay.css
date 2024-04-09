@@ -126,7 +126,8 @@
 
 
 /*//-- Menu --//*/
-#DivSettings, #DivSave, #DivLoad {
+/*#DivSettings, #DivSave, #DivLoad */
+.divMenuCollapsible{
     margin-top: -30px;
     width: 100%;
     background-color: var(--light6);

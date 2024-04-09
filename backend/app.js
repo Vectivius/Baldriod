@@ -86,20 +86,26 @@ app.get('/scroll',(req,res) => {
 
 
 //Egy mentés
-app.get('/save/:name', (req,res) => {
+app.get('/save/:id', (req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
         if (err) throw err;
         console.log('sikeres csatlakozás');
     })
-    con.query('select * from saves where saveName = ?',[req.params['name']], (err,result) =>{
-        // if (err) {
+    con.query('select * from saves where id = ?',[req.params['id']], (err,result) =>{
+        res.send(result);
 
-        //     res.status(404).send({status: 404 , error: "Hiba"});
-        // }
-        // else {
-        //     res.status(200).send({status: 200 ,success: "Sikeres"})
-        // }
+    })    
+})
+
+//Összes mentés felhasználó alapján
+app.get('/save/all/:userId', (req,res) => {
+    var con = mysql.createConnection(new Config());
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('sikeres csatlakozás');
+    })
+    con.query('select * from saves where userId = ?',[req.params['userId']], (err,result) =>{
         res.send(result);
 
     })    
@@ -186,6 +192,7 @@ app.post('/armor', (req,res) => {
 
 
 // Új mentés
+
 app.post('/save', (req,res) => {
 
     var con = mysql.createConnection(new Config());
@@ -193,8 +200,9 @@ app.post('/save', (req,res) => {
         if (err) throw err;
         console.log('sikeres csatlakozás');
     })
-    const SQL = 'insert into saves (saveName,playerName,PlayerAttack,PlayerDefense,PlayerHp,PlayerMagic,Weapons,Armors,Shields,WeaponsDurability,ArmorsDurability,) values (?,?)';
-    con.query(SQL,[req.body.saveName, req.body.playerName], (err,result) =>{
+    //const SQL = 'insert into saves (saveName,playerName,PlayerAttack,PlayerDefense,PlayerHp,PlayerMagic,Weapons,Armors,Shields,WeaponsDurability,ArmorsDurability,) values (?,?)';
+    const SQL = 'insert into saves (saveName,playerName,PlayerAttack,PlayerDefense,PlayerHp,PlayerMagic,Weapons,Armors,Shields,WeaponsDurability,ArmorsDurability,ShieldsDurability,SelectedItems) values (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    con.query(SQL,[req.body.saveName, req.body.playerName, req.body.PlayerAttack, req.body.PlayerDefense, req.body.PlayerHp, req.body.PlayerMagic, req.body.Weapons, req.body.Armors, req.body.Shields, req.body.WeaponsDurability, req.body.ArmorsDurability, req.body.ShieldsDurability, req.body.SelectedItems], (err,result) =>{
         console.log(err);
         if (err) {
             res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
@@ -204,6 +212,54 @@ app.post('/save', (req,res) => {
         }
     })
 })
+/*
+app.post('/saves', (req,res) => {
+    var con = mysql.createConnection(new Config());
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('sikeres csatlakozás');
+    })
+    const SQL = 'insert into saves (enemyName,enemyAttack,enemyDefense, enemyHp, enemyDamage, enemyArmor, enemyMagic, enemyLevel) values (?,?,?,?,?,?,?, ?)';
+    con.query(SQL,[req.body.armorName, req.body.armorDefense, req.body.armorDamageReduction, req.body.armorDurability, req.body.enemyDamage, req.body.enemyArmor, req.body.enemyMagic, req.body.enemyLevel], (err,result) =>{
+        console.log(err);
+        if (err) {
+            res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
+        }
+        else {
+            res.status(200).send({status: 200 ,success: "Sikeres adatrögzítés"})
+        }
+    })
+})*/
+
+
+
+app.post('/reg', (req,res) => {
+
+    var con = mysql.createConnection(new Config());
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('sikeres csatlakozás');
+    })
+    const SQL = 'insert into user (userName,userEmail,userPassword) values (?,?,?)';
+    con.query(SQL,[req.body.name, req.body.email, req.body.password], (err,result) =>{
+        console.log(err);
+        if (err) {
+            res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
+        }
+        else {
+            res.status(200).send({status: 200 ,success: "Sikeres adatrögzítés"})
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
 
 
 
@@ -402,12 +458,12 @@ app.post("/login", (req, res) => {
     })
 
 
-    con.query('select * from admin where adminEmail = ?',  [req.body.email], (err,result) =>{
+    con.query('select * from user where userEmail = ?',  [req.body.email], (err,result) =>{
         if (err) throw err;
         console.log(req.body.email)
 
         if (result[0] != undefined) {
-            if (result[0].adminEmail == req.body.email && result[0].adminPassword == req.body.password) {
+            if (result[0].userPassword == req.body.password) {
                 console.log("Sikeres bejelentkezés")
                 res.send(result);    
             }

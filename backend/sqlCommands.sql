@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS scroll(
 CREATE TABLE IF NOT EXISTS saves(
     id INT PRIMARY KEY AUTO_INCREMENT,
     saveName TEXT,
+    userId INT,
     playerName TEXT,
     PlayerAttack TEXT,
     PlayerDefense TEXT,
@@ -75,9 +76,7 @@ CREATE TABLE IF NOT EXISTS saves(
     WeaponsDurability TEXT,
     ArmorsDurability TEXT,
     ShieldsDurability TEXT,
-    SelectedWeapon TEXT,
-    SelectedArmor TEXT,
-    SelectedShield TEXT,
+    SelectedItems TEXT,
     Coins TEXT,
     OtherItems TEXT,
     OtherItemsAmount TEXT,
@@ -89,20 +88,25 @@ CREATE TABLE IF NOT EXISTS saves(
     ShopOtherItemsAmount TEXT,
     Difficulty TEXT,
     DifficultyLevel TEXT,
-    PlayerDead BOOLEAN
+    PlayerDead BOOLEAN,
+    FOREIGN KEY (userId) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS admin(
+CREATE TABLE IF NOT EXISTS user(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    adminEmail TEXT,
-    adminPassword TEXT,
+    userName TEXT,
+    userEmail TEXT,
+    userPassword TEXT,
+    userLevel TEXT DEFAULT 1
 );
 
 INSERT INTO `saves` VALUES
-    (null, "test", "Wer")
+    (null, "gregSave", (SELECT id from user WHERE `userName`='greg'), "greg")
 
-INSERT INTO `admin` VALUES
-    (null, "greg@g", "greg")
+
+INSERT INTO `user` VALUES
+    (null, "notAdmin", "non@n", "non", 1),
+    (null, "greg", "greg@g", "greg", 2)
 
 
 

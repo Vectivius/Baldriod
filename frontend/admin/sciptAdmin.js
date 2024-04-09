@@ -1,16 +1,9 @@
 
 //Bejelentkezés ellenőrzés
-if (!localStorage.getItem("email") || !localStorage.getItem("password")) {
+if (!localStorage.getItem("email") || localStorage.getItem("userLevel") != 2) {
     location.href="pageLogin.html"
 } else {
     document.getElementById("AdminEmail").innerHTML = localStorage.getItem("email")
-}
-
-//Kijelentkezés
-function Logout() {
-    localStorage.removeItem("email")
-    localStorage.removeItem("password")
-    location.href="pageLogin.html"
 }
 
 

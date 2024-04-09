@@ -252,54 +252,8 @@ getData(`${route}enemy`).then((enemy) => {
 
 
 
-//-/- Adatok az új játék oldalról -\-\\
-let difficulty = localStorage.getItem('difficulty')
-
-SetPlayerAttributes(localStorage.getItem('startAttack'),localStorage.getItem('startDefense'),localStorage.getItem('startHp'),localStorage.getItem('startMagic'),localStorage.getItem('playerName'));
-
-SetText("SettingsLabelDifficulty", difficulty)
-
-AddClass("SettingsOptionYes", "tdSelected", 1)
-
-switch (difficulty) {
-case "easy":
-    SetText("InventoryCoins", "8")
-    AddClass("SettingsOptionEasy", "tdSelected", 1)
-
-    //Food
-    SetText("InventoryItem1", "Food")
-    AddClass("InventoryItem1", "itemUsable")
-    SetText("InventoryItem1Amount", "Amount: 4")
-    SetText("InventoryItem1Use", "Use")
-    SetText("InventoryItem1Sell", "Sell")
-    AddClass("InventoryItem1Use", "tdSelectable", 1)
-    AddClass("InventoryItem1Sell", "tdSelectable", 1)
-    break;
 
 
-case "medium":
-    SetText("InventoryCoins", "6")
-    AddClass("SettingsOptionMedium", "tdSelected", 1)
-
-    //Food
-    SetText("InventoryItem1", "Food")
-    AddClass("InventoryItem1", "itemUsable")
-    SetText("InventoryItem1Amount", "Amount: 2")
-    SetText("InventoryItem1Use", "Use")
-    SetText("InventoryItem1Sell", "Sell")
-    AddClass("InventoryItem1Use", "tdSelectable", 1)
-    AddClass("InventoryItem1Sell", "tdSelectable", 1)
-    break;
-
-
-case "hard":
-    SetText("InventoryCoins", "3")
-    AddClass("SettingsOptionHard", "tdSelected", 1)
-    break;
-
-default:
-    break;
-}
 
 
 
@@ -327,6 +281,8 @@ default:
 
 //-/- Új kör -\-\\
 function NewRound() {
+    Disabled("ButtonNewRound")
+    Disabled("ButtonSaveGame")
     Hidden("ButtonTown", true)
     Hidden("DivEnemyAttributes", false)
     do {
@@ -1195,7 +1151,11 @@ if (enemyAttackWithWeapon == true) {
     AddClass("PlayerActionSpell", "hover", 0)
     //GetElement("PlayerActionItem").classList.add("tdSelectable")
 
+    //Harc véget ért
     if (fighting == false) {
+
+        Enabled("ButtonNewRound")
+        Enabled("ButtonSaveGame")
         
                 //Mágia növelése 1-gyel
                 if (player.magic < GetText("PlayerStartMagic")) {
@@ -1553,10 +1513,15 @@ function SettingsTooltip(yesOrNo) {
 function OpenSettings() {
     HiddenSwitch('DivSettings')
 
+    Hidden("DivAccount", true)
+    AddClass("ButtonAccount", "buttonSelected", 0)
+
+
+    /*
     Hidden("DivSave", true)
     AddClass("ButtonSave", "buttonSelected", 0)
     Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)
+    AddClass("ButtonLoad", "buttonSelected", 0)*/
 
     if (GetElement('DivSettings').hidden == false) {
         GetElement('ButtonSettings').classList.add('buttonSelected')
@@ -1566,6 +1531,27 @@ function OpenSettings() {
 }
 
 
+function OpenAccount() {
+    HiddenSwitch('DivAccount')
+
+    Hidden("DivSettings", true)
+    AddClass("ButtonSettings", "buttonSelected", 0)
+
+
+    /*
+    Hidden("DivSave", true)
+    AddClass("ButtonSave", "buttonSelected", 0)
+    Hidden("DivLoad", true)
+    AddClass("ButtonLoad", "buttonSelected", 0)*/
+
+    if (GetElement('DivAccount').hidden == false) {
+        GetElement('ButtonAccount').classList.add('buttonSelected')
+    } else {
+        GetElement('ButtonAccount').classList.remove('buttonSelected')
+    }
+}
+
+/*
 function OpenSaveGame() {
     HiddenSwitch("DivSave")
 
@@ -1597,46 +1583,103 @@ function OpenLoadGame() {
         AddClass('ButtonLoad', 'buttonSelected', 0)
     }
 }
-
+*/
 
 
 
 
 //-/- Játék mentése -\-\\
-function SaveGame(saveName) {
-    let playerName = GetText("PlayerName")
+function SaveGame() {
+    if (GetValue("SaveName") == "") {
+        Message("Type a name first!", 1, ["", "", ""])
+    } else {
+        SaveGame2()
+    }
+}
 
-    let currentAttack = GetText("PlayerCurrentAttack")
-    let currentDefense = GetText("PlayerCurrentDefense")
-    let currentHp = GetText("PlayerCurrentHp")
-    let currentMagic = GetText("PlayerCurrentMagic")
+function SaveGame2(localSave = false) {
+    
+    let weapon = ""
+    let armor = ""
+    let shield = ""
+    let weaponDurability = ""
+    let armorDurability = ""
+    let shieldDurability = ""
+
+    
+    for (let i = 0; i < weaponListLength; i++) {
+        weapon += GetText(`InventoryWeapon${i+1}`)
+        weapon += "-"
+    }
+    for (let i = 0; i < armorListLength; i++) {
+        armor += GetText(`InventoryArmor${i+1}`)
+        armor += "-"
+    }
+    for (let i = 0; i < shieldListLength; i++) {
+        shield += GetText(`InventoryShield${i+1}`)
+        shield += "-"
+    }
 
 
-
-    let weaponsName = []
-    let weaponsDurability = []
-
-    let armors = []
-    let shields = []
 
     for (let i = 0; i < weaponListLength; i++) {
-        //let weapon = {name: GetText(`InventoryWeapon${i+1}`), durability: GetText(`InventoryWeapon${i+1}CurrentDurability`)}
-        weaponsName.push(GetText(`InventoryWeapon${i+1}`))
-        weaponsDurability.push(GetText(`InventoryWeapon${i+1}CurrentDurability`))
+        weaponDurability += GetText(`InventoryWeapon${i+1}CurrentDurability`)
+        weaponDurability += "-"
+    }
+    for (let i = 0; i < armorListLength; i++) {
+        armorDurability += GetText(`InventoryArmor${i+1}CurrentDurability`)
+        armorDurability += "-"
+    }
+    for (let i = 0; i < shieldListLength; i++) {
+        shieldDurability += GetText(`InventoryShield${i+1}CurrentDurability`)
+        shieldDurability += "-"
     }
 
-    localStorage.setItem("weaponsName", weaponsName)
-    localStorage.setItem("weaponsDurability", weaponsDurability)
 
-    localStorage.setItem("currentAttack", currentAttack)
-    localStorage.setItem("currentDefense", currentDefense)
-    localStorage.setItem("currentHp", currentHp)
-    localStorage.setItem("currentMagic", currentMagic)
+
+
+    let selectedItem1 = GetText("InventorySelectedWeaponSlot")
+    if (selectedItem1 == "") selectedItem1 = 0
+    let selectedItem2 = GetText("InventorySelectedArmorSlot")
+    if (selectedItem2 == "") selectedItem2 = 0
+    let selectedItem3 = GetText("InventorySelectedShieldSlot")
+    if (selectedItem3 == "") selectedItem3 = 0
+    
 
     let data = {
-        saveName: saveName,
-        playerName: playerName
+        saveName: GetValue("SaveName"),
+        playerName: GetText("PlayerName"),
+        PlayerAttack: GetText("PlayerStartAttack") + "-" + GetText("PlayerCurrentAttack"),
+        PlayerDefense: GetText("PlayerStartDefense") + "-" + GetText("PlayerCurrentDefense"),
+        PlayerHp: GetText("PlayerStartHp") + "-" + GetText("PlayerCurrentHp"),
+        PlayerMagic: GetText("PlayerStartMagic") + "-" + GetText("PlayerCurrentMagic"),
+        Weapons: weapon,
+        Armors: armor,
+        Shields: shield,
+        WeaponsDurability: weaponDurability,
+        ArmorsDurability: armorDurability,
+        ShieldsDurability: shieldDurability,
+        SelectedItems: selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3
     }
+    
+    if (localSave == true) {
+        localStorage.setItem("playerName", GetText("PlayerName"))
+
+        localStorage.setItem("playerAttack", GetText("PlayerStartAttack") + "-" + GetText("PlayerCurrentAttack"))
+        localStorage.setItem("playerDefense", GetText("PlayerStartDefense") + "-" + GetText("PlayerCurrentDefense"))
+        localStorage.setItem("playerHp", GetText("PlayerStartHp") + "-" + GetText("PlayerCurrentHp"))
+        localStorage.setItem("playerMagic", GetText("PlayerStartMagic") + "-" + GetText("PlayerCurrentMagic"))
+
+        localStorage.setItem("weapons", weapon)
+        localStorage.setItem("armors", armor)
+        localStorage.setItem("shields", shield)
+        localStorage.setItem("weaponsDurability", weaponDurability)
+        localStorage.setItem("armorsDurability", armorDurability)
+        localStorage.setItem("shieldsDurability", shieldDurability)
+        localStorage.setItem("selectedItems", selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3)
+
+
+    } else {
 
     postData(`${route}save`,data)
     .then((response) => {
@@ -1654,27 +1697,39 @@ function SaveGame(saveName) {
             console.log(error);
           }).finally(() => {
           });
+        }
 }
 
 
 function ClickLoadGame(saveName) {
-    LoadGame(saveName)
+    if (saveName == "") {
+        Message("Type a name first!", 1, ["", "", ""])
+    } else {
+        ClickLoadGame2(saveName)
+    }
 
+    
+    
+/*
     let weaponsString = localStorage.getItem("weaponsName")
     let weaponsNameList = weaponsString.split(",")
 
     SetText("PlayerCurrentAttack", localStorage.getItem("currentAttack"))
     SetText("PlayerCurrentDefense", localStorage.getItem("currentDefense"))
     SetText("PlayerCurrentHp", localStorage.getItem("currentHp"))
-    SetText("PlayerCurrentMagic", localStorage.getItem("currentMagic"))
+    SetText("PlayerCurrentMagic", localStorage.getItem("currentMagic"))*/
     
     //Log(weaponsNameList)
 
    // let weaponsDurability = localStorage.getItem("weaponsName")
-
+/*
     for (let i = 0; i < weaponsNameList.length; i++) {
         ReloadWeaponList(weaponsNameList[i])
-    }
+    }*/
+}
+
+function ClickLoadGame2(saveName) {
+    LoadGame(saveName)
 }
 
 

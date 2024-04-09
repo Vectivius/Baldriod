@@ -219,10 +219,47 @@ return response;
 
 
 //Mentett játék betöltése
-function LoadGame(name) {
-    getData(`${route}save/${name}`).then((save) => {
+function LoadGame(id) {
+    
+    getData(`${route}save/${id}`).then((save) => {
 
         localStorage.setItem("playerName", save[0].playerName)
+
+        localStorage.setItem("playerAttack", save[0].PlayerAttack)
+        localStorage.setItem("playerDefense", save[0].PlayerDefense)
+        localStorage.setItem("playerHp", save[0].PlayerHp)
+        localStorage.setItem("playerMagic", save[0].PlayerMagic)
+
+        localStorage.setItem("weapons", save[0].Weapons)
+        localStorage.setItem("armors", save[0].Armors)
+        localStorage.setItem("shields", save[0].Shields)
+
+        localStorage.setItem("weaponsDurability", save[0].WeaponsDurability)
+        localStorage.setItem("armorsDurability", save[0].ArmorsDurability)
+        localStorage.setItem("armorsDurability", save[0].ArmorsDurability)
+
+        localStorage.setItem("selectedItems", save[0].SelectedItems)
+
+
+        /*localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)
+        localStorage.setItem("playerName", save[0].playerName)*/
         location.href = "../play/pagePlay.html"
 
     })
@@ -242,6 +279,7 @@ function LoadGame(name) {
 
 //Üzenőablak
 function Message(messageText, messageType, nextFunction = ["", "", ""]) {
+
     if (messageType == 1) {
         Hidden("DivMessage2", true)
         Hidden("DivMessage1", false)
@@ -332,6 +370,7 @@ function Continue(type) {
             CloseItemList()
             break;
 
+
         // case "RemoveWeapon2":
         //     RemoveWeapon2()
         //     CloseWeaponList()
@@ -374,6 +413,13 @@ function Continue(type) {
 
 
 
+function logout() {
+    localStorage.clear()
+    location.href="../home/pageHome.html"
+}
+
+
+
 
 
 
@@ -390,6 +436,8 @@ function hidden2(id) {
         a.classList.add("hidden")
     }
 }
+
+
 /*
 https://stackoverflow.com/questions/19706147/how-to-hide-elements-with-smooth-transition-by-class-with-javascript
 */

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Baldriod - home</title>
     <link rel="stylesheet" type="text/css" href="../../bootstrap/dist/css/bootstrap.css" />    
     <link rel="stylesheet" href="../styleGeneral.css">
     <link rel="stylesheet" href="styleHome.css">
 
 </head>
 <body> 
+
 <div class="container-fluid">
     <div class="row no-gutters">
         <div class="col backgroundDark">
@@ -21,14 +22,52 @@
             <p>Baldriod</p>
         </div>
 
-                <div classs="center" id="DivHomePageButtons">
-                    <h3>Main menu</h3> 
 
-                        <button class="buttonn" onclick="location.href = '../newGame/pageNewGame.html'">New game</button> <br>
-                        <button class="buttonn" onclick="LoadGame(GetValue('SaveName'))">Load game</button> <br>
-                        <textarea id="SaveName" cols="30" rows="1" placeholder="Save name"></textarea>
+                        <div class="divRedBorder" id="DivHomePageButtons">
+                            <h3>Main menu</h3> 
+        
+                                    <button onclick="location.href = '../newGame/pageNewGame.html'">New game</button>
+    
+                                    <button hidden id="ButtonAccount" onclick="showAccount()">Account</button>
+            
+                                    <button id="ButtonReg" onclick="location.href = '../registerAndLogin/pageRegister.html'">Register</button>
+                                    <button id="ButtonLogin" onclick="location.href = '../registerAndLogin/pageLogin.html'">Login</button>
+    
+                                    <button id="ButtonAdmin" hidden onclick="location.href = '../admin/pageAdmin.html'">Admin page</button>
+    
+                                    <button hidden id="ButtonLoadGame" onclick="showSaves()">Saved games</button>
+                                    <textarea hidden id="TextareaSaveName" cols="30" rows="1" placeholder="Save name"></textarea>
+                        </div>
 
-                </div>
+                        <div hidden class="divRedBorder" id="DivUserAccount">
+                            <h3>User account</h3>
+                            <table>
+                                <tr>
+                                    <td>Email:</td> <td><input type="email" readonly id="UserEmail"></td>
+                                </tr>
+                            </table>
+                            <button id="ButtonLogout" onclick="logout()">Logout</button>
+                        </div>
+
+
+                        <div hidden class="divRedBorder" id="DivSaves">
+                            <table>
+                                <tr id="TrData" style="font-weight: bold;">
+                                </tr>
+                                <tbody id="TbodyData">
+                                    
+                                </tbody>
+                        
+                            </table>
+
+                            <button onclick="showSaves(true)">Back</button>
+                        </div>
+    
+                        
+                 <!-- <div class="column2">
+                        <div class="divRedBorder" id="DivUser">
+                        </div>
+                </div> -->
 
         
     </div> <!--/- Col -\-->
@@ -38,7 +77,7 @@
     </div> <!--/- Row -\-->
 </div>
 
-<script src="scriptLoadGame.js"></script>
+<script src="scriptHome.js"></script>
 <script src="../scriptGeneral.js"></script>
 
 

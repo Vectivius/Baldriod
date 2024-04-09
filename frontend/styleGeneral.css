@@ -561,6 +561,29 @@ td.hover {
     }  
 
 
+
+
+
+
+
+.divRedBorder {
+    box-shadow: 0 0 4px var(--red1);
+    text-align: center !important;
+    border: 2px solid var(--red1);
+    background-color: var(--light2);
+    border-radius: 0.8%;
+    margin: auto;
+    width: 20%; 
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+
+
+
+
+
 ::selection {
     color: rgb(255, 213, 0);
     background: maroon;
