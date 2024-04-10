@@ -88,6 +88,44 @@
 
 
 
+@media only screen and (min-width: 1061px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 20%; 
+   }
+}
+@media only screen and (max-width: 1060px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 25%;
+   }
+}
+@media only screen and (max-width: 990px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 30%;
+   }
+}
+@media only screen and (max-width: 820px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 35%;
+   }
+}
+@media only screen and (max-width: 600px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 40%;
+   }
+}
+@media only screen and (max-width: 350px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 55%;
+   }
+}
+@media only screen and (max-width: 200px) {
+   #DivHomePageButtons, #DivSaves {
+      width: 65%;
+   }
+}
+
+
+
 
 #DivHomePageButtons {
    box-shadow: 0 0 4px var(--red1);
@@ -96,7 +134,6 @@
    background-color: var(--light2);
    border-radius: 0.8%;
    margin: auto;
-   width: 20%; 
    padding-top: 40px;
    padding-bottom: 40px;
    margin-bottom: 30px;

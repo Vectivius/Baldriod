@@ -388,7 +388,8 @@ function ReloadShop1() {
     }
     let coins = GetText("InventoryCoins")
     if (cost > coins) {
-        Message(`You need ${cost} coins to reload the shop!`, 2, ["", "", ""])
+        unselectId = "ButtonReloadShop"
+        Message(`You need ${cost} coins to reload the shop!`, 1, ["UnselectElement", "", ""])
     } else {
         unselectId = "ButtonReloadShop"
         Message(`Do you want to reload the shop for ${cost} coins?`, 2, ["", "ReloadShop2", "UnselectElement"])

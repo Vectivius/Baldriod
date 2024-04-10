@@ -7,7 +7,8 @@ if (localStorage.getItem("email") != undefined) {
         Hidden("ButtonAdmin", true)
         Hidden("ButtonAccount", false)
         Hidden("ButtonLoadGame", false)
-        Hidden("TextareaSaveName", false)
+
+        loadSaves()
 
         SetValue("UserEmail", localStorage.getItem("email"))
         
@@ -40,7 +41,7 @@ function showSaves(hide = false) {
         Hidden("DivHomePageButtons", true)
         Hidden("DivUserAccount", true)
         Hidden("DivSaves", false)
-        loadSaves()    
+        
     }
 }
 
@@ -50,7 +51,7 @@ function showSaves(hide = false) {
 
 
 function loadSaves() {
-    getData(`${route}save/all/2`).then((data) => {
+    getData(`${route}save/all/${localStorage.getItem("userId")}`).then((data) => {
         console.log(data)
                 const Header = document.getElementById("TrData")
                 const Table = document.getElementById("TbodyData");

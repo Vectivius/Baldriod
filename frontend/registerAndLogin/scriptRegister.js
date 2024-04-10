@@ -51,6 +51,7 @@ function login() {
             if (!response.error) {
                 localStorage.setItem("email", response[0].userEmail)
                 localStorage.setItem("userLevel", response[0].userLevel)
+                localStorage.setItem("userId", response[0].id)
                 location.href="../home/pageHome.html"
             } else {
                 Message("Incorrect email or password!", 1, ["", "", ""])
@@ -58,6 +59,4 @@ function login() {
             
         })
     }
-
-
 }

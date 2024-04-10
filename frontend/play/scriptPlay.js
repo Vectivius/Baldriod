@@ -1516,6 +1516,12 @@ function OpenSettings() {
     Hidden("DivAccount", true)
     AddClass("ButtonAccount", "buttonSelected", 0)
 
+    Hidden("DivSave", true)
+    AddClass("ButtonSave", "buttonSelected", 0)
+
+    Hidden("DivLoad", true)
+    AddClass("ButtonLoad", "buttonSelected", 0)
+
 
     /*
     Hidden("DivSave", true)
@@ -1537,6 +1543,12 @@ function OpenAccount() {
     Hidden("DivSettings", true)
     AddClass("ButtonSettings", "buttonSelected", 0)
 
+    Hidden("DivSave", true)
+    AddClass("ButtonSave", "buttonSelected", 0)
+
+    Hidden("DivLoad", true)
+    AddClass("ButtonLoad", "buttonSelected", 0)
+
 
     /*
     Hidden("DivSave", true)
@@ -1551,12 +1563,16 @@ function OpenAccount() {
     }
 }
 
-/*
+
 function OpenSaveGame() {
     HiddenSwitch("DivSave")
 
     Hidden("DivSettings", true)
     AddClass("ButtonSettings", "buttonSelected", 0)
+
+    Hidden("DivAccount", true)
+    AddClass("ButtonAccount", "buttonSelected", 0)
+
     Hidden("DivLoad", true)
     AddClass("ButtonLoad", "buttonSelected", 0)
 
@@ -1573,6 +1589,10 @@ function OpenLoadGame() {
 
     Hidden("DivSettings", true)
     AddClass("ButtonSettings", "buttonSelected", 0)
+
+    Hidden("DivAccount", true)
+    AddClass("ButtonAccount", "buttonSelected", 0)
+
     Hidden("DivSave", true)
     AddClass("ButtonSave", "buttonSelected", 0)
 
@@ -1583,7 +1603,7 @@ function OpenLoadGame() {
         AddClass('ButtonLoad', 'buttonSelected', 0)
     }
 }
-*/
+
 
 
 
@@ -1648,6 +1668,7 @@ function SaveGame2(localSave = false) {
 
     let data = {
         saveName: GetValue("SaveName"),
+        userId: localStorage.getItem("userId"),
         playerName: GetText("PlayerName"),
         PlayerAttack: GetText("PlayerStartAttack") + "-" + GetText("PlayerCurrentAttack"),
         PlayerDefense: GetText("PlayerStartDefense") + "-" + GetText("PlayerCurrentDefense"),
@@ -1707,6 +1728,19 @@ function ClickLoadGame(saveName) {
     } else {
         ClickLoadGame2(saveName)
     }
+
+
+
+
+
+
+ 
+    
+    
+
+
+
+
 
     
     

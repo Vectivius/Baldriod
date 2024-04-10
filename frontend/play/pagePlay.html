@@ -72,10 +72,10 @@
        <table>
             <tr>
                 <td onclick="location.href = '../home/pageHome.html'">Back to home page</td>
-                <td onclick="SaveGame2(true)">Save game</td>
+                <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>
 
-                <!-- <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>
-                <td id="ButtonLoad" onclick="OpenLoadGame()">Load game</td> -->
+                <!-- <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>-->
+                <td hidden id="ButtonLoad" onclick="OpenLoadGame()">Load game</td> 
 
                 <td onclick="location.href = '../newGame/pageNewGame.html'">New game</td>
                 <td id="ButtonSettings" onclick="OpenSettings()">Settings</a>
@@ -121,21 +121,46 @@
 
 
     <!--/\-\- Mentés /-/\-->    <!-- Rejtett -->
-    <div class="collapsibleListElements absoluteCenter" hidden id="DivSave">
+    <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivSave">
         <div class="center">
-        <input id="SaveName" placeholder="name">
-        <button id="ButtonSaveGame" onclick="SaveGame(GetValue('SaveName'))">Save</button>
 
-    </div>
+        <button onclick="SaveGame2(true)">Save locally</button>
+
+
+        <div hidden id="DivSaveToServer">
+
+            <table>
+                <tr>
+                    <td><input id="SaveName" placeholder="name"></td> <th><button id="ButtonSaveGame" onclick="SaveGame(GetValue('SaveName'))">Save to server</button></th>
+                </tr>
+
+            </table>
+
+            
+            
+        </div>
+
+        </div>
     </div>
 
 
     <!--/\-\- Betöltés /-/\-->    <!-- Rejtett -->
-    <div class="collapsibleListElements absoluteCenter" hidden id="DivLoad">
+    <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivLoad">
         <div class="center">
 
-        <input id="LoadName" placeholder="name">
-        <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button>
+                <table>
+                    <tr id="TrData" style="font-weight: bold;">
+                    </tr>
+                    <tbody id="TbodyData">
+                        
+                    </tbody>
+            
+                </table>
+
+            
+
+            <!-- <input id="LoadName" placeholder="name">
+            <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button> -->
 
     </div>
     </div>

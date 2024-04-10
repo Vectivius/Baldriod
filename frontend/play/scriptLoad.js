@@ -1,9 +1,13 @@
+let difficulty = ""
+
 //Bejelentkezés ellenőrzés
 if (localStorage.getItem("email") != undefined) {
 
     setTimeout(() => {
 
         Hidden("ButtonAccount", false)
+        Hidden("ButtonLoad", false)
+        Hidden("DivSaveToServer", false)
 
 
         /*
@@ -19,11 +23,48 @@ if (localStorage.getItem("email") != undefined) {
         
         //Admin
         if (localStorage.getItem("userLevel") == 2) {
+            loadSaves()
             //Hidden("ButtonAdmin", false)
+            
         }
     }, 100)
 } 
 
+
+function loadSaves() {
+    getData(`${route}save/all/${localStorage.getItem("userId")}`).then((data) => {
+        console.log(data)
+                const Header = document.getElementById("TrData")
+                const Table = document.getElementById("TbodyData");
+
+                let th = Header.insertCell(); th.outerHTML =`<th> Name </th>`
+                 th = Header.insertCell(); th.outerHTML =`<th>  </th>`
+
+    for(let i = 0; i<10; i++)  {           
+        row = Table.insertRow();
+        console.log(data[i])
+
+        if (data[i] != undefined) {
+            td = row.insertCell()
+            td.innerHTML =`<td>${data[i].saveName}</td>`
+
+            td = row.insertCell()
+            td.innerHTML =`<td>Load</td>`
+            td.className = "tdSelectable"
+            td.id = `LoadSave-${data[i].id}`
+        }
+    }; 
+})
+.catch((error) => {
+console.error("Hiba történt:", error);
+});
+}
+
+document.body.addEventListener("click", (event) => {
+    if (event.target.id.includes('LoadSave') ) {
+        LoadGame(event.target.id.split("-")[1])
+    }
+})
 
 
 
@@ -126,7 +167,7 @@ if (localStorage.getItem("playerAttack") != undefined) {
 
     //Új játék
 } else {
-    let difficulty = localStorage.getItem('difficulty')
+    difficulty = localStorage.getItem('difficulty')
 
     SetPlayerAttributes(localStorage.getItem('startAttack'),localStorage.getItem('startDefense'),localStorage.getItem('startHp'),localStorage.getItem('startMagic'),localStorage.getItem('playerName'));
     
