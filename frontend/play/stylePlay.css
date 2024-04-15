@@ -180,14 +180,14 @@
     margin-bottom: 10px;
     margin-left: 30px;
  }
- 
+
 
  #DivSaveToServer td, #DivSaveToServer th {
     background-color: var(--light4);
     padding: 5px;
     border: none;
  }
- 
+
  #DivSaveToServer input, #DivSaveToServer button {
     border: none;
     margin-top: 2px;
@@ -198,14 +198,28 @@
  #DivSaveToServer button {
     /* width: 100%;
     margin-bottom: 10px; */
- } 
+ }
 
-
+ #DivSaves td, #DivSaves th {
+    border-right: none;
+    border-left: none;
+ }
+ 
+ #DivRenameSave {
+    margin-top: 10px;
+ }
+ #DivRenameSave input {
+    border: none;
+ }
+#DivRenameSave table, #DivRenameSave button {
+    width: 70%;
+}
 
 
 #DivLoad table {
-   border: 1px solid var(--brown);
-   width: 20%;
+   /* border: 1px solid var(--brown); */
+   width: 70%;
+   margin-bottom: 10px;
 }
 
 #DivLoad td, #DivLoad th {
@@ -224,19 +238,24 @@
 }
 
 /* Save, load */
-#DivSave button, #DivLoad button {
-    /* background-color: var(--light1);
-    border: none;
+    /* background-color: var(--light1); */
+        /* ; */
+
+#DivSave button:not(#ButtonSaveGame){
+    box-shadow: 0 0 3px var(--red1);
     border: solid 1px var(--red1);
-    box-shadow: 0 0 3px var(--red1); */
     line-height: normal;
 }
 
-#DivSave button:hover, #DivLoad button:hover {
+#DivSave button:hover:not(#ButtonSaveGame) {
     background-color: var(--yellow);
-    box-shadow: 0 0 10px var(--red1);
+    box-shadow: 00 0 10px var(--red1);
     transition: 100ms linear;
-    color: black;
+}
+#ButtonSaveGame:hover {
+    background-color: var(--yellow);
+    box-shadow: 00 0 10px var(--red1);
+    transition: 100ms linear;
 }
 
 
@@ -249,6 +268,37 @@
 
 
 
+.divAccount {
+    padding: 15px;
+    width: 70%;
+ }
+ 
+ .divAccount td {
+    border: none;
+ }
+ 
+ .divAccount input {
+    border: none;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    width: 95%;
+ }
+ 
+ .divAccount button, #DivSaves button {
+    width: 100%;
+ }
+ 
+ .divAccount table, #DivSaves table {
+    border: 1px solid var(--brown);
+    width: 100%;
+    margin-bottom: 10px;
+ }
+ 
+ .divAccount button {
+    margin-bottom: 10px;
+ }
+ 
 
 
 
@@ -323,7 +373,7 @@
     border: 0;
     margin: 0;
     box-shadow: none; */
-} 
+}
 .buttonActionEnabled {
     background-color: var(--light3);
 }
@@ -372,7 +422,7 @@
     transition: 100ms linear;
 }
 
-#MainColumn2 button, #MainColumn2 table /* table:not(.tableInventoryHidden)*/ {
+#MainColumn2 button, #MainColumn2 table {
     width: 100%;
 }
 #MainColumn2 button {
@@ -497,7 +547,7 @@
     border: 1px solid var(--brown);
     padding: 5px;
     font-size: 16px;
-    cursor: pointer; 
+    cursor: pointer;
 } */
 
 /* #ButtonNewRound:hover {
@@ -635,7 +685,7 @@ img {
 
 
 
-/* 
+/*
 
 #Map {
     border-collapse: collapse;
@@ -664,12 +714,11 @@ area {
 .hidden {
     transition: 100ms linear;
     visibility: hidden;
-    
+
 }
 .visible {
     background-color: rgba(0, 0, 0, 0.329);
     transition: 100ms linear;
     visibility: visible;
 }
-
 

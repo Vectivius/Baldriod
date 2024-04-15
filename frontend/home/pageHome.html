@@ -23,12 +23,36 @@
         </div>
 
 
+
+                <!--/\-\- Üzenőablak /-/\-->
+                <div id="DivMessageBg">
+                    <div id="DivMessage" class="center">            
+            
+                    <div id="DivMessage1" class="collapsibleListElements">
+                        <p id="Message1"></p>
+                        <button id="MessageButtonContinue" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Continue')">Continue</button>
+                    </div>
+            
+                    <div id="DivMessage2" class="collapsibleListElements">
+                        <p id="Message2"></p>
+                        <button id="MessageButtonYes" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Yes')">Yes</button>
+                        <button id="MessageButtonNo"  onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg';callNewFunction('No');">No</button>
+                    </div>
+            
+                </div>
+                </div>
+
+
+
+
                         <div class="divRedBorder" id="DivHomePageButtons">
                             <h3>Main menu</h3> 
         
                                     <button onclick="location.href = '../newGame/pageNewGame.html'">New game</button>
 
                                     <button onclick="location.href = '../play/pagePlay.html'">Load local save</button>
+
+                                    <button hidden id="ButtonLoadGame" onclick="showSaves()">Saved games</button>
     
                                     <button hidden id="ButtonAccount" onclick="showAccount()">Account</button>
             
@@ -37,33 +61,95 @@
     
                                     <button id="ButtonAdmin" hidden onclick="location.href = '../admin/pageAdmin.html'">Admin page</button>
     
-                                    <button hidden id="ButtonLoadGame" onclick="showSaves()">Saved games</button>
                                     <!-- <textarea hidden id="TextareaSaveName" cols="30" rows="1" placeholder="Save name"></textarea> -->
                         </div>
 
-                        <div hidden class="divRedBorder" id="DivUserAccount">
+
+
+
+
+
+
+
+
+
+
+
+                        <div hidden class="divRedBorder divAccount" id="DivUserAccount">
                             <h3>User account</h3>
+
                             <table>
+                                <tr>
+                                    <td>Name:</td> <td><input type="text" readonly id="UserName"></td>
+                                </tr>
                                 <tr>
                                     <td>Email:</td> <td><input type="email" readonly id="UserEmail"></td>
                                 </tr>
                             </table>
+
+                            <button onclick="showAccountEdit()">Edit account</button>
+
                             <button id="ButtonLogout" onclick="logout()">Logout</button>
+                            <button id="" onclick="showAccount(true)">Back</button>
                         </div>
 
 
+
+                        <div hidden class="divRedBorder divAccount" id="DivEditAccount">
+                            <h3>Edit account</h3>
+
+                            <table>
+                                <tr>
+                                    <td>Name:</td> <td><input type="text" id="EditName"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td> <td><input type="email" id="EditEmail"></td>
+                                </tr>
+                                <tr>
+                                    <td>Password:</td> <td><input type="password" id="EditPassword"></td>
+                                </tr>
+                            </table>
+
+                            <button id="CypressSaveAccount" onclick="saveEditedAccount()">Save</button>
+                            <button id="CypressSaveBack" onclick="showAccountEdit(true)">Back</button>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
                         <div hidden class="divRedBorder" id="DivSaves">
+
                             <table>
                                 <tr id="TrData" style="font-weight: bold;">
                                 </tr>
                                 <tbody id="TbodyData">
-                                    
                                 </tbody>
-                        
                             </table>
 
                             <button onclick="showSaves(true)">Back</button>
+
+                            <!-- Rename-->
+                            <div hidden id="DivRenameSave">
+                                <table class="tableBig">
+                                    <tr>
+                                        <td>New name:</td> <td><input type="text" id="NewSaveName"></td>
+                                    </tr>
+                                </table>
+
+                                <button id="CypressSaveNewSaveName" onclick="renameSave()">Save</button>
+                            </div>
+
                         </div>
+
+
     
                         
                  <!-- <div class="column2">

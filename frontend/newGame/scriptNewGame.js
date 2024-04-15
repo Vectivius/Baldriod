@@ -6,23 +6,23 @@ var maxAttributes = 46;
 /* Nehézség */
 const AreaNewGameDifficulty = document.getElementById("AreaNewGameDifficulty")
 AreaNewGameDifficulty.addEventListener("mouseleave", function() {
-    Hidden("NewGameDifficulty", true)
+    hidden("NewGameDifficulty", true)
     document.getElementById("ButtonNewGameDifficulty").classList.remove("hover")
 })
 AreaNewGameDifficulty.addEventListener("mouseover", function () {
-    Hidden("NewGameDifficulty", false)
+    hidden("NewGameDifficulty", false)
     document.getElementById("ButtonNewGameDifficulty").classList.add("hover")
 })
 
 /* Kezdőértékek megadásának módja */
 const AreaNewGameAttributes = document.getElementById("AreaNewGameAttributes")
 AreaNewGameAttributes.addEventListener("mouseleave", function() {
-    Hidden("NewGameAttributes", true)
-    AddClass("ButtonAttributesList", "hover", 0)
+    hidden("NewGameAttributes", true)
+    addClass("ButtonAttributesList", "hover", 0)
 })
 AreaNewGameAttributes.addEventListener("mouseover", function () {
-    Hidden("NewGameAttributes", false)
-    AddClass("ButtonAttributesList", "hover", 1)
+    hidden("NewGameAttributes", false)
+    addClass("ButtonAttributesList", "hover", 1)
 })
 
 
@@ -38,49 +38,49 @@ AreaNewGameAttributes.addEventListener("mouseover", function () {
 
 
 //-/- Nehézség kiválasztása -\-\\
-function NewGameDifficulty(difficulty) {
-   let a = GetText("LabelAttributesMode");
+function newGameDifficulty(difficulty) {
+   let a = getText("LabelAttributesMode");
     switch (difficulty) {
         case "Easy":
-            SetText("SettingsLabelDifficulty", `Easy`);
-            AddClass("SettingsOptionEasy", `tdSelected`, 1);
-            AddClass("SettingsOptionMedium", `tdSelected`, 0);
-            AddClass("SettingsOptionHard", `tdSelected`, 0);
+            setText("SettingsLabelDifficulty", `Easy`);
+            addClass("SettingsOptionEasy", `tdSelected`, 1);
+            addClass("SettingsOptionMedium", `tdSelected`, 0);
+            addClass("SettingsOptionHard", `tdSelected`, 0);
 
-            if (GetText("LabelAttributesMode").includes("Selectable")) {
-                SetText("LabelAttributesMode", `Selectable (total: 52)`);
+            if (getText("LabelAttributesMode").includes("Selectable")) {
+                setText("LabelAttributesMode", `Selectable (total: 52)`);
             }
-            SetText("SettingsOptionSelect", `Selectable (total: 52)`);
+            setText("SettingsOptionSelect", `Selectable (total: 52)`);
             maxAttributes=52;
-            SetNewGameAttributes();
+            setNewGameAttributes();
             break;
 
         case "Medium":
-            SetText("SettingsLabelDifficulty", `Medium`);
-            AddClass("SettingsOptionEasy", `tdSelected`, 0);
-            AddClass("SettingsOptionMedium", `tdSelected`, 1);
-            AddClass("SettingsOptionHard", `tdSelected`, 0);
+            setText("SettingsLabelDifficulty", `Medium`);
+            addClass("SettingsOptionEasy", `tdSelected`, 0);
+            addClass("SettingsOptionMedium", `tdSelected`, 1);
+            addClass("SettingsOptionHard", `tdSelected`, 0);
 
-            if (GetText("LabelAttributesMode").includes("Selectable")) {
-                SetText("LabelAttributesMode", `Selectable (total: 46)`);
+            if (getText("LabelAttributesMode").includes("Selectable")) {
+                setText("LabelAttributesMode", `Selectable (total: 46)`);
             }
-            SetText("SettingsOptionSelect", `Selectable (total: 46)`); 
+            setText("SettingsOptionSelect", `Selectable (total: 46)`); 
             maxAttributes=46;
-            SetNewGameAttributes();
+            setNewGameAttributes();
             break;
 
         case "Hard":
-            SetText("SettingsLabelDifficulty", `Hard`);
-            AddClass("SettingsOptionEasy", `tdSelected`, 0);
-            AddClass("SettingsOptionMedium", `tdSelected`, 0);
-            AddClass("SettingsOptionHard", `tdSelected`, 1);
+            setText("SettingsLabelDifficulty", `Hard`);
+            addClass("SettingsOptionEasy", `tdSelected`, 0);
+            addClass("SettingsOptionMedium", `tdSelected`, 0);
+            addClass("SettingsOptionHard", `tdSelected`, 1);
 
-            if (GetText("LabelAttributesMode").includes("Selectable")) {
-                SetText("LabelAttributesMode", `Selectable (total: 40)`);
+            if (getText("LabelAttributesMode").includes("Selectable")) {
+                setText("LabelAttributesMode", `Selectable (total: 40)`);
             }
-            SetText("SettingsOptionSelect", `Selectable (total: 40)`);  
+            setText("SettingsOptionSelect", `Selectable (total: 40)`);  
             maxAttributes=40;
-            SetNewGameAttributes();
+            setNewGameAttributes();
             break;
     
         default:
@@ -91,15 +91,15 @@ function NewGameDifficulty(difficulty) {
 
 
 //-/- Kezdőértékek megadásának módjának kiválasztása -\-\\
-function NewGameAttributes(mode) {
+function newGameAttributes(mode) {
     if (mode=="Random") {
-        AddClass("SettingsOptionRandom", `tdSelected`, 1);
-        AddClass("SettingsOptionSelect", `tdSelected`, 0);
+        addClass("SettingsOptionRandom", `tdSelected`, 1);
+        addClass("SettingsOptionSelect", `tdSelected`, 0);
 
-        SetText("LabelAttributesMode", "Random")
-        Enabled("ButtonGenerate");
-        Disabled("SetAmount");
-        SetValue("SetAmount", "")
+        setText("LabelAttributesMode", "Random")
+        enabled("ButtonGenerate");
+        disabled("SetAmount");
+        setValue("SetAmount", "")
         let list = document.querySelectorAll(".setAttributePlus") 
         for (let i = 0; i < list.length; i++) {
             list[i].innerHTML = ""
@@ -115,13 +115,13 @@ function NewGameAttributes(mode) {
         }
     }
     else {
-        AddClass("SettingsOptionRandom", `tdSelected`, 0)
-        AddClass("SettingsOptionSelect", `tdSelected`, 1)
+        addClass("SettingsOptionRandom", `tdSelected`, 0)
+        addClass("SettingsOptionSelect", `tdSelected`, 1)
 
-        SetText("LabelAttributesMode", String(GetText("SettingsOptionSelect")))
-        Disabled("ButtonGenerate")
-        Enabled("SetAmount")
-        SetValue("SetAmount", "10")
+        setText("LabelAttributesMode", String(getText("SettingsOptionSelect")))
+        disabled("ButtonGenerate")
+        enabled("SetAmount")
+        setValue("SetAmount", "10")
         let list = document.querySelectorAll(".setAttributePlus") 
         for (let i = 0; i < list.length; i++) {
             list[i].innerHTML = "+"
@@ -135,8 +135,8 @@ function NewGameAttributes(mode) {
             list[i].classList.add("tdSelectable")
             list[i].disabled=true;
         }
-        SetNewGameAttributes()
-        Disabled("ButtonStartGame")
+        setNewGameAttributes()
+        disabled("ButtonStartGame")
     }
 }
 
@@ -161,13 +161,13 @@ function NewGameAttributes(mode) {
 
 
 //-/- Véletlen kezdőértékek -\-\\
-function Generate() {
-    let Attack=RandomNumber(6,9);
-    let Defense=RandomNumber(11,15);
-    let HP=RandomNumber(12,18);
-    let Magic=RandomNumber(6,15);
-    SetNewGameAttributes(Attack,Defense,HP,Magic)
-    Enabled("ButtonStartGame")
+function generateAttributes() {
+    let Attack=randomNumber(6,9);
+    let Defense=randomNumber(11,15);
+    let HP=randomNumber(12,18);
+    let Magic=randomNumber(6,15);
+    setNewGameAttributes(Attack,Defense,HP,Magic)
+    enabled("ButtonStartGame")
 }
 
 
@@ -180,11 +180,10 @@ function Generate() {
 
 
 
-
 //-/- Kiválasztható kezdőértékek -\-\\
-function SetAttribute(increase, type) {
-    if (GetText("LabelAttributesMode").includes("Selectable")) {
-        let sum=Number(GetText("NewGamePlayerAttack"))+Number(GetText("NewGamePlayerDefense"))+Number(GetText("NewGamePlayerHP"))+Number(GetText("NewGamePlayerMagic"))
+function changeAttribute(increase, type) {
+    if (getText("LabelAttributesMode").includes("Selectable")) {
+        let sum=Number(getText("NewGamePlayerAttack"))+Number(getText("NewGamePlayerDefense"))+Number(getText("NewGamePlayerHP"))+Number(getText("NewGamePlayerMagic"))
         let id="";
         let amount = Number(document.getElementById("SetAmount").value);
         switch (type) {
@@ -207,36 +206,36 @@ function SetAttribute(increase, type) {
         //Növelés
         if (increase == true) {
             if (sum<maxAttributes) {
-                let a=Number(GetText(id));
+                let a=Number(getText(id));
                 let b = sum+amount-1;
                 if (b<maxAttributes) {
-                    SetText(id, `${a+amount}`);
+                    setText(id, `${a+amount}`);
                     //Mennyi elérhető még
                     if (amount>0) {
-                        SetText("LabelAttributesMode", `Selectable (total: ${maxAttributes}/${sum+amount})`);
+                        setText("LabelAttributesMode", `Selectable (total: ${maxAttributes}/${sum+amount})`);
                     }
                 }
     
             }
             //Kezdőgomb elérhető
-            if (GetText("NewGamePlayerAttack") != "0" && GetText("NewGamePlayerDefense") != "0" && GetText("NewGamePlayerHP") != "0" && GetText("NewGamePlayerMagic") != "0"){
-                Enabled("ButtonStartGame")
+            if (getText("NewGamePlayerAttack") != "0" && getText("NewGamePlayerDefense") != "0" && getText("NewGamePlayerHP") != "0" && getText("NewGamePlayerMagic") != "0"){
+                enabled("ButtonStartGame")
             }
 
           //Csökkentés
-        } else if (GetText(id) >0 ) {
-            Disabled("ButtonStartGame")
-            let a=Number(GetText(id));
+        } else if (getText(id) >0 ) {
+            disabled("ButtonStartGame")
+            let a=Number(getText(id));
     
             if (a-amount>=0) {
-                SetText(id, `${a-amount}`);
+                setText(id, `${a-amount}`);
                 //Mennyi elérhető még
-                SetText("LabelAttributesMode", `Selectable (total: ${maxAttributes}/${sum-amount})`);
+                setText("LabelAttributesMode", `Selectable (total: ${maxAttributes}/${sum-amount})`);
             }
                 
             //Kezdőgomb elérhető
-            if (GetText("NewGamePlayerAttack") != "0" && GetText("NewGamePlayerDefense") != "0" && GetText("NewGamePlayerHP") != "0" && GetText("NewGamePlayerMagic") != "0"){
-                Enabled("ButtonStartGame")
+            if (getText("NewGamePlayerAttack") != "0" && getText("NewGamePlayerDefense") != "0" && getText("NewGamePlayerHP") != "0" && getText("NewGamePlayerMagic") != "0"){
+                enabled("ButtonStartGame")
             }
             }
     }
@@ -248,11 +247,11 @@ function SetAttribute(increase, type) {
 
 
 //-/- Kezdőértékek beállítása -\-\\
-function SetNewGameAttributes(a=0,b=0,c=0,d=0) {
-    SetText("NewGamePlayerAttack", a);
-    SetText("NewGamePlayerDefense", b);
-    SetText("NewGamePlayerHP", c);
-    SetText("NewGamePlayerMagic", d);    
+function setNewGameAttributes(a=0,b=0,c=0,d=0) {
+    setText("NewGamePlayerAttack", a);
+    setText("NewGamePlayerDefense", b);
+    setText("NewGamePlayerHP", c);
+    setText("NewGamePlayerMagic", d);    
 }
 
 
@@ -260,15 +259,15 @@ function SetNewGameAttributes(a=0,b=0,c=0,d=0) {
 
 
 //Játék kezdőse, adatok elküldése a játék oldalra
-function StartGame() {
-    let Attack=GetText("NewGamePlayerAttack")
-    let Defense=GetText("NewGamePlayerDefense")
-    let HP=GetText("NewGamePlayerHP")
-    let Magic=GetText("NewGamePlayerMagic")
-    let Name=GetValue("NewGamePlayerName")
+function startGame() {
+    let Attack=getText("NewGamePlayerAttack")
+    let Defense=getText("NewGamePlayerDefense")
+    let HP=getText("NewGamePlayerHP")
+    let Magic=getText("NewGamePlayerMagic")
+    let Name=getValue("NewGamePlayerName")
     if (Name=="") Name="Player";
 
-    difficulty=GetText("SettingsLabelDifficulty").toLowerCase()
+    difficulty=getText("SettingsLabelDifficulty").toLowerCase()
     
     localStorage.setItem("startAttack", Attack);
     localStorage.setItem("startDefense", Defense);
@@ -279,4 +278,3 @@ function StartGame() {
 
     localStorage.removeItem("playerAttack")
 }
-

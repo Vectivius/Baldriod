@@ -65,7 +65,7 @@ table {
     padding-top: 35px;
     padding-bottom: 25px;
     border-bottom: 2px solid var(--red1);
-    box-shadow: 0 0 10px var(--red1);
+    box-shadow: 0 0 10px var(--red1),0 0 3px var(--red1) inset;
     margin-bottom: 60px;
 
     position: relative;

@@ -100,7 +100,7 @@ let itemList = [
 
 let enemyList = []
 
-let player = GetPlayer()
+let player = getPlayer()
 
 
 //Increase or decrease during fight
@@ -280,37 +280,37 @@ getData(`${route}enemy`).then((enemy) => {
 
 
 //-/- Új kör -\-\\
-function NewRound() {
-    Disabled("ButtonNewRound")
-    Disabled("ButtonSaveGame")
-    Hidden("ButtonTown", true)
-    Hidden("DivEnemyAttributes", false)
+function newRound() {
+    disabled("ButtonNewRound")
+    disabled("ButtonSaveGame")
+    disabled("ButtonTown")
+    hidden("DivEnemyAttributes", false)
     do {
-        enemyId=RandomNumber(0,enemyList.length-1);
+        enemyId=randomNumber(0,enemyList.length-1);
     } while (enemyList[enemyId].level > difficultyLevel)
         
-        NewEnemy(enemyId)
+        newEnemy(enemyId)
 }
 
 
 
 //-/- Új ellenség -\-\\
-function NewEnemy(id) {
+function newEnemy(id) {
     fighting = true
-    EnableInventory(2)
-    SetText("EnemyName",enemyList[id].name);
-    SetText("EnemyAttack",enemyList[id].attack);
-    SetText("EnemyDefense",enemyList[id].defense);
-    SetText("EnemyHp",enemyList[id].hp);
-    SetText("EnemyDamage",enemyList[id].damage);
-    SetText("EnemyArmor",enemyList[id].armor);
-    SetText("EnemyMagic",enemyList[id].magic);
+    enableInventory(2)
+    setText("EnemyName",enemyList[id].name);
+    setText("EnemyAttack",enemyList[id].attack);
+    setText("EnemyDefense",enemyList[id].defense);
+    setText("EnemyHp",enemyList[id].hp);
+    setText("EnemyDamage",enemyList[id].damage);
+    setText("EnemyArmor",enemyList[id].armor);
+    setText("EnemyMagic",enemyList[id].magic);
 
-    enemy = GetCurrentEnemy()
+    enemy = getCurrentEnemy()
     
 
-    Hidden("PlayerActionAttack", false)
-    Hidden("PlayerActionSpell", false)
+    hidden("PlayerActionAttack", false)
+    hidden("PlayerActionSpell", false)
 }
 
 
@@ -324,12 +324,12 @@ function NewEnemy(id) {
 
 
 //-/- Játékos értékek lekérése -\-\\
-function GetPlayer() {
-    let n=GetText("PlayerName");
-    let a=Number(GetText("PlayerCurrentAttack"));
-    let d=Number(GetText("PlayerCurrentDefense"));
-    let h=Number(GetText("PlayerCurrentHp"));
-    let m=Number(GetText("PlayerCurrentMagic"));
+function getPlayer() {
+    let n=getText("PlayerName");
+    let a=Number(getText("PlayerCurrentAttack"));
+    let d=Number(getText("PlayerCurrentDefense"));
+    let h=Number(getText("PlayerCurrentHp"));
+    let m=Number(getText("PlayerCurrentMagic"));
     let wd=0
     
     let w=null
@@ -338,24 +338,24 @@ function GetPlayer() {
     
 
     //Weapon
-    if (GetText("InventorySelectedWeaponSlot") != "") {
-        w = GetWeapon(GetText("InventorySelectedWeapon"))
-        w.slot = GetText("InventorySelectedWeaponSlot")
-        w.currentDurability = GetText(`InventoryWeapon${w.slot}CurrentDurability`)
+    if (getText("InventorySelectedWeaponSlot") != "") {
+        w = getWeapon(getText("InventorySelectedWeapon"))
+        w.slot = getText("InventorySelectedWeaponSlot")
+        w.currentDurability = getText(`InventoryWeapon${w.slot}CurrentDurability`)
     }
 
     //Armor
-    if (GetText("InventorySelectedArmorSlot") != "") {
-        ar = GetArmor(GetText("InventorySelectedArmor"))
-        ar.slot = GetText("InventorySelectedArmorSlot")
-        ar.currentDurability = GetText(`InventoryArmor${ar.slot}CurrentDurability`)
+    if (getText("InventorySelectedArmorSlot") != "") {
+        ar = getArmor(getText("InventorySelectedArmor"))
+        ar.slot = getText("InventorySelectedArmorSlot")
+        ar.currentDurability = getText(`InventoryArmor${ar.slot}CurrentDurability`)
     }
 
     //Shield
-    if (GetText("InventorySelectedShieldSlot") != "") {
-        s = GetShield(GetText("InventorySelectedShield"))
-        s.slot = GetText("InventorySelectedShieldSlot")
-        s.currentDurability = GetText(`InventoryShield${s.slot}CurrentDurability`)
+    if (getText("InventorySelectedShieldSlot") != "") {
+        s = getShield(getText("InventorySelectedShield"))
+        s.slot = getText("InventorySelectedShieldSlot")
+        s.currentDurability = getText(`InventoryShield${s.slot}CurrentDurability`)
     }
 
     let data = {name: n, attack: a, defense: d, hp: h, magic: m, weapon:w, armor:ar, shield:s}
@@ -365,14 +365,14 @@ function GetPlayer() {
 
 
 //-/- Ellenség lekérése -\-\\
-function GetCurrentEnemy() {
-    let n=GetText("EnemyName");
-    let a=Number(GetText("EnemyAttack"));
-    let d=Number(GetText("EnemyDefense"));
-    let h=Number(GetText("EnemyHp"));
-    let da=String(GetText("EnemyDamage"));
-    let ar=Number(GetText("EnemyArmor"));
-    let m=Number(GetText("EnemyMagic"));
+function getCurrentEnemy() {
+    let n=getText("EnemyName");
+    let a=Number(getText("EnemyAttack"));
+    let d=Number(getText("EnemyDefense"));
+    let h=Number(getText("EnemyHp"));
+    let da=String(getText("EnemyDamage"));
+    let ar=Number(getText("EnemyArmor"));
+    let m=Number(getText("EnemyMagic"));
     let enemy = {name: n, attack: a, defense: d, hp: h, damage: da, armor: ar, magic: m}
     return enemy
 }
@@ -399,7 +399,7 @@ function GetCurrentEnemy() {
 //-/- Egy körben lévő sebzés -\-\\
 let damageThisRound = {hp: 0, attack: 0, defense: 0, magic: 0}
 
-function SetDamageThisRound(hp=0, attack=0, defense=0, magic=0) {
+function setDamageThisRound(hp=0, attack=0, defense=0, magic=0) {
     damageThisRound.hp=hp
     damageThisRound.attack=attack
     damageThisRound.defense=defense
@@ -421,25 +421,25 @@ function SetDamageThisRound(hp=0, attack=0, defense=0, magic=0) {
 
 
 //-/- Játékos varázslat -\-\\
-function PlayerActionSpell(scrollName = null, scrollPlace = null) {
-    if (HasClass("PlayerActionSpell", "tdSelectable")) {
+function playerActionSpell(scrollName = null, scrollPlace = null) {
+    if (hasClass("PlayerActionSpell", "tdSelectable")) {
     
-        AddClass("PlayerActionSpell", "tdSelectable", 0)
-        AddClass("PlayerActionSpell", "hover", 1)
+        addClass("PlayerActionSpell", "tdSelectable", 0)
+        addClass("PlayerActionSpell", "hover", 1)
         //Ellenség és játékos adatai
-        player = GetPlayer()
-        enemy = GetCurrentEnemy()
+        player = getPlayer()
+        enemy = getCurrentEnemy()
         let spell = null
     
-        if(GetText("InventoryChoosenSpell") != "none" || scrollName != null) {
+        if(getText("InventoryChoosenSpell") != "none" || scrollName != null) {
 
     
         //Varázslat választás
         if (scrollName == null) {
-            spell = GetSpell(GetText("InventoryChoosenSpell"))
+            spell = getSpell(getText("InventoryChoosenSpell"))
             generalId = 0
         } else {
-            spell = GetSpell(scrollName.split(" ")[0])
+            spell = getSpell(scrollName.split(" ")[0])
             generalId = scrollPlace
         }
 
@@ -456,7 +456,7 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
         if (spell.attack.includes("-")) {
             minAttack = Number(spell.attack.split("-")[0])
             maxAttack = Number(spell.attack.split("-")[1])
-            attack = Number(RandomNumber(minAttack, maxAttack))
+            attack = Number(randomNumber(minAttack, maxAttack))
         } else {
             attack = Number(spell.attack)
         }
@@ -464,7 +464,7 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
         if (spell.defense.includes("-")) {
             minDefense = Number(spell.defense.split("-")[0])
             maxDefense = Number(spell.defense.split("-")[1])
-            defense = Number(RandomNumber(minDefense, maxDefense))
+            defense = Number(randomNumber(minDefense, maxDefense))
         } else {
             defense = Number(spell.defense)
         }
@@ -472,7 +472,7 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
         if (spell.hp.includes("-")) {
             minHp = Number(spell.hp.split("-")[0])
             maxHp = Number(spell.hp.split("-")[1])
-            hp = Number(RandomNumber(minHp, maxHp))
+            hp = Number(randomNumber(minHp, maxHp))
         } else {
             hp = Number(spell.hp)
         }
@@ -500,15 +500,15 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
     
             //Üzenet összerakás
             if (attack != 0) {
-                SetColor("EnemyAttack", "var(--red1)")
-                SetText("EnemyAttack", `${GetText('EnemyAttack')}-${attack}`)
+                setColor("EnemyAttack", "var(--red1)")
+                setText("EnemyAttack", `${getText('EnemyAttack')}-${attack}`)
                 enemy.attack -= attack
                 messageString+=messageString2.concat(` ${attack} attack`)
             }
     
             if (defense != 0) {
-                SetColor("EnemyDefense", "var(--red1)")
-                SetText("EnemyDefense", `${GetText('EnemyDefense')}-${defense}`)
+                setColor("EnemyDefense", "var(--red1)")
+                setText("EnemyDefense", `${getText('EnemyDefense')}-${defense}`)
                 enemy.defense -= defense
                 if (attack != 0) {
                     messageString+=messageString2.concat(`, ${defense} defense`)
@@ -519,8 +519,8 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
             }
     
             if (hp != 0) {
-                SetColor("EnemyHp", "var(--red1)")
-                SetText("EnemyHp", `${GetText('EnemyHp')}-${hp}`)
+                setColor("EnemyHp", "var(--red1)")
+                setText("EnemyHp", `${getText('EnemyHp')}-${hp}`)
                 enemy.hp -= hp
     
                 if (attack != 0 || defense != 0) {
@@ -529,12 +529,12 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
                     messageString+=messageString2.concat(` ${hp} health`)
                 }
             }
-            Message(`${player.name} uses ${spell.name}<br> ${enemy.name} loses`+ messageString,1, ["PlayerActionSpell2", "", ""])
+            sendMessage(`${player.name} uses ${spell.name}<br> ${enemy.name} loses`+ messageString,1, ["PlayerActionSpell2", "", ""])
     
             //Player magic decrease
             player.magic -=spell.cost
-            SetColor("PlayerCurrentMagic", "var(--red1)")
-            SetText("PlayerCurrentMagic", `${GetText('PlayerCurrentMagic')}-${spell.cost}`)
+            setColor("PlayerCurrentMagic", "var(--red1)")
+            setText("PlayerCurrentMagic", `${getText('PlayerCurrentMagic')}-${spell.cost}`)
     
         } else if (spell.type = "defense") {
                 
@@ -543,19 +543,19 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
             
                     //Üzenet összerakás
                     if (attack != 0) {
-                        SetColor("EnemyAttack", "var(--red1)")
-                        SetText("EnemyAttack", `${GetText('EnemyAttack')}+${attack}`)
+                        setColor("EnemyAttack", "var(--red1)")
+                        setText("EnemyAttack", `${getText('EnemyAttack')}+${attack}`)
                         attackModifier+=attack
-                        SetText("PlayerAttackModifier", attackModifier)
+                        setText("PlayerAttackModifier", attackModifier)
                         player.attack += attack
                         messageString+=messageString2.concat(` ${attack} attack`)
                     }
             
                     if (defense != 0) {
-                        SetColor("PlayerCurrentDefense", "var(--red1)")
-                        SetText("PlayerCurrentDefense", `${GetText('PlayerCurrentDefense')}+${defense}`)
+                        setColor("PlayerCurrentDefense", "var(--red1)")
+                        setText("PlayerCurrentDefense", `${getText('PlayerCurrentDefense')}+${defense}`)
                         defenseModifier+=defense
-                        SetText("PlayerDefenseModifier", defenseModifier)
+                        setText("PlayerDefenseModifier", defenseModifier)
                         player.defense += defense
                         if (attack != 0) {
                             messageString+=messageString2.concat(`, ${defense} defense`)
@@ -566,10 +566,10 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
                     }
             
                     if (hp != 0) {
-                        SetColor("PlayerCurrentHp", "var(--red1)")
-                        SetText("PlayerCurrentHp", `${GetText('PlayerCurrentHp')}+${hp}`)
+                        setColor("PlayerCurrentHp", "var(--red1)")
+                        setText("PlayerCurrentHp", `${getText('PlayerCurrentHp')}+${hp}`)
                         // hpModifier+=hp
-                        // SetText("PlayerHpModifier", hpModifier)
+                        // setText("PlayerHpModifier", hpModifier)
                         player.hp += hp
             
                         if (attack != 0 || defense != 0) {
@@ -578,20 +578,20 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
                             messageString+=messageString2.concat(` ${hp} health`)
                         }
                     }
-                    Message(`${player.name} uses ${spell.name}<br> ${player.name} gains`+ messageString,1, ["PlayerActionSpell2", "", ""])
+                    sendMessage(`${player.name} uses ${spell.name}<br> ${player.name} gains`+ messageString,1, ["PlayerActionSpell2", "", ""])
             
                     //Játekos mágia csökkentése
                     player.magic -=spell.cost
-                    SetColor("PlayerCurrentMagic", "var(--red1)")
-                    SetText("PlayerCurrentMagic", `${GetText('PlayerCurrentMagic')}-${spell.cost}`)
+                    setColor("PlayerCurrentMagic", "var(--red1)")
+                    setText("PlayerCurrentMagic", `${getText('PlayerCurrentMagic')}-${spell.cost}`)
         }
     } else {
-        Message("You don't have enough magic for this spell!",1,["UnselectSpellButton","",""])
-        AddClass("PlayerActionAttack", "tdSelectable", 1)
+        sendMessage("You don't have enough magic for this spell!",1,["UnselectSpellButton","",""])
+        addClass("PlayerActionAttack", "tdSelectable", 1)
     }
     } else {
-        Message("Choose a spell first!",1,["UnselectSpellButton","",""])
-        AddClass("PlayerActionAttack", "tdSelectable", 1)
+        sendMessage("Choose a spell first!",1,["UnselectSpellButton","",""])
+        addClass("PlayerActionAttack", "tdSelectable", 1)
     }
 
 }
@@ -606,38 +606,38 @@ function PlayerActionSpell(scrollName = null, scrollPlace = null) {
 
 
 
-function PlayerActionSpell2() {
-    SetColor("PlayerCurrentAttack", "var(--light3)")
-    SetColor("PlayerCurrentDefense", "var(--light3)")
-    SetColor("PlayerCurrentHp", "var(--light3)")
-    SetColor("PlayerCurrentMagic", "var(--light3)")
+function playerActionSpell2() {
+    setColor("PlayerCurrentAttack", "var(--light3)")
+    setColor("PlayerCurrentDefense", "var(--light3)")
+    setColor("PlayerCurrentHp", "var(--light3)")
+    setColor("PlayerCurrentMagic", "var(--light3)")
 
-    SetColor("EnemyAttack", "var(--light3)")
-    SetColor("EnemyDefense", "var(--light3)")
-    SetColor("EnemyHp", "var(--light3)")
+    setColor("EnemyAttack", "var(--light3)")
+    setColor("EnemyDefense", "var(--light3)")
+    setColor("EnemyHp", "var(--light3)")
 
-    SetText("PlayerCurrentAttack", player.attack)
-    SetText("PlayerCurrentDefense", player.defense)
-    if (player.hp > GetText('PlayerStartHp')) {
-        player.hp = GetText('PlayerStartHp')
+    setText("PlayerCurrentAttack", player.attack)
+    setText("PlayerCurrentDefense", player.defense)
+    if (player.hp > getText('PlayerStartHp')) {
+        player.hp = getText('PlayerStartHp')
     }
-    SetText("PlayerCurrentHp", player.hp)
+    setText("PlayerCurrentHp", player.hp)
 
-    SetText("PlayerCurrentMagic", player.magic)
+    setText("PlayerCurrentMagic", player.magic)
 
-    SetText("EnemyAttack", enemy.attack)
-    SetText("EnemyDefense", enemy.defense)
-    SetText("EnemyHp", enemy.hp)
+    setText("EnemyAttack", enemy.attack)
+    setText("EnemyDefense", enemy.defense)
+    setText("EnemyHp", enemy.hp)
 
-    AddClass("PlayerActionSpell", "tdSelectable", 1)
+    addClass("PlayerActionSpell", "tdSelectable", 1)
 
     
 
     if (enemy.hp < 1) {
-        SetText("EnemyHp", "0")
-        Message(`${enemy.name} dies`, 1, ["PlayerActionDamage2", "", ""])
+        setText("EnemyHp", "0")
+        sendMessage(`${enemy.name} dies`, 1, ["PlayerActionDamage2", "", ""])
     } else {
-        EnemyAction()
+        enemyAction()
     }
 }
 
@@ -652,20 +652,20 @@ function PlayerActionSpell2() {
 
 
 //-/- Játékos támadás -\-\\
-function PlayerActionAttack() {
-    if (HasClass("PlayerActionAttack", "tdSelectable")) {
+function playerActionAttack() {
+    if (hasClass("PlayerActionAttack", "tdSelectable")) {
 
     
 
-    AddClass("PlayerActionAttack", "tdSelectable", 0)
-    AddClass("PlayerActionAttack", "hover", 1)
+    addClass("PlayerActionAttack", "tdSelectable", 0)
+    addClass("PlayerActionAttack", "hover", 1)
 
 
     //Get attributes
-    player = GetPlayer()
-    weapon = GetWeapon(GetText("InventorySelectedWeapon"))
-    weaponSlot = GetText("InventorySelectedWeaponSlot")
-    enemy = GetCurrentEnemy()
+    player = getPlayer()
+    weapon = getWeapon(getText("InventorySelectedWeapon"))
+    weaponSlot = getText("InventorySelectedWeaponSlot")
+    enemy = getCurrentEnemy()
 
     //Set damage to 1 if player doesn't have a weapon
     let playerDamageMin=1
@@ -682,15 +682,15 @@ function PlayerActionAttack() {
 
 
     //Attack message
-    random=RandomNumber(1,12);    
-    SetColor("PlayerCurrentAttack", "var(--red1)")
+    random=randomNumber(1,12);    
+    setColor("PlayerCurrentAttack", "var(--red1)")
 
     //Sikeres támadás
     if (player.attack+random>enemy.defense) {
 
         attackWithWeapon = true
-        Message(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} > ${enemy.defense} <br> Succesful attack!`,1, ["PlayerActionDamage", "", ""]);        
-        SetDamageThisRound(RandomNumber(Number(playerDamageMin), Number(playerDamageMax))-enemy.armor, 0, 0, 0)
+        sendMessage(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} > ${enemy.defense} <br> Succesful attack!`,1, ["PlayerActionDamage", "", ""]);        
+        setDamageThisRound(randomNumber(Number(playerDamageMin), Number(playerDamageMax))-enemy.armor, 0, 0, 0)
         
         //Set minimum damage if less than one
         if (damageThisRound.hp<1) {
@@ -702,49 +702,49 @@ function PlayerActionAttack() {
             enemy.hp-=damageThisRound.hp
         }
 } else if (player.attack+random<enemy.defense) {
-    Message(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} < ${enemy.defense} <br> Unsuccesful attack!`,1, ["EnemyAction", "", ""]);
+    sendMessage(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} < ${enemy.defense} <br> Unsuccesful attack!`,1, ["EnemyAction", "", ""]);
 } else {
-    Message(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} = ${enemy.defense} <br> Unsuccesful attack!`,1, ["EnemyAction", "", ""]);
+    sendMessage(`Attack of ${player.name}: ${player.attack} + ${random} <br> ${player.attack} + ${random} = ${enemy.defense} <br> Unsuccesful attack!`,1, ["EnemyAction", "", ""]);
 }
 }
 }
 
-function PlayerActionDamage() {
-    SetColor("PlayerCurrentAttack", "var(--light3)")
+function playerActionDamage() {
+    setColor("PlayerCurrentAttack", "var(--light3)")
         //Enemy dies
         if (enemy.hp<=0) {
-            SetText("EnemyHp","0");
-            Message(`${enemy.name} has died`,1, ["PlayerActionDamage2", "", ""])
-            SetColor("EnemyHp", "var(--red1)")
-            // SetText("NextFunction", `PlayerActionDamage2`)
+            setText("EnemyHp","0");
+            sendMessage(`${enemy.name} has died`,1, ["PlayerActionDamage2", "", ""])
+            setColor("EnemyHp", "var(--red1)")
+            // setText("NextFunction", `PlayerActionDamage2`)
         }
         //Enemy damaged
         else {
             
-            Message(`${enemy.name} loses ${damageThisRound.hp} health`,1, ["PlayerActionDamage2", "", ""])
-            // SetText("NextFunction", `PlayerActionDamage2`)
-            SetColor("EnemyHp", "var(--red1)")
+            sendMessage(`${enemy.name} loses ${damageThisRound.hp} health`,1, ["PlayerActionDamage2", "", ""])
+            // setText("NextFunction", `PlayerActionDamage2`)
+            setColor("EnemyHp", "var(--red1)")
 
-            SetText("EnemyHp",String(`${GetText("EnemyHp")}-${damageThisRound.hp}`));
+            setText("EnemyHp",String(`${getText("EnemyHp")}-${damageThisRound.hp}`));
         }
     }
 
 
-function PlayerActionDamage2() {
+function playerActionDamage2() {
     if (enemy.hp<=0) {
         //Ellenség meghal
         fighting = false
-        EndRound()
+        endRound()
         
        
     } else {
         //Enemy damaged
-        SetText("EnemyHp",String(enemy.hp));
-        if (enemy.attack>=0) SetText("EnemyAttack",String(enemy.attack));
-        if (enemy.defense>=0) SetText("EnemyDefense",String(enemy.defense));
-        if (enemy.magic>=0) SetText("EnemyMagic",String(enemy.magic));
-        SetColor("EnemyHp", "var(--light3)")
-        EnemyAction()
+        setText("EnemyHp",String(enemy.hp));
+        if (enemy.attack>=0) setText("EnemyAttack",String(enemy.attack));
+        if (enemy.defense>=0) setText("EnemyDefense",String(enemy.defense));
+        if (enemy.magic>=0) setText("EnemyMagic",String(enemy.magic));
+        setColor("EnemyHp", "var(--light3)")
+        enemyAction()
     }
 }
 
@@ -769,40 +769,40 @@ function PlayerActionDamage2() {
 
 
 //-/- Ellenség köre -\-\\
-function EnemyAction() {
+function enemyAction() {
 
     //Kijelölések törlése
     for (let i = 0; i < itemListLength; i++) {
-        AddClass(`InventoryItem${i+1}Use`, "tdSelected", 0)
+        addClass(`InventoryItem${i+1}Use`, "tdSelected", 0)
     }
 
-    AddClass("PlayerActionAttack", "hover", 0)
-    AddClass("PlayerActionSpell", "hover", 0)
-    SetColor("PlayerCurrentAttack", "var(--light3)")
+    addClass("PlayerActionAttack", "hover", 0)
+    addClass("PlayerActionSpell", "hover", 0)
+    setColor("PlayerCurrentAttack", "var(--light3)")
     if (enemy.magic < 4) {
-        EnemyActionAttack()
+        enemyActionAttack()
     } else {
-        random = RandomNumber(0,1)
+        random = randomNumber(0,1)
         if (random == 0) {
-            EnemyActionSpell()
-        } else EnemyActionSpell()
+            enemyActionSpell()
+        } else enemyActionSpell()
     }
 }
 
 
 //-/- Ellenség varázslat -\-\\
-function EnemyActionSpell() {
+function enemyActionSpell() {
     //Ellenség és játékos adatai
-    player = GetPlayer()
-    enemy = GetCurrentEnemy()
+    player = getPlayer()
+    enemy = getCurrentEnemy()
     
 
     //Varázslat választás
-    let random = RandomNumber(1, spellList.length)
-    let spell = GetSpellById(random)
+    let random = randomNumber(1, spellList.length)
+    let spell = getSpellById(random)
     do {
-        random = RandomNumber(1, spellList.length)
-        spell = GetSpellById(random)
+        random = randomNumber(1, spellList.length)
+        spell = getSpellById(random)
     } while (spell.cost > enemy.magic)
 
     //Véletlen értékek
@@ -815,7 +815,7 @@ function EnemyActionSpell() {
     if (spell.attack.includes("-")) {
         minAttack = Number(spell.attack.split("-")[0])
         maxAttack = Number(spell.attack.split("-")[1])
-        attack = Number(RandomNumber(minAttack, maxAttack))
+        attack = Number(randomNumber(minAttack, maxAttack))
     } else {
         attack = Number(spell.attack)
     }
@@ -823,7 +823,7 @@ function EnemyActionSpell() {
     if (spell.defense.includes("-")) {
         minDefense = Number(spell.defense.split("-")[0])
         maxDefense = Number(spell.defense.split("-")[1])
-        defense = Number(RandomNumber(minDefense, maxDefense))
+        defense = Number(randomNumber(minDefense, maxDefense))
     } else {
         defense = Number(spell.defense)
     }
@@ -831,7 +831,7 @@ function EnemyActionSpell() {
     if (spell.hp.includes("-")) {
         minHp = Number(spell.hp.split("-")[0])
         maxHp = Number(spell.hp.split("-")[1])
-        hp = Number(RandomNumber(minHp, maxHp))
+        hp = Number(randomNumber(minHp, maxHp))
     } else {
         hp = Number(spell.hp)
     }
@@ -856,20 +856,20 @@ function EnemyActionSpell() {
 
         //Üzenet összerakás
         if (attack != 0) {
-            SetColor("PlayerCurrentAttack", "var(--red1)")
+            setColor("PlayerCurrentAttack", "var(--red1)")
             attackModifier -= attack
-            SetText("PlayerAttackModifier", attackModifier)
-            player.attack = GetText('PlayerCurrentAttack') - attack
-            SetText("PlayerCurrentAttack", `${GetText('PlayerCurrentAttack')}-${attack}`)
+            setText("PlayerAttackModifier", attackModifier)
+            player.attack = getText('PlayerCurrentAttack') - attack
+            setText("PlayerCurrentAttack", `${getText('PlayerCurrentAttack')}-${attack}`)
             messageString+=messageString2.concat(` ${attack} attack`)
         }
 
         if (defense != 0) {
-            SetColor("PlayerCurrentDefense", "var(--red1)")
+            setColor("PlayerCurrentDefense", "var(--red1)")
             defenseModifier -= defense
-            SetText("PlayerDefenseModifier", defenseModifier)
-            player.defense = GetText('PlayerCurrentDefense') - defense
-            SetText("PlayerCurrentDefense", `${GetText('PlayerCurrentDefense')}-${defense}`)
+            setText("PlayerDefenseModifier", defenseModifier)
+            player.defense = getText('PlayerCurrentDefense') - defense
+            setText("PlayerCurrentDefense", `${getText('PlayerCurrentDefense')}-${defense}`)
             if (attack != 0) {
                 messageString+=messageString2.concat(`, ${defense} defense`)
             }
@@ -879,9 +879,9 @@ function EnemyActionSpell() {
         }
 
         if (hp != 0) {
-            SetColor("PlayerCurrentHp", "var(--red1)")
-            SetText("PlayerCurrentHp", `${GetText('PlayerCurrentHp')}-${hp}`)
-            //player.hp = GetText('PlayerStartHp') - hp
+            setColor("PlayerCurrentHp", "var(--red1)")
+            setText("PlayerCurrentHp", `${getText('PlayerCurrentHp')}-${hp}`)
+            //player.hp = getText('PlayerStartHp') - hp
             player.hp = player.hp - hp
 
             if (attack != 0 || defense != 0) {
@@ -890,12 +890,12 @@ function EnemyActionSpell() {
                 messageString+=messageString2.concat(` ${hp} health`)
             }
         }
-        Message(`${enemy.name} uses ${spell.name}<br> ${player.name} loses`+ messageString,1, ["EnemyActionSpell2", "", ""])
+        sendMessage(`${enemy.name} uses ${spell.name}<br> ${player.name} loses`+ messageString,1, ["EnemyActionSpell2", "", ""])
 
         //Ellenfél mágia csökkentése
-        enemy.magic = GetText('EnemyMagic') - spell.cost
-        SetColor("EnemyMagic", "var(--red1)")
-        SetText("EnemyMagic", `${GetText('EnemyMagic')}-${spell.cost}`)
+        enemy.magic = getText('EnemyMagic') - spell.cost
+        setColor("EnemyMagic", "var(--red1)")
+        setText("EnemyMagic", `${getText('EnemyMagic')}-${spell.cost}`)
 
     } else if (spell.type = "defense") {        
                     
@@ -904,15 +904,15 @@ function EnemyActionSpell() {
         
                 //Üzenet összerakás
                 if (attack != 0) {
-                    SetColor("EnemyAttack", "var(--red1)")
-                    SetText("EnemyAttack", `${GetText('EnemyAttack')}+${attack}`)
+                    setColor("EnemyAttack", "var(--red1)")
+                    setText("EnemyAttack", `${getText('EnemyAttack')}+${attack}`)
                     enemy.attack += attack
                     messageString+=messageString2.concat(` ${attack} attack`)
                 }
         
                 if (defense != 0) {
-                    SetColor("EnemyDefense", "var(--red1)")
-                    SetText("EnemyDefense", `${GetText('EnemyDefense')}+${defense}`)
+                    setColor("EnemyDefense", "var(--red1)")
+                    setText("EnemyDefense", `${getText('EnemyDefense')}+${defense}`)
                     enemy.defense += defense
                     if (attack != 0) {
                         messageString+=messageString2.concat(`, ${defense} defense`)
@@ -923,8 +923,8 @@ function EnemyActionSpell() {
                 }
         
                 if (hp != 0) {
-                    SetColor("EnemyHp", "var(--red1)")
-                    SetText("EnemyHp", `${GetText('EnemyHp')}+${hp}`)
+                    setColor("EnemyHp", "var(--red1)")
+                    setText("EnemyHp", `${getText('EnemyHp')}+${hp}`)
                     enemy.hp += hp
         
                     if (attack != 0 || defense != 0) {
@@ -933,78 +933,75 @@ function EnemyActionSpell() {
                         messageString+=messageString2.concat(` ${hp} health`)
                     }
                 }
-                Message(`${enemy.name} uses ${spell.name}<br> ${enemy.name} gains`+ messageString,1, ["EnemyActionSpell2", "", ""])
-                Log(player)
+                sendMessage(`${enemy.name} uses ${spell.name}<br> ${enemy.name} gains`+ messageString,1, ["EnemyActionSpell2", "", ""])
         
                 //Ellenfél mágia csökkentése
-                enemy.magic = GetText('EnemyMagic') - spell.cost
-                SetColor("EnemyMagic", "var(--red1)")
-                SetText("EnemyMagic", `${GetText('EnemyMagic')}-${spell.cost}`)
+                enemy.magic = getText('EnemyMagic') - spell.cost
+                setColor("EnemyMagic", "var(--red1)")
+                setText("EnemyMagic", `${getText('EnemyMagic')}-${spell.cost}`)
     }
 }
 
-function EnemyActionSpell2() {
-    SetColor("PlayerCurrentAttack", "var(--light3)")
-    SetColor("PlayerCurrentDefense", "var(--light3)")
-    SetColor("PlayerCurrentHp", "var(--light3)")
+function enemyActionSpell2() {
+    setColor("PlayerCurrentAttack", "var(--light3)")
+    setColor("PlayerCurrentDefense", "var(--light3)")
+    setColor("PlayerCurrentHp", "var(--light3)")
 
-    SetColor("EnemyAttack", "var(--light3)")
-    SetColor("EnemyDefense", "var(--light3)")
-    SetColor("EnemyHp", "var(--light3)")
-    SetColor("EnemyMagic", "var(--light3)")
+    setColor("EnemyAttack", "var(--light3)")
+    setColor("EnemyDefense", "var(--light3)")
+    setColor("EnemyHp", "var(--light3)")
+    setColor("EnemyMagic", "var(--light3)")
 
-    SetText("PlayerCurrentAttack", player.attack)
-    SetText("PlayerCurrentDefense", player.defense)
-    SetText("PlayerCurrentHp", player.hp)
+    setText("PlayerCurrentAttack", player.attack)
+    setText("PlayerCurrentDefense", player.defense)
+    setText("PlayerCurrentHp", player.hp)
 
 
 
-    SetText("EnemyAttack", enemy.attack)
-    SetText("EnemyDefense", enemy.defense)
-    SetText("EnemyHp", enemy.hp)
-    SetText("EnemyMagic", enemy.magic)
+    setText("EnemyAttack", enemy.attack)
+    setText("EnemyDefense", enemy.defense)
+    setText("EnemyHp", enemy.hp)
+    setText("EnemyMagic", enemy.magic)
 
     //player = GetPlayer()
-    //player.hp = GetText("PlayerCurrentHp")
-    Log("2")
-    Log(player)
+    //player.hp = getText("PlayerCurrentHp")
 
     if (player.hp < 1) {
-        SetText("PlayerCurrentHp", "0")
-        Message(`${player.name} dies`, 1, ["EnemyActionDamage2", "", ""])
+        setText("PlayerCurrentHp", "0")
+        sendMessage(`${player.name} dies`, 1, ["EnemyActionDamage2", "", ""])
     }
 }
 
 
 
 //-/- Ellenség támadás -\-\\
-function EnemyActionAttack() {
+function enemyActionAttack() {
     //Get attributes
-    player = GetPlayer()
+    player = getPlayer()
     let playerArmor = 0
     if (player.armor != null) {
         playerArmor = player.armor.damageReduction
     }
 
-    weapon = GetWeapon(GetText("InventorySelectedWeapon"))
-    enemy = GetCurrentEnemy()
+    weapon = getWeapon(getText("InventorySelectedWeapon"))
+    enemy = getCurrentEnemy()
 
     //Set damage to 1 if player doesn't have a weapon
     let enemyDamageMin=(enemy.damage).split('-')[0];
     let enemyDamageMax=(enemy.damage).split('-')[1];
 
     //Attack message
-    random=RandomNumber(1,12);    
-    SetColor("EnemyAttack", "var(--red1)")
+    random=randomNumber(1,12);    
+    setColor("EnemyAttack", "var(--red1)")
 
     //Check if enemy won round
     if (enemy.attack+random>player.defense) {
 
         enemyAttackWithWeapon = true
-        Message(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} > ${player.defense} <br> Succesful attack!`,1, ["EnemyActionDamage", "", ""]);
+        sendMessage(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} > ${player.defense} <br> Succesful attack!`,1, ["EnemyActionDamage", "", ""]);
 
         
-        SetDamageThisRound(RandomNumber(Number(enemyDamageMin), Number(enemyDamageMax))-Number(playerArmor))
+        setDamageThisRound(randomNumber(Number(enemyDamageMin), Number(enemyDamageMax))-Number(playerArmor))
 
         //Set minimum damage if less than one
         if (damageThisRound.hp<1) {
@@ -1016,48 +1013,48 @@ function EnemyActionAttack() {
             player.hp-=damageThisRound.hp
         }
 } else if (enemy.attack+random<player.defense) {
-    Message(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} < ${player.defense} <br> Unsuccesful attack!`,1, ["EndRound", "", ""]);
+    sendMessage(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} < ${player.defense} <br> Unsuccesful attack!`,1, ["EndRound", "", ""]);
 } else {
-    Message(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} = ${player.defense} <br> Unsuccesful attack!`,1, ["EndRound", "", ""]);
+    sendMessage(`Attack of ${enemy.name}: ${enemy.attack} + ${random} <br> ${enemy.attack} + ${random} = ${player.defense} <br> Unsuccesful attack!`,1, ["EndRound", "", ""]);
 }
 }
 
 
-function EnemyActionDamage() {
-    SetColor("EnemyAttack", "var(--light3)")
+function enemyActionDamage() {
+    setColor("EnemyAttack", "var(--light3)")
         //Player dies
         if (player.hp<=0) {
-            SetText("PlayerCurrentHp","0");
-            Message(`${player.name} has died`,1, ["EnemyActionDamage2", "", ""])
-            SetColor("PlayerCurrentHp", "var(--red1)")
-            // SetText("NextFunction", `EnemyActionDamage2`)
+            setText("PlayerCurrentHp","0");
+            sendMessage(`${player.name} has died`,1, ["EnemyActionDamage2", "", ""])
+            setColor("PlayerCurrentHp", "var(--red1)")
+            // setText("NextFunction", `EnemyActionDamage2`)
         }
         //Player damaged
         else {
-            Message(`${player.name} loses ${damageThisRound.hp} health`,1, ["EnemyActionDamage2", "", ""])
-            // SetText("NextFunction", `EnemyActionDamage2`)
-            SetColor("PlayerCurrentHp", "var(--red1)")
+            sendMessage(`${player.name} loses ${damageThisRound.hp} health`,1, ["EnemyActionDamage2", "", ""])
+            // setText("NextFunction", `EnemyActionDamage2`)
+            setColor("PlayerCurrentHp", "var(--red1)")
 
-            SetText("PlayerCurrentHp",String(`${GetText("PlayerCurrentHp")}-${damageThisRound.hp}`));
+            setText("PlayerCurrentHp",String(`${getText("PlayerCurrentHp")}-${damageThisRound.hp}`));
         }
     }
 
-function EnemyActionDamage2() {
+function enemyActionDamage2() {
     if (player.hp<=0) {
         //Player dies
-        // SetText("NextFunction", ``)
-        SetColor("PlayerCurrentHp", "var(--light3)")
-        SetDamageThisRound(1)
-        SetText("PlayerCurrentHp", "0")
-        PlayerDies()
+        // setText("NextFunction", ``)
+        setColor("PlayerCurrentHp", "var(--light3)")
+        setDamageThisRound(1)
+        setText("PlayerCurrentHp", "0")
+        playerDies()
     } else {
         //Player damaged
-        SetText("PlayerCurrentHp",String(player.hp));
-        if (enemy.attack>=0) SetText("PlayerCurrentAttack",String(player.attack));
-        if (enemy.defense>=0) SetText("PlayerCurrentDefense",String(player.defense));
-        if (enemy.magic>=0) SetText("PlayerCurrentMagic",String(player.magic));
-        SetColor("PlayerCurrentHp", "var(--light3)")
-       EndRound()
+        setText("PlayerCurrentHp",String(player.hp));
+        if (enemy.attack>=0) setText("PlayerCurrentAttack",String(player.attack));
+        if (enemy.defense>=0) setText("PlayerCurrentDefense",String(player.defense));
+        if (enemy.magic>=0) setText("PlayerCurrentMagic",String(player.magic));
+        setColor("PlayerCurrentHp", "var(--light3)")
+       endRound()
         
     }
 }
@@ -1076,10 +1073,10 @@ function EnemyActionDamage2() {
 
 
 //-/- Kör vége -\-\\
-function EndRound() {
+function endRound() {
     if (attackWithWeapon == true) {
             //Lose weapon durability
-            let weaponSlot = GetText("InventorySelectedWeaponSlot")
+            let weaponSlot = getText("InventorySelectedWeaponSlot")
             //Durability -1
             if (weaponSlot != "") {
                player.weapon.currentDurability--
@@ -1087,12 +1084,12 @@ function EndRound() {
                    //RemoveWeapon1(Number(weaponSlot))
                    generalId = weaponSlot
                    itemType = "weapon"
-                   RemoveItem2()
-                   Message("Your weapon has broken!",1, ["", "", ""])
+                   removeItem2()
+                   sendMessage("Your weapon has broken!",1, ["", "", ""])
       
                } else {
-                  SetText(`InventoryWeapon${weaponSlot}CurrentDurability`,player.weapon.currentDurability);
-                  SetText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + player.weapon.currentDurability + ")");
+                  setText(`InventoryWeapon${weaponSlot}CurrentDurability`,player.weapon.currentDurability);
+                  setText(`InventorySelectedWeaponDurability`,"(" + player.weapon.durability + "/" + player.weapon.currentDurability + ")");
                }
            }
            attackWithWeapon = false
@@ -1101,26 +1098,26 @@ function EndRound() {
 
 if (enemyAttackWithWeapon == true) {
   //Lose armor durability
-  let armorSlot = GetText("InventorySelectedArmorSlot")
+  let armorSlot = getText("InventorySelectedArmorSlot")
   //Durability -1
   if (armorSlot != "") {
      player.armor.currentDurability--
      if (player.armor.currentDurability<1) {
          generalId = armorSlot
          itemType = "armor"
-         RemoveItem2()
-         Message("Your armor has broken!",1, ["", "", ""])
+         removeItem2()
+         sendMessage("Your armor has broken!",1, ["", "", ""])
        
      } else {
-        SetText(`InventoryArmor${armorSlot}CurrentDurability`,player.armor.currentDurability);
-        SetText(`InventorySelectedArmorDurability`,"(" + player.armor.durability + "/" + player.armor.currentDurability + ")");
+        setText(`InventoryArmor${armorSlot}CurrentDurability`,player.armor.currentDurability);
+        setText(`InventorySelectedArmorDurability`,"(" + player.armor.durability + "/" + player.armor.currentDurability + ")");
      }
  }
 
             
 
   //Lose shield durability
-  let shieldSlot = GetText("InventorySelectedShieldSlot")
+  let shieldSlot = getText("InventorySelectedShieldSlot")
   //Durability -1
   if (shieldSlot != "") {
      player.shield.currentDurability--
@@ -1128,50 +1125,50 @@ if (enemyAttackWithWeapon == true) {
          //RemoveWeapon1(Number(weaponSlot))
          generalId = shieldSlot
          itemType = "shield"
-         RemoveItem2()
-         Message("Your shield has broken!",1, ["", "", ""])
+         removeItem2()
+         sendMessage("Your shield has broken!",1, ["", "", ""])
 
      } else {
-        SetText(`InventoryShield${shieldSlot}CurrentDurability`,player.shield.currentDurability);
-        SetText(`InventorySelectedShieldDurability`,"(" + player.shield.durability + "/" + player.shield.currentDurability + ")");
+        setText(`InventoryShield${shieldSlot}CurrentDurability`,player.shield.currentDurability);
+        setText(`InventorySelectedShieldDurability`,"(" + player.shield.durability + "/" + player.shield.currentDurability + ")");
      }
  }
  enemyAttackWithWeapon = false
 }
           
 
-    SetColor("EnemyAttack", "var(--light3)")
-    SetColor("EnemyHp", "var(--light3)")
-    SetColor("PlayerCurrentAttack", "var(--light3)")
-    SetColor("PlayerCurrentHp", "var(--light3)")
+    setColor("EnemyAttack", "var(--light3)")
+    setColor("EnemyHp", "var(--light3)")
+    setColor("PlayerCurrentAttack", "var(--light3)")
+    setColor("PlayerCurrentHp", "var(--light3)")
 
-    AddClass("PlayerActionAttack", "tdSelectable", 1)
-    AddClass("PlayerActionSpell", "tdSelectable", 1)
-    AddClass("PlayerActionAttack", "hover", 0)
-    AddClass("PlayerActionSpell", "hover", 0)
-    //GetElement("PlayerActionItem").classList.add("tdSelectable")
+    addClass("PlayerActionAttack", "tdSelectable", 1)
+    addClass("PlayerActionSpell", "tdSelectable", 1)
+    addClass("PlayerActionAttack", "hover", 0)
+    addClass("PlayerActionSpell", "hover", 0)
+    //getElement("PlayerActionItem").classList.add("tdSelectable")
 
     //Harc véget ért
     if (fighting == false) {
 
-        Enabled("ButtonNewRound")
-        Enabled("ButtonSaveGame")
+        enabled("ButtonNewRound")
+        enabled("ButtonSaveGame")
         
                 //Mágia növelése 1-gyel
-                if (player.magic < GetText("PlayerStartMagic")) {
+                if (player.magic < getText("PlayerStartMagic")) {
                     player.magic++
-                    SetText("PlayerCurrentMagic", player.magic)
+                    setText("PlayerCurrentMagic", player.magic)
                 }
-                SetText("InventoryCoins", Number(GetText("InventoryCoins")) + GetEnemyCoins(enemy.name))
+                setText("InventoryCoins", Number(getText("InventoryCoins")) + getEnemyCoins(enemy.name))
         
-                SetText("PlayerCurrentAttack", GetText("PlayerCurrentAttack") - attackModifier)
-                SetText("PlayerCurrentDefense", GetText("PlayerCurrentDefense") - defenseModifier)
-                // if (GetText("PlayerCurrentHp") > GetText("PlayerStartHp")) {
-                //     SetText("PlayerCurrentHp", GetText("PlayerCurrentHp") - hpModifier)
+                setText("PlayerCurrentAttack", getText("PlayerCurrentAttack") - attackModifier)
+                setText("PlayerCurrentDefense", getText("PlayerCurrentDefense") - defenseModifier)
+                // if (getText("PlayerCurrentHp") > getText("PlayerStartHp")) {
+                //     setText("PlayerCurrentHp", getText("PlayerCurrentHp") - hpModifier)
                 // }
-                SetText("PlayerAttackModifier", "")
-                SetText("PlayerDefenseModifier", "")
-                // SetText("PlayerHpModifier", "")
+                setText("PlayerAttackModifier", "")
+                setText("PlayerDefenseModifier", "")
+                // setText("PlayerHpModifier", "")
                 attackModifier = 0
                 defenseModifier = 0
         
@@ -1183,25 +1180,25 @@ if (enemyAttackWithWeapon == true) {
                 }
         
                 fighting = false
-                EnableInventory(1)
+                enableInventory(1)
                 //inventoryEnabled = true
         
                 //Reload weapon and modifiers
-                let weaponSlot = GetText("InventorySelectedWeaponSlot")
+                let weaponSlot = getText("InventorySelectedWeaponSlot")
                 if (weaponSlot != "") {
-                    ChangeSelectedItem(weaponSlot, "weapon")
-                    ChangeSelectedItem(weaponSlot, "weapon")
+                    changeSelectedItem(weaponSlot, "weapon")
+                    changeSelectedItem(weaponSlot, "weapon")
                 }
             
-                AddClass("PlayerActionAttack", "hover", 0)
+                addClass("PlayerActionAttack", "hover", 0)
                 
-                SetColor("EnemyHp", "var(--light3)")
-                Hidden("DivEnemyAttributes", true)
-                Hidden("PlayerActionAttack", true)
-                Hidden("PlayerActionSpell", true)
-                //Hidden("PlayerActionItem", true)
+                setColor("EnemyHp", "var(--light3)")
+                hidden("DivEnemyAttributes", true)
+                hidden("PlayerActionAttack", true)
+                hidden("PlayerActionSpell", true)
+                //hidden("PlayerActionItem", true)
         
-                Hidden("ButtonTown", false)        
+                enabled("ButtonTown")        
     }
 }
 
@@ -1215,19 +1212,19 @@ if (enemyAttackWithWeapon == true) {
 
 
 //-/- Játékos meghal -\-\\
-function PlayerDies() {
+function playerDies() {
     playerDead = true
-    EnableInventory(0)
-    Disabled("ButtonTown")
-    Disabled("ButtonNewRound")
+    enableInventory(0)
+    disabled("ButtonTown")
+    disabled("ButtonNewRound")
 
-    AddClass("PlayerActionAttack", "tdDisabled", 1)
-    AddClass("PlayerActionSpell", "tdDisabled", 1)
-    //AddClass("PlayerActionItem", "tdDisabled", 1)
+    addClass("PlayerActionAttack", "tdDisabled", 1)
+    addClass("PlayerActionSpell", "tdDisabled", 1)
+    //addClass("PlayerActionItem", "tdDisabled", 1)
 
-    AddClass("PlayerActionAttack", "tdSelectable", 0)
-    AddClass("PlayerActionSpell", "tdSelectable", 0)
-    //AddClass("PlayerActionItem", "tdSelectable", 0)
+    addClass("PlayerActionAttack", "tdSelectable", 0)
+    addClass("PlayerActionSpell", "tdSelectable", 0)
+    //addClass("PlayerActionItem", "tdSelectable", 0)
 }
 
 
@@ -1248,11 +1245,11 @@ function PlayerDies() {
 
 
 //-/- Legyőzött ellenségtől pénz -\-\\
-function GetEnemyCoins(enemyName) {
-    let enemy = GetEnemy(enemyName)
+function getEnemyCoins(enemyName) {
+    let enemy = getEnemy(enemyName)
     let min = Math.round(((enemy.attack*2)+enemy.defense+enemy.hp+(enemy.armor*2)+(enemy.magic*3))/10)
     let max = Math.round(((enemy.attack*2)+enemy.defense+enemy.hp+(enemy.armor*2)+(enemy.magic*3))/7)
-    return RandomNumber(min, max)
+    return randomNumber(min, max)
 }
 
 
@@ -1288,14 +1285,14 @@ document.onkeypress = function (enter) {
     enter = enter || window.event;
     if (DivMessageBg.id == "DivMessageBgVisible") {
         DivMessageBg.id = "DivMessageBg"
-        //Hidden('DivMessageBg', true); 
+        //hidden('DivMessageBg', true); 
 
-        AddClass("MessageButtonContinue", "hover", 1)
-        AddClass("MessageButtonYes", "hover", 1)
-        AddClass("MessageButtonNo", "hover", 1)
+        addClass("MessageButtonContinue", "hover", 1)
+        addClass("MessageButtonYes", "hover", 1)
+        addClass("MessageButtonNo", "hover", 1)
 
         setTimeout(() => {        
-            Continue("Continue")
+            callNewFunction("Continue")
         }, 50)
 
         
@@ -1307,63 +1304,63 @@ document.onkeypress = function (enter) {
 
 
 //-/- Egy adat lekérése a listákból -\-\\
-function GetWeapon(name) {
+function getWeapon(name) {
     for (let i = 0; i < weaponList.length; i++) {
         if (weaponList[i].name==String(name)) {
             return weaponList[i]
         }
     }
 }
-function GetArmor(name) {
+function getArmor(name) {
     for (let i = 0; i < armorList.length; i++) {
         if (armorList[i].name==String(name)) {
             return armorList[i]
         }
     }
 }
-function GetShield(name) {
+function getShield(name) {
     for (let i = 0; i < shieldList.length; i++) {
         if (shieldList[i].name==String(name)) {
             return shieldList[i]
         }
     }
 }
-function GetScroll(name) {
+function getScroll(name) {
     for (let i = 0; i < scrollList.length; i++) {
         if (scrollList[i].name==String(name)) {
             return scrollList[i]
         }
     }
 }
-function GetSpell(name) {
+function getSpell(name) {
     for (let i = 0; i < spellList.length; i++) {
         if (spellList[i].name==String(name)) {
             return spellList[i]
         }
     }
 }
-function GetSpellById(id) {
+function getSpellById(id) {
     for (let i = 0; i < spellList.length; i++) {
         if (spellList[i].id==String(id)) {
             return spellList[i]
         }
     }
 }
-function GetEnemy(name) {
+function getEnemy(name) {
     for (let i = 0; i < enemyList.length; i++) {
         if (enemyList[i].name==String(name)) {
             return enemyList[i]
         }
     }
 }
-function GetLocation(name) {
+function getLocation(name) {
     for (let i = 0; i < locationList.length; i++) {
         if (locationList[i].name==String(name)) {
             return locationList[i]
         }
     }
 }
-function GetItem(name) {
+function getItem(name) {
     for (let i = 0; i < itemList.length; i++) {
         if (itemList[i].name==String(name)) {
             return itemList[i]
@@ -1373,7 +1370,7 @@ function GetItem(name) {
 
 
 
-function GetGeneralItem(name, type) {
+function getGeneralItem(name, type) {
     switch (type) {
         case "weapon":
             for (let i = 0; i < weaponList.length; i++) {
@@ -1421,9 +1418,9 @@ function GetGeneralItem(name, type) {
 
 
 
-function SetCoins(number) {
-    let old = Number(GetText("InventoryCoins"))
-    SetText("InventoryCoins", old+number)
+function setCoins(number) {
+    let old = Number(getText("InventoryCoins"))
+    setText("InventoryCoins", old+number)
 }
 
 
@@ -1436,9 +1433,9 @@ function SetCoins(number) {
 
 
 
-function UnselectSpellButton() {
-    AddClass("PlayerActionSpell", "tdSelectable", 1)
-    AddClass("PlayerActionSpell", "hover", 0)
+function unselectSpellButton() {
+    addClass("PlayerActionSpell", "tdSelectable", 1)
+    addClass("PlayerActionSpell", "hover", 0)
 }
 
 
@@ -1462,28 +1459,28 @@ function UnselectSpellButton() {
 
 //-/- Menü -\-\\
 
-function SetDifficulty(difficultyName) {
+function setDifficulty(difficultyName) {
     switch (difficultyName) {
         case "Easy":
-            SetText("SettingsLabelDifficulty", "easy")
-            AddClass("SettingsOptionEasy", "tdSelected", 1)
-            AddClass("SettingsOptionMedium", "tdSelected", 0)
-            AddClass("SettingsOptionHard", "tdSelected", 0)
+            setText("SettingsLabelDifficulty", "easy")
+            addClass("SettingsOptionEasy", "tdSelected", 1)
+            addClass("SettingsOptionMedium", "tdSelected", 0)
+            addClass("SettingsOptionHard", "tdSelected", 0)
             difficulty = "easy"
             break;
         case "Medium":
-            SetText("SettingsLabelDifficulty", "medium")
-            AddClass("SettingsOptionEasy", "tdSelected", 0)
-            AddClass("SettingsOptionMedium", "tdSelected", 1)
-            AddClass("SettingsOptionHard", "tdSelected", 0)
+            setText("SettingsLabelDifficulty", "medium")
+            addClass("SettingsOptionEasy", "tdSelected", 0)
+            addClass("SettingsOptionMedium", "tdSelected", 1)
+            addClass("SettingsOptionHard", "tdSelected", 0)
 
             difficulty = "medium"
             break;
         case "Hard":
-            SetText("SettingsLabelDifficulty", "hard")
-            AddClass("SettingsOptionEasy", "tdSelected", 0)
-            AddClass("SettingsOptionMedium", "tdSelected", 0)
-            AddClass("SettingsOptionHard", "tdSelected", 1)
+            setText("SettingsLabelDifficulty", "hard")
+            addClass("SettingsOptionEasy", "tdSelected", 0)
+            addClass("SettingsOptionMedium", "tdSelected", 0)
+            addClass("SettingsOptionHard", "tdSelected", 1)
             difficulty = "hard"
             break;
         default:
@@ -1493,114 +1490,114 @@ function SetDifficulty(difficultyName) {
 
 
 
-function SettingsTooltip(yesOrNo) {
+function settingsTooltip(yesOrNo) {
     if (yesOrNo == "yes") {
-        AddClass("SettingsOptionYes", "tdSelected", 1)
-        AddClass("SettingsOptionNo", "tdSelected", 0)
-        GetElement("tooltipsDisabled").id = "tooltipsEnabled"
-        SetText("LabelSettingsTooltip", "yes")
+        addClass("SettingsOptionYes", "tdSelected", 1)
+        addClass("SettingsOptionNo", "tdSelected", 0)
+        getElement("tooltipsDisabled").id = "tooltipsEnabled"
+        setText("LabelSettingsTooltip", "yes")
     } else {
-        AddClass("SettingsOptionYes", "tdSelected", 0)
-        AddClass("SettingsOptionNo", "tdSelected", 1)
-        GetElement("tooltipsEnabled").id = "tooltipsDisabled"
-        SetText("LabelSettingsTooltip", "no")
+        addClass("SettingsOptionYes", "tdSelected", 0)
+        addClass("SettingsOptionNo", "tdSelected", 1)
+        getElement("tooltipsEnabled").id = "tooltipsDisabled"
+        setText("LabelSettingsTooltip", "no")
     }
 }
 
 
 /* Open */
 
-function OpenSettings() {
-    HiddenSwitch('DivSettings')
+function openSettings() {
+    hiddenSwitch('DivSettings')
 
-    Hidden("DivAccount", true)
-    AddClass("ButtonAccount", "buttonSelected", 0)
+    hidden("DivAccount", true)
+    addClass("ButtonAccount", "buttonSelected", 0)
 
-    Hidden("DivSave", true)
-    AddClass("ButtonSave", "buttonSelected", 0)
+    hidden("DivSave", true)
+    addClass("ButtonSave", "buttonSelected", 0)
 
-    Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)
-
-
-    /*
-    Hidden("DivSave", true)
-    AddClass("ButtonSave", "buttonSelected", 0)
-    Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)*/
-
-    if (GetElement('DivSettings').hidden == false) {
-        GetElement('ButtonSettings').classList.add('buttonSelected')
-    } else {
-        GetElement('ButtonSettings').classList.remove('buttonSelected')
-    }
-}
-
-
-function OpenAccount() {
-    HiddenSwitch('DivAccount')
-
-    Hidden("DivSettings", true)
-    AddClass("ButtonSettings", "buttonSelected", 0)
-
-    Hidden("DivSave", true)
-    AddClass("ButtonSave", "buttonSelected", 0)
-
-    Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)
+    hidden("DivLoad", true)
+    addClass("ButtonLoad", "buttonSelected", 0)
 
 
     /*
-    Hidden("DivSave", true)
-    AddClass("ButtonSave", "buttonSelected", 0)
-    Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)*/
+    hidden("DivSave", true)
+    addClass("ButtonSave", "buttonSelected", 0)
+    hidden("DivLoad", true)
+    addClass("ButtonLoad", "buttonSelected", 0)*/
 
-    if (GetElement('DivAccount').hidden == false) {
-        GetElement('ButtonAccount').classList.add('buttonSelected')
+    if (getElement('DivSettings').hidden == false) {
+        getElement('ButtonSettings').classList.add('buttonSelected')
     } else {
-        GetElement('ButtonAccount').classList.remove('buttonSelected')
+        getElement('ButtonSettings').classList.remove('buttonSelected')
     }
 }
 
 
-function OpenSaveGame() {
-    HiddenSwitch("DivSave")
+function openAccount() {
+    hiddenSwitch('DivAccount')
 
-    Hidden("DivSettings", true)
-    AddClass("ButtonSettings", "buttonSelected", 0)
+    hidden("DivSettings", true)
+    addClass("ButtonSettings", "buttonSelected", 0)
 
-    Hidden("DivAccount", true)
-    AddClass("ButtonAccount", "buttonSelected", 0)
+    hidden("DivSave", true)
+    addClass("ButtonSave", "buttonSelected", 0)
 
-    Hidden("DivLoad", true)
-    AddClass("ButtonLoad", "buttonSelected", 0)
+    hidden("DivLoad", true)
+    addClass("ButtonLoad", "buttonSelected", 0)
 
 
-    if (GetElement('DivSave').hidden == false) {
-        AddClass('ButtonSave', 'buttonSelected', 1)
+    /*
+    hidden("DivSave", true)
+    addClass("ButtonSave", "buttonSelected", 0)
+    hidden("DivLoad", true)
+    addClass("ButtonLoad", "buttonSelected", 0)*/
+
+    if (getElement('DivAccount').hidden == false) {
+        getElement('ButtonAccount').classList.add('buttonSelected')
     } else {
-        AddClass('ButtonSave', 'buttonSelected', 0)
+        getElement('ButtonAccount').classList.remove('buttonSelected')
     }
 }
 
-function OpenLoadGame() {
-    HiddenSwitch("DivLoad")
 
-    Hidden("DivSettings", true)
-    AddClass("ButtonSettings", "buttonSelected", 0)
+function openSaveGame() {
+    hiddenSwitch("DivSave")
 
-    Hidden("DivAccount", true)
-    AddClass("ButtonAccount", "buttonSelected", 0)
+    hidden("DivSettings", true)
+    addClass("ButtonSettings", "buttonSelected", 0)
 
-    Hidden("DivSave", true)
-    AddClass("ButtonSave", "buttonSelected", 0)
+    hidden("DivAccount", true)
+    addClass("ButtonAccount", "buttonSelected", 0)
+
+    hidden("DivLoad", true)
+    addClass("ButtonLoad", "buttonSelected", 0)
 
 
-    if (GetElement('DivLoad').hidden == false) {
-        AddClass('ButtonLoad', 'buttonSelected', 1)
+    if (getElement('DivSave').hidden == false) {
+        addClass('ButtonSave', 'buttonSelected', 1)
     } else {
-        AddClass('ButtonLoad', 'buttonSelected', 0)
+        addClass('ButtonSave', 'buttonSelected', 0)
+    }
+}
+
+function openLoadGame() {
+    hiddenSwitch("DivLoad")
+
+    hidden("DivSettings", true)
+    addClass("ButtonSettings", "buttonSelected", 0)
+
+    hidden("DivAccount", true)
+    addClass("ButtonAccount", "buttonSelected", 0)
+
+    hidden("DivSave", true)
+    addClass("ButtonSave", "buttonSelected", 0)
+
+
+    if (getElement('DivLoad').hidden == false) {
+        addClass('ButtonLoad', 'buttonSelected', 1)
+    } else {
+        addClass('ButtonLoad', 'buttonSelected', 0)
     }
 }
 
@@ -1609,16 +1606,30 @@ function OpenLoadGame() {
 
 
 //-/- Játék mentése -\-\\
-function SaveGame() {
-    if (GetValue("SaveName") == "") {
-        Message("Type a name first!", 1, ["", "", ""])
+function saveGame() {
+    if (getValue("SaveName") == "") {
+        sendMessage("Type a name first!", 1, ["", "", ""])
     } else {
-        SaveGame2()
+        saveGame2()
     }
 }
 
-function SaveGame2(localSave = false) {
-    
+
+function saveGame2() {
+    let saveName = getValue("SaveName")
+    getData(`${route}saves/get/${localStorage.getItem("userId")}/${saveName}/name`).then((response) => {
+        if (response[0] != undefined) {
+            generalId = response[0].id
+            sendMessage("This save already exists. Do you want to overwrite it?", 2, ["", "saveGame3", ""])
+        } else {
+            saveGame3()
+        }
+    })
+}
+
+
+function saveGame3(localSave = false, replace = false) {
+
     let weapon = ""
     let armor = ""
     let shield = ""
@@ -1628,52 +1639,52 @@ function SaveGame2(localSave = false) {
 
     
     for (let i = 0; i < weaponListLength; i++) {
-        weapon += GetText(`InventoryWeapon${i+1}`)
+        weapon += getText(`InventoryWeapon${i+1}`)
         weapon += "-"
     }
     for (let i = 0; i < armorListLength; i++) {
-        armor += GetText(`InventoryArmor${i+1}`)
+        armor += getText(`InventoryArmor${i+1}`)
         armor += "-"
     }
     for (let i = 0; i < shieldListLength; i++) {
-        shield += GetText(`InventoryShield${i+1}`)
+        shield += getText(`InventoryShield${i+1}`)
         shield += "-"
     }
 
 
 
     for (let i = 0; i < weaponListLength; i++) {
-        weaponDurability += GetText(`InventoryWeapon${i+1}CurrentDurability`)
+        weaponDurability += getText(`InventoryWeapon${i+1}CurrentDurability`)
         weaponDurability += "-"
     }
     for (let i = 0; i < armorListLength; i++) {
-        armorDurability += GetText(`InventoryArmor${i+1}CurrentDurability`)
+        armorDurability += getText(`InventoryArmor${i+1}CurrentDurability`)
         armorDurability += "-"
     }
     for (let i = 0; i < shieldListLength; i++) {
-        shieldDurability += GetText(`InventoryShield${i+1}CurrentDurability`)
+        shieldDurability += getText(`InventoryShield${i+1}CurrentDurability`)
         shieldDurability += "-"
     }
 
 
 
 
-    let selectedItem1 = GetText("InventorySelectedWeaponSlot")
+    let selectedItem1 = getText("InventorySelectedWeaponSlot")
     if (selectedItem1 == "") selectedItem1 = 0
-    let selectedItem2 = GetText("InventorySelectedArmorSlot")
+    let selectedItem2 = getText("InventorySelectedArmorSlot")
     if (selectedItem2 == "") selectedItem2 = 0
-    let selectedItem3 = GetText("InventorySelectedShieldSlot")
+    let selectedItem3 = getText("InventorySelectedShieldSlot")
     if (selectedItem3 == "") selectedItem3 = 0
     
 
     let data = {
-        saveName: GetValue("SaveName"),
+        saveName: getValue("SaveName"),
         userId: localStorage.getItem("userId"),
-        playerName: GetText("PlayerName"),
-        PlayerAttack: GetText("PlayerStartAttack") + "-" + GetText("PlayerCurrentAttack"),
-        PlayerDefense: GetText("PlayerStartDefense") + "-" + GetText("PlayerCurrentDefense"),
-        PlayerHp: GetText("PlayerStartHp") + "-" + GetText("PlayerCurrentHp"),
-        PlayerMagic: GetText("PlayerStartMagic") + "-" + GetText("PlayerCurrentMagic"),
+        playerName: getText("PlayerName"),
+        PlayerAttack: getText("PlayerStartAttack") + "-" + getText("PlayerCurrentAttack"),
+        PlayerDefense: getText("PlayerStartDefense") + "-" + getText("PlayerCurrentDefense"),
+        PlayerHp: getText("PlayerStartHp") + "-" + getText("PlayerCurrentHp"),
+        PlayerMagic: getText("PlayerStartMagic") + "-" + getText("PlayerCurrentMagic"),
         Weapons: weapon,
         Armors: armor,
         Shields: shield,
@@ -1682,51 +1693,57 @@ function SaveGame2(localSave = false) {
         ShieldsDurability: shieldDurability,
         SelectedItems: selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3
     }
+
+    //Local storage
+    localStorage.setItem("playerName", getText("PlayerName"))
+
+    localStorage.setItem("playerAttack", getText("PlayerStartAttack") + "-" + getText("PlayerCurrentAttack"))
+    localStorage.setItem("playerDefense", getText("PlayerStartDefense") + "-" + getText("PlayerCurrentDefense"))
+    localStorage.setItem("playerHp", getText("PlayerStartHp") + "-" + getText("PlayerCurrentHp"))
+    localStorage.setItem("playerMagic", getText("PlayerStartMagic") + "-" + getText("PlayerCurrentMagic"))
+
+    localStorage.setItem("weapons", weapon)
+    localStorage.setItem("armors", armor)
+    localStorage.setItem("shields", shield)
+    localStorage.setItem("weaponsDurability", weaponDurability)
+    localStorage.setItem("armorsDurability", armorDurability)
+    localStorage.setItem("shieldsDurability", shieldDurability)
+    localStorage.setItem("selectedItems", selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3)
     
-    if (localSave == true) {
-        localStorage.setItem("playerName", GetText("PlayerName"))
+    if (localSave != true) {
 
-        localStorage.setItem("playerAttack", GetText("PlayerStartAttack") + "-" + GetText("PlayerCurrentAttack"))
-        localStorage.setItem("playerDefense", GetText("PlayerStartDefense") + "-" + GetText("PlayerCurrentDefense"))
-        localStorage.setItem("playerHp", GetText("PlayerStartHp") + "-" + GetText("PlayerCurrentHp"))
-        localStorage.setItem("playerMagic", GetText("PlayerStartMagic") + "-" + GetText("PlayerCurrentMagic"))
+        //Delete old
+        if (replace == true) {
+            deleteData(`${route}delete/saves/${generalId}`)
+        }
 
-        localStorage.setItem("weapons", weapon)
-        localStorage.setItem("armors", armor)
-        localStorage.setItem("shields", shield)
-        localStorage.setItem("weaponsDurability", weaponDurability)
-        localStorage.setItem("armorsDurability", armorDurability)
-        localStorage.setItem("shieldsDurability", shieldDurability)
-        localStorage.setItem("selectedItems", selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3)
+        //Save
+        postData(`${route}saves/new/${data.userId}`,data, localStorage.getItem("token"))
+        .then((response) => {
+            console.log(data)
+                return response.json()
+            }).then((data) => {
+                if (data.status == 404) {
+                    err = document.getElementById("error");
+                    err.innerHTML = data.error;
+                }
+                console.log(data.error);
+            }).catch((error) => {
+                console.log(error);
+              }).finally(() => {
+                location.href="pagePlay.html"
+              });
 
 
-    } else {
-
-    postData(`${route}save`,data)
-    .then((response) => {
-        console.log(data)
-        console.log("Succesful save")
-            return response.json();
-            
-        }).then((data) => {
-            if (data.status == 404) {
-                err = document.getElementById("error");
-                err.innerHTML = data.error;
-            }
-            console.log(data.error);
-        }).catch((error) => {
-            console.log(error);
-          }).finally(() => {
-          });
         }
 }
 
 
-function ClickLoadGame(saveName) {
+function clickLoadGame(saveName) {
     if (saveName == "") {
-        Message("Type a name first!", 1, ["", "", ""])
+        sendMessage("Type a name first!", 1, ["", "", ""])
     } else {
-        ClickLoadGame2(saveName)
+        clickLoadGame2(saveName)
     }
 
 
@@ -1748,10 +1765,10 @@ function ClickLoadGame(saveName) {
     let weaponsString = localStorage.getItem("weaponsName")
     let weaponsNameList = weaponsString.split(",")
 
-    SetText("PlayerCurrentAttack", localStorage.getItem("currentAttack"))
-    SetText("PlayerCurrentDefense", localStorage.getItem("currentDefense"))
-    SetText("PlayerCurrentHp", localStorage.getItem("currentHp"))
-    SetText("PlayerCurrentMagic", localStorage.getItem("currentMagic"))*/
+    setText("PlayerCurrentAttack", localStorage.getItem("currentAttack"))
+    setText("PlayerCurrentDefense", localStorage.getItem("currentDefense"))
+    setText("PlayerCurrentHp", localStorage.getItem("currentHp"))
+    setText("PlayerCurrentMagic", localStorage.getItem("currentMagic"))*/
     
     //Log(weaponsNameList)
 
@@ -1762,8 +1779,8 @@ function ClickLoadGame(saveName) {
     }*/
 }
 
-function ClickLoadGame2(saveName) {
-    LoadGame(saveName)
+function clickLoadGame2(saveName) {
+    loadGame(saveName)
 }
 
 
@@ -1772,21 +1789,164 @@ function ClickLoadGame2(saveName) {
 //Open difficulty list
 const AreaSettingsDifficulty = document.getElementById("AreaDifficulty")
 AreaSettingsDifficulty.addEventListener("mouseleave", function() {
-    Hidden("Difficulty", true)
+    hidden("Difficulty", true)
     document.getElementById("ButtonDifficulty").classList.remove("hover")
 })
 AreaSettingsDifficulty.addEventListener("mouseover", function () {
-    Hidden("Difficulty", false)
+    hidden("Difficulty", false)
     document.getElementById("ButtonDifficulty").classList.add("hover")
 })
 
 //Open tooltip list
 const AreaSettingsTooltip = document.getElementById("AreaSettingsTooltip")
 AreaSettingsTooltip.addEventListener("mouseleave", function() {
-    Hidden("DivSettingsTooltip", true)
+    hidden("DivSettingsTooltip", true)
     document.getElementById("ButtonSettingsTooltip").classList.remove("hover")
 })
 AreaSettingsTooltip.addEventListener("mouseover", function () {
-    Hidden("DivSettingsTooltip", false)
+    hidden("DivSettingsTooltip", false)
     document.getElementById("ButtonSettingsTooltip").classList.add("hover")
 })
+
+
+
+
+
+
+
+//Rename
+function renameSave() {
+    let data = {
+        newName: getValue("NewSaveName"),
+        userId: localStorage.getItem("userId")
+    }
+    postData(`${route}saves/rename/${localStorage.getItem("userId")}/${generalId}`, data, localStorage.getItem("token")).then((data) => {
+        setText("TrData", "")
+        setText("TbodyData", "")
+        hidden("DivRenameSave", true)
+        loadSaves()
+    })
+}
+//Delete
+function deleteSave() {
+
+    let data = {
+        userId: localStorage.getItem("userId")
+    }
+
+    deleteData(`${route}saves/delete/${localStorage.getItem("userId")}/${generalId}`, data, localStorage.getItem("token")).then((data) => {
+        setText("TrData", "")
+        setText("TbodyData", "")
+        loadSaves()
+    })
+}
+
+
+
+
+document.body.addEventListener("click", (event) => {
+
+       //Load
+        if (event.target.id.includes('LoadSave') ) {
+            loadGame(event.target.id.split("-")[1])
+        }
+
+       //Rename
+        if (event.target.id.includes('EditSave') ) {
+
+            let list = document.getElementsByClassName("tdSelected")
+
+            for (let i = 0; i < list.length; i++) {
+                list[i].classList.remove("tdSelected") 
+            }
+
+            addClass(event.target.id, "tdSelected", 1)
+            generalId = event.target.id.split("-")[1]
+            hidden("DivRenameSave", false)
+
+        }
+
+       //Delete
+        if (event.target.id.includes('DeleteSave') ) {
+
+            deselectItems()
+
+            addClass(event.target.id, "tdSelected", 1)
+            generalId = event.target.id.split("-")[1]
+            hidden("DivRenameSave", true)
+            sendMessage("Are you sure you want to delete this save?", 2, ["", "deleteSave", "deselectItems"])
+
+        }
+
+
+})
+
+
+// document.body.addEventListener("mouseover", (event) => {
+//     if (event.target.id == "ButtonLoad" || event.target.id == "DivLoad") {
+//         hidden("DivLoad", false)
+//     }
+// })
+
+
+
+// document.body.addEventListener("mouseleave", (event) => {
+//     if (event.target.id != "ButtonLoad" && event.target.id != "DivLoad") {
+//         hidden("DivLoad", false)
+//     }
+// })
+
+
+
+
+
+
+
+
+function showAccountEdit(hide = false) {
+    if (hide == true) {
+        hidden("DivEditAccount", true)
+        hidden("DivUserAccount", false)
+        setValue("EditPassword", "")
+        localStorage.removeItem("userPassword")
+        saveGame3(true)
+        location.href="pagePlay.html"
+    } else {
+        hidden("DivUserAccount", true)
+        hidden("DivEditAccount", false)
+        setValue("EditEmail", localStorage.getItem("userEmail"))
+        setValue("EditName", localStorage.getItem("userName"))
+        loadPassword()
+    }
+}
+
+
+
+
+function loadPassword() {
+            getData(`${route}user/password/${localStorage.getItem("userId")}`, localStorage.getItem("token")).then((response) => {
+                console.log(response)
+                setValue("EditPassword", response[0].userPassword)
+                localStorage.setItem("userPassword", response[0].userPassword)
+            })
+}
+
+function saveEditedAccount() {
+    let data = {
+        email: getValue("EditEmail"),
+        name: getValue("EditName"),
+        password: getValue("EditPassword")
+    }
+    putData(`${route}user/edit/${localStorage.getItem("userId")}`, data, localStorage.getItem("token")).then(() => {
+        setValue("UserEmail", data.email)
+        setValue("UserName", data.name)
+        localStorage.setItem("userEmail", data.email)
+        localStorage.setItem("userName", data.name)
+        localStorage.setItem("userPassword", data.password)
+
+        if (localStorage.getItem("userEmail") == data.email && localStorage.getItem("userName") == data.name && localStorage.getItem("userPassword") == data.password) {
+            sendMessage("Succesful save!", 1, ["", "", ""])
+        }
+    })
+}
+

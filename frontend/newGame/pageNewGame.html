@@ -33,9 +33,9 @@
         <button id="ButtonNewGameDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">Medium</span></button>  <br>
         <div class="collapsibleListElements" id="NewGameDifficulty" hidden>
             <table class="tableBig">
-                <tr><td id="SettingsOptionEasy" onclick="NewGameDifficulty('Easy')">Easy</td></tr>
-                <tr><td id="SettingsOptionMedium" onclick="NewGameDifficulty('Medium')" class="tdSelected">Medium</td></tr>
-                <tr><td id="SettingsOptionHard" onclick="NewGameDifficulty('Hard')">Hard</td></tr>
+                <tr><td id="SettingsOptionEasy" onclick="newGameDifficulty('Easy')">Easy</td></tr>
+                <tr><td id="SettingsOptionMedium" onclick="newGameDifficulty('Medium')" class="tdSelected">Medium</td></tr>
+                <tr><td id="SettingsOptionHard" onclick="newGameDifficulty('Hard')">Hard</td></tr>
             </table>
         </div>
     </span>
@@ -50,15 +50,15 @@
         <button  id="ButtonAttributesList">Set attributes:  <span id="LabelAttributesMode">Random</span></button>  <br>
         <div class="collapsibleListElements" id="NewGameAttributes" hidden>
             <table class="tableBig">
-                <tr><td id="SettingsOptionRandom" onclick="NewGameAttributes('Random')" class="tdSelected">Random</td></tr>
-                <tr><td id="SettingsOptionSelect" onclick="NewGameAttributes('Selectable')">Selectable (total: 46)</td></tr>
+                <tr><td id="SettingsOptionRandom" onclick="newGameAttributes('Random')" class="tdSelected">Random</td></tr>
+                <tr><td id="SettingsOptionSelect" onclick="newGameAttributes('Selectable')">Selectable (total: 46)</td></tr>
             </table>
         </div>
     </span>
     
 
     <!-- /\-\- Véletlen kezdőértékek /-/\-->
-    <button class="button" id="ButtonGenerate" onclick="Generate()">Generate attributes</button>
+    <button class="button" id="ButtonGenerate" onclick="generateAttributes()">Generate attributes</button>
     
     <div id="DivAttributes">
         <input type="number" id="SetAmount" value="" min="1" max="52" oninput="this.value = Math.abs(this.value)" disabled/>
@@ -67,29 +67,29 @@
         <!-- Támadás -->
         <tr>
             <td class="attributeName">Attack: </td>  <td id="NewGamePlayerAttack">0</td>
-                <td id="attPlus1" class="setAttributePlus setAttributeDisabled" onclick="SetAttribute(true,1)"></td>
-                <td class="setAttributeMinus setAttributeDisabled" onclick="SetAttribute(false,1)"></td>
+                <td id="attPlus1" class="setAttributePlus setAttributeDisabled" onclick="changeAttribute(true,1)"></td>
+                <td class="setAttributeMinus setAttributeDisabled" onclick="changeAttribute(false,1)"></td>
         </tr>
 
         <!-- Védelem -->
         <tr>
             <td class="attributeName">Defense: </td>  <td id="NewGamePlayerDefense">0</td> 
-                <td id="attPlus2" class="setAttributePlus setAttributeDisabled" onclick="SetAttribute(true,2)"></td>
-                <td class="setAttributeMinus setAttributeDisabled" onclick="SetAttribute(false,2)"></td>
+                <td id="attPlus2" class="setAttributePlus setAttributeDisabled" onclick="changeAttribute(true,2)"></td>
+                <td class="setAttributeMinus setAttributeDisabled" onclick="changeAttribute(false,2)"></td>
         </tr>
 
         <!-- Életerő -->
         <tr>
             <td class="attributeName">Health: </td>  <td id="NewGamePlayerHP">0</td> 
-                <td id="attPlus3" class="setAttributePlus setAttributeDisabled" onclick="SetAttribute(true,3)"></td>
-                <td class="setAttributeMinus setAttributeDisabled" onclick="SetAttribute(false,3)"></td>
+                <td id="attPlus3" class="setAttributePlus setAttributeDisabled" onclick="changeAttribute(true,3)"></td>
+                <td class="setAttributeMinus setAttributeDisabled" onclick="changeAttribute(false,3)"></td>
         </tr>
 
         <!-- Mágia -->
         <tr>
             <td class="attributeName">Magic: </td>  <td id="NewGamePlayerMagic">0</td> 
-                <td id="attPlus4" class="setAttributePlus setAttributeDisabled" onclick="SetAttribute(true,4)"></td>
-                <td class="setAttributeMinus setAttributeDisabled" onclick="SetAttribute(false,4)"></td>
+                <td id="attPlus4" class="setAttributePlus setAttributeDisabled" onclick="changeAttribute(true,4)"></td>
+                <td class="setAttributeMinus setAttributeDisabled" onclick="changeAttribute(false,4)"></td>
         </tr>              
     </table>
 </div>
@@ -98,7 +98,7 @@
     
     <!-- /\-\- Játék kezdése, vagy kezdőlap /-/\-->
     <div id="DivBottomButtons" class="center">
-        <button disabled id="ButtonStartGame" class="button" onclick="StartGame();location.href = '../play/pagePlay.html'">Start game</button>  
+        <button disabled id="ButtonStartGame" class="button" onclick="startGame();location.href = '../play/pagePlay.html'">Start game</button>  
         <button class="button" onclick="location.href = '../home/pageHome.html'">Back to home page</button>    
     </div>
 

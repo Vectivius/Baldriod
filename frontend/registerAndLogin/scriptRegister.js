@@ -1,33 +1,40 @@
 function register() {
     let data = {
-        name: GetValue("RegName"),
-        email: GetValue("RegEmail"),
-        password: GetValue("RegPassword"),
+        name: getValue("RegName"),
+        email: getValue("RegEmail"),
+        password: getValue("RegPassword"),
+        userLevel: 1
     }
 
-    if (GetValue("RegName") == "" || GetValue("RegEmail") == ""  || GetValue("RegPassword") == "") {
-        Message("Fill all inputs!", 1, ["", "", ""])
-    } else if (!GetValue("RegEmail").includes("@")) {
-        Message("Incorrect email!", 1, ["", "", ""])
+    if (getValue("RegName") == "" || getValue("RegEmail") == ""  || getValue("RegPassword") == "") {
+        sendMessage("Fill all inputs!", 1, ["", "", ""])
+    } else if (!getValue("RegEmail").includes("@")) {
+        sendMessage("Incorrect email!", 1, ["", "", ""])
     } else {
         postData(`${route}reg`,data)
         .then((response) => {
             console.log(data)
             console.log("Succesful save")
-                return response.json();
+                //return response.json();
+                localStorage.setItem("userEmail", data.email)
+                localStorage.setItem("userName", data.name)
+                localStorage.setItem("userLevel", 1)
+                localStorage.setItem("userId", response.result[0].id)
+                localStorage.setItem("token", response.accesToken)
+                location.href="../home/pageHome.html"
                 
             }).then((data) => {
                 if (data.status == 404) {
                     err = document.getElementById("error");
                     err.innerHTML = data.error;
+                } else {
+
                 }
                 console.log(data.error);
             }).catch((error) => {
                 console.log(error);
               }).finally(() => {
-                localStorage.setItem("email", data.email)
-                localStorage.setItem("userLevel", 1)
-                location.href="../home/pageHome.html"
+
               });
     }
 
@@ -38,23 +45,25 @@ function register() {
 
 function login() {
     let data = {
-        email: GetValue("LoginEmail"),
-        password: GetValue("LoginPassword")
+        email: getValue("LoginEmail"),
+        password: getValue("LoginPassword")
     }
 
-    if (GetValue("LoginEmail") == ""  || GetValue("LoginPassword") == "") {
-        Message("Fill all inputs!", 1, ["", "", ""])
+    if (getValue("LoginEmail") == ""  || getValue("LoginPassword") == "") {
+        sendMessage("Fill all inputs!", 1, ["", "", ""])
     } else {
-        postData(`${route}login`, data).then((response) => {
+        postData(`${route}user/login`, data).then((response) => {
             console.log(response)
     
             if (!response.error) {
-                localStorage.setItem("email", response[0].userEmail)
-                localStorage.setItem("userLevel", response[0].userLevel)
-                localStorage.setItem("userId", response[0].id)
+                localStorage.setItem("userEmail", response.result[0].userEmail)
+                localStorage.setItem("userName", response.result[0].userName)
+                localStorage.setItem("userLevel", response.result[0].userLevel)
+                localStorage.setItem("userId", response.result[0].id)
+                localStorage.setItem("token", response.accesToken)
                 location.href="../home/pageHome.html"
             } else {
-                Message("Incorrect email or password!", 1, ["", "", ""])
+                sendMessage("Incorrect email or password!", 1, ["", "", ""])
             }
             
         })

@@ -1,5 +1,35 @@
-/*it("new data", () => {
+
+it("login", () => {
   cy.visit("../../admin/pageAdmin.html")
+
+  cy.get("button[id=ButtonLogin]").click()
+
+  //Login
+  cy.get("input[id=LoginEmail]").type("greg@g")
+  cy.get("input[id=LoginPassword]").type("greg")
+  cy.get("button").contains("Login").click()
+
+  //Admin page
+  cy.get("button[id=ButtonAdmin]").click()
+
+  cy.get("button").contains("Account").click()
+  cy.get("button").contains("Logout").click()
+})
+
+
+
+it("new data", () => {
+  cy.visit("../../admin/pageAdmin.html")
+
+  //Login
+  cy.get("button[id=ButtonLogin]").click()
+  cy.get("input[id=LoginEmail]").type("greg@g")
+  cy.get("input[id=LoginPassword]").type("greg")
+  cy.get("button").contains("Login").click()
+  cy.get("button[id=ButtonAdmin]").click()
+
+
+  
   cy.get("button[id=ButtonNewData]").click()
   cy.get("button[id=ButtonNewDataEnemy]").click()
 
@@ -21,10 +51,18 @@
 
 
 
-
 //6 enemy needed
 it("edit data", () => {
   cy.visit("../../admin/pageAdmin.html")
+
+    //Login
+    cy.get("button[id=ButtonLogin]").click()
+    cy.get("input[id=LoginEmail]").type("greg@g")
+    cy.get("input[id=LoginPassword]").type("greg")
+    cy.get("button").contains("Login").click()
+    cy.get("button[id=ButtonAdmin]").click()
+  
+
 
   //Load table
   cy.get("td").contains("Enemies").click()
@@ -50,6 +88,14 @@ it("edit data", () => {
 
 it("delete data", () => {
   cy.visit("../../admin/pageAdmin.html")
+
+    //Login
+    cy.get("button[id=ButtonLogin]").click()
+    cy.get("input[id=LoginEmail]").type("greg@g")
+    cy.get("input[id=LoginPassword]").type("greg")
+    cy.get("button").contains("Login").click()
+    cy.get("button[id=ButtonAdmin]").click()
+  
   cy.get("td").contains("Enemies").click()
 
   cy.get("td[id=DeleteEnemy-7]").click()
@@ -63,17 +109,8 @@ it("delete data", () => {
 
 
 
-it("login", () => {
-  cy.visit("../../admin/pageAdmin.html")
 
-  cy.get("textarea[id=LoginEmail]").type("greg@g")
-  cy.get("textarea[id=LoginPassword]").type("greg")
-  cy.get("button").contains("Login").click()
 
-  cy.get("button").contains("Logout").click()
-
-})
-*/
 
 
 
@@ -82,19 +119,20 @@ it("login", () => {
 
 it("invalid login", () => {
   cy.visit("../../admin/pageAdmin.html")
+  cy.get("button[id=ButtonLogin]")
 
   //blank
   cy.get("button").contains("Login").click()
-  cy.get("button").contains("Continue").click()
+  cy.get("button").contains("Continue").click({force:true})
 
   //incorrect
-  cy.get("textarea[id=LoginEmail]").type("hdhdh")
-  cy.get("textarea[id=LoginPassword]").type("grdg")
+  cy.get("input[id=LoginEmail]").type("hdhdh")
+  cy.get("input[id=LoginPassword]").type("grdg")
   cy.get("button").contains("Login").click()
-  cy.get("button").contains("Continue").click()
+  cy.get("button").contains("Continue").click({force:true})
 
   //blank
-  cy.get("textarea[id=LoginEmail]").type("hdhdh")
-  cy.get("textarea[id=LoginPassword]").type("grdg")
+  cy.get("input[id=LoginEmail]").type("hdhdh")
+  cy.get("input[id=LoginPassword]").type("grdg")
 
 })

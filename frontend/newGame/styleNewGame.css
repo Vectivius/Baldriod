@@ -1,92 +1,92 @@
 .column2 {
-    width: 35%;
-    padding: 60px;
-    border: 2px solid var(--red1);
-    background-color: var(--light2);
-    padding: 20px;
-    box-shadow: 0 0 4px var(--red1);
-    border-radius: 0.8%;
-    min-height: 550px;
+  width: 35%;
+  padding: 60px;
+  border: 2px solid var(--red1);
+  background-color: var(--light2);
+  padding: 20px;
+  box-shadow: 0 0 4px var(--red1);
+  border-radius: 0.8%;
+  min-height: 550px;
 
-    margin: auto;
+  margin: auto;
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 
 
 @media only screen and (max-width: 1377px) {
-    .column2 {
-      width: 40%;
-    }
+  .column2 {
+    width: 40%;
   }
+}
 @media only screen and (max-width: 1184px) {
-    .column2 {
-      width: 50%;
-    }
+  .column2 {
+    width: 50%;
   }
-  @media only screen and (max-width: 1056px) {
-    .column2 {
-      width: 55%;
-    }
+}
+@media only screen and (max-width: 1056px) {
+  .column2 {
+    width: 55%;
   }
-  @media only screen and (max-width: 956px) {
-    .column2 {
-      width: 60%;
-    }
+}
+@media only screen and (max-width: 956px) {
+  .column2 {
+    width: 60%;
   }
-  @media only screen and (max-width: 856px) {
-    .column2 {
-      width: 65%;
-    }
+}
+@media only screen and (max-width: 856px) {
+  .column2 {
+    width: 65%;
   }
-  @media only screen and (max-width: 756px) {
-    .column2 {
-      width: 70%;
-    }
+}
+@media only screen and (max-width: 756px) {
+  .column2 {
+    width: 70%;
   }
-  @media only screen and (max-width: 656px) {
-    .column2 {
-      width: 80%;
-    }
+}
+@media only screen and (max-width: 656px) {
+  .column2 {
+    width: 80%;
   }
-  @media only screen and (max-width: 556px) {
-    .column2 {
-      width: 90%;
-    }
+}
+@media only screen and (max-width: 556px) {
+  .column2 {
+    width: 90%;
   }
-  @media only screen and (max-width: 456px) {
-    .column2 {
-      width: 100%;
-      background-color: var(--light1);
-      border: none;
-      box-shadow: none;
-    }
-    button, table, input, textarea, h2 {
-      width: 12rem;
-    }
+}
+@media only screen and (max-width: 456px) {
+  .column2 {
+    width: 100%;
+    background-color: var(--light1);
+    border: none;
+    box-shadow: none;
   }
-  /* @media only screen and (max-width: 356px) {
-    .column2 {
-      width: 95%;
-      background-color: var(--light1);
-      border: none;
-      box-shadow: none;
-    }
+  button, table, input, textarea, h2 {
+    width: 12rem;
   }
-  @media only screen and (max-width: 256px) {
-    .column2 {
-      width: 100%;
-      background-color: var(--light1);
-      border: none;
-      box-shadow: none;
-    }
+}
+/* @media only screen and (max-width: 356px) {
+  .column2 {
+    width: 95%;
+    background-color: var(--light1);
+    border: none;
+    box-shadow: none;
   }
- */
+}
+@media only screen and (max-width: 256px) {
+  .column2 {
+    width: 100%;
+    background-color: var(--light1);
+    border: none;
+    box-shadow: none;
+  }
+}
+*/
 
 
 
@@ -107,57 +107,57 @@
 /*// Attributes //*/
 
 #ButtonAttributesList {
-  margin-top: 20px;
+margin-top: 20px;
 }
 #AreaNewGameAttributes, #ButtonGenerate {
 margin-bottom: 10px;
 }
 
 .setAttribute {
-  text-align: center;
-    /* width: 30px; */
-    /* text-align: center;
-    z-index: -1;
-    font-weight: bold; */
+text-align: center;
+  /* width: 30px; */
+  /* text-align: center;
+  z-index: -1;
+  font-weight: bold; */
 }
 /* .setAttributeDisabled {
-    /* background-color: var(--light5);  
-    border: 1px solid var(--brown);
-    border-right: none;
-    border-left: none;  
-    color: black;
-    cursor: default;
+  /* background-color: var(--light5);  
+  border: 1px solid var(--brown);
+  border-right: none;
+  border-left: none;  
+  color: black;
+  cursor: default;
 } */
 .tdSelectable:hover {
-    /* text-shadow: none;
-    cursor: pointer;
-    transition: background-color 200ms linear; */
-    /* box-shadow: 0 0 10px var(--red1); */
-    /* z-index: 1; */
-    text-shadow: none;
-    /* background-color: var(--light6); */
+  /* text-shadow: none;
+  cursor: pointer;
+  transition: background-color 200ms linear; */
+  /* box-shadow: 0 0 10px var(--red1); */
+  /* z-index: 1; */
+  text-shadow: none;
+  /* background-color: var(--light6); */
 
 }
 
 .setAttributePlus, .setAttributeMinus {
-  width: 50px;
-  text-align: center;
+width: 50px;
+text-align: center;
 }
 
 .attributeName {
-  width: 80px;
+width: 80px;
 }
 
 
 #DivAttributes {
-  margin-bottom: 20px;
+margin-bottom: 20px;
 }
 
 
 
 
 #DivBottomButtons button {
-  margin-bottom: 10px;
+margin-bottom: 10px;
 }
 
 
@@ -167,55 +167,55 @@ margin-bottom: 10px;
 /*// General elements //*/
 
 button, table, input, textarea, h2 {
-  width: 22rem;
+width: 22rem;
 }
 
 textarea {
-  margin-top: 10px;
-  margin-bottom: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
 }
 
 h2 {
-  text-align: center;
+text-align: center;
 }
 
 
 td {
-  border-right: none;
-  border-left: none;
-  padding: 5px;
+border-right: none;
+border-left: none;
+padding: 5px;
 }
 
 
 table {
-  border: var(--brown) solid 1px;
-  /* margin-bottom: 20px; */
+border: var(--brown) solid 1px;
+/* margin-bottom: 20px; */
 }
 
 
 .collapsibleListElements {
-  padding: 8px;
+padding: 8px;
 }
 .collapsibleListElements td:hover:not(.tdSelected) {
-  cursor: pointer;
-  background-color: var(--light5);
-  text-shadow: var(--red1) 1px 1px 8px;
-  transition: 100ms linear;
+cursor: pointer;
+background-color: var(--light5);
+text-shadow: var(--red1) 1px 1px 8px;
+transition: 100ms linear;
 }
 .collapsibleListElements td.hover {
-  cursor: pointer;
-  background-color: var(--light5);
-  text-shadow: var(--red1) 1px 1px 8px;
-  transition: 100ms linear;
+cursor: pointer;
+background-color: var(--light5);
+text-shadow: var(--red1) 1px 1px 8px;
+transition: 100ms linear;
 }
 
 input:disabled {
-  /* background-color: var(--light6); */
-  margin-bottom: 5px;
+/* background-color: var(--light6); */
+margin-bottom: 5px;
 }
 input:enabled {
-  background-color: var(--light3);
-  margin-bottom: 5px;
+background-color: var(--light3);
+margin-bottom: 5px;
 }
 
 
@@ -224,8 +224,8 @@ input:enabled {
 
 
 /* .map {
-    border: 2px solid var(--red1);
-    box-shadow: 0 0 8px var(--red1);
-    border-radius: 0.4%;
-    height: 600px;
+  border: 2px solid var(--red1);
+  box-shadow: 0 0 8px var(--red1);
+  border-radius: 0.4%;
+  height: 600px;
 } */

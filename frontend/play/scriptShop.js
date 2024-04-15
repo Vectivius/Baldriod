@@ -10,44 +10,44 @@ document.body.addEventListener("click", (event) => {
         
 
         if (event.target.id.includes('BuyWeapon') ) {
-            item = GetWeapon(event.target.innerHTML)
+            item = getWeapon(event.target.innerHTML)
             itemType = "weapon"
             listLength = weaponListLength
         } 
         if (event.target.id.includes('BuyArmor') && event.target.innerHTML.includes("armor")) {
-            item = GetArmor(event.target.innerHTML)
+            item = getArmor(event.target.innerHTML)
             itemType = "armor"
             listLength = armorListLength
         } 
         if (event.target.id.includes('BuyArmor') && event.target.innerHTML.includes("shield")) {
-            item = GetShield(event.target.innerHTML)
+            item = getShield(event.target.innerHTML)
             itemType = "shield"
             listLength = shieldListLength
         } 
 
         itemName = item.name
         
-        let coins = Number(GetText("InventoryCoins"))
+        let coins = Number(getText("InventoryCoins"))
 
         //Van e elég pénz a vásárlásra
         if (coins < item.cost) {
-            AddClass(event.target.id, "tdSelected", 1)
-            Message("You don't have enough money to buy this item!",1, ["UnselectElement", "", ""])
+            addClass(event.target.id, "tdSelected", 1)
+            sendMessage("You don't have enough money to buy this item!",1, ["deselectItems", "", ""])
         } else {
             //Van e elég hely a vásárlásra
             let count = 0
             for (let i = 0; i < listLength; i++) {      
-                if (GetText(`Inventory${capitalizeFirstLetter(itemType)}${i+1}`) != "") {
+                if (getText(`Inventory${capitalizeFirstLetter(itemType)}${i+1}`) != "") {
                     count++
                 }
             }
             if (count < listLength) {
-                AddClass(event.target.id, "tdSelected", 1)
-                Message(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "UnselectElement"])
+                addClass(event.target.id, "tdSelected", 1)
+                sendMessage(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "deselectItems"])
                 shopId = event.target.id
             } else {
-                AddClass(event.target.id, "tdSelected", 1)
-                Message("You don't have enough space for this item!",1, ["UnselectElement", "", ""])
+                addClass(event.target.id, "tdSelected", 1)
+                sendMessage("You don't have enough space for this item!",1, ["deselectItems", "", ""])
             }
         }
     }
@@ -57,14 +57,14 @@ document.body.addEventListener("click", (event) => {
        else if (event.target.id.includes('BuyItem') || event.target.id.includes('BuyScroll')) {
             unselectId = event.target.id
             let item = null
-            let coins = Number(GetText("InventoryCoins"))
+            let coins = Number(getText("InventoryCoins"))
 
             if (event.target.id.includes('BuyItem') ) {
-                item = GetItem(event.target.innerHTML)
+                item = getItem(event.target.innerHTML)
                 itemType = "item"
             } 
             if (event.target.id.includes('BuyScroll') ) {
-                item = GetScroll(event.target.innerHTML)
+                item = getScroll(event.target.innerHTML)
                 itemType = "scroll"
             } 
 
@@ -75,42 +75,42 @@ document.body.addEventListener("click", (event) => {
 
             //Van e elég pénz a vásárlásra
             if (coins < item.cost) {
-                AddClass(event.target.id, "tdSelected", 1)
-                Message("You don't have enough money to buy this item!",1, ["UnselectElement", "", ""])
+                addClass(event.target.id, "tdSelected", 1)
+                sendMessage("You don't have enough money to buy this item!",1, ["deselectItems", "", ""])
             } else {
                 //Van e elég hely a vásárlásra
                 let count = 0
                 let slotId = null
                 for (let i = 0; i < itemListLength; i++) {         
-                    if (GetText(`InventoryItem${i+1}`) != "") {
+                    if (getText(`InventoryItem${i+1}`) != "") {
                         count++
                     }
-                    if (GetText(`InventoryItem${i+1}`) == item.name) {
+                    if (getText(`InventoryItem${i+1}`) == item.name) {
                         slotId = i+1
                     }
                 }
 
                 //Van már ilyen tárgy
                 if (slotId != null) {
-                    let amount = GetText(`InventoryItem${slotId}Amount`).split(" ")[1]
+                    let amount = getText(`InventoryItem${slotId}Amount`).split(" ")[1]
                     if (amount == item.stackSize) {
-                        AddClass(event.target.id, "tdSelected", 1)
-                        Message("You don't have enough space for this item!",1, ["UnselectElement", "", ""])
+                        addClass(event.target.id, "tdSelected", 1)
+                        sendMessage("You don't have enough space for this item!",1, ["deselectItems", "", ""])
                     } else {
-                        AddClass(event.target.id, "tdSelected", 1)
+                        addClass(event.target.id, "tdSelected", 1)
                         unselectId = event.target.id
-                        Message(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "UnselectElement"])
+                        sendMessage(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "deselectItems"])
                         shopId = event.target.id    
                     }
 
                     //Új tárgy
                 } else {
                     if (count < itemListLength) {
-                        AddClass(event.target.id, "tdSelected", 1)
-                        Message(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "UnselectElement"])
+                        addClass(event.target.id, "tdSelected", 1)
+                        sendMessage(`Do you want to buy this item for ${item.cost} coins?`,2, ["", "BuyFromShop", "deselectItems"])
                         shopId = event.target.id    
                     } else {
-                        Message("You don't have enough space for this item!",1, ["UnselectElement", "", ""])
+                        sendMessage("You don't have enough space for this item!",1, ["deselectItems", "", ""])
                     }
                 }
             }
@@ -120,31 +120,33 @@ document.body.addEventListener("click", (event) => {
 
 
 //-/- Vásárlás -\-\\
-function BuyFromShop(itemName, itemType) {
-    UnselectElement()
+function buyFromShop(itemName, itemType) {
+
+    deselectItems()
+    deselectItems()
     
     let item = null
     let coins = 0
 
     switch (itemType) {
         case "weapon":
-            ReloadWeaponList(itemName)
+            reloadWeaponList(itemName)
             break;
         case "armor":
-            ReloadArmorList(itemName)
+            reloadArmorList(itemName)
             break;
         case "shield":
-            ReloadShieldList(itemName)
+            reloadShieldList(itemName)
             break;
         case "scroll":
-            ReloadItemList(itemName, "scroll", true)
+            reloadItemList(itemName, "scroll", true)
             break;
         case "item":
-            item = GetItem(itemName)
+            item = getItem(itemName)
             if (item.usable == true) {
-                ReloadItemList(itemName, "item", true)
+                reloadItemList(itemName, "item", true)
             } else {
-                ReloadItemList(itemName, "item", false)
+                reloadItemList(itemName, "item", false)
             }
             break;
     
@@ -152,40 +154,40 @@ function BuyFromShop(itemName, itemType) {
             break;
     }
 
-    coins = GetText("InventoryCoins")
-    item = GetGeneralItem(itemName, itemType)
-    SetText("InventoryCoins", `${coins-item.cost}`)
+    coins = getText("InventoryCoins")
+    item = getGeneralItem(itemName, itemType)
+    setText("InventoryCoins", `${coins-item.cost}`)
 
     //Több azonos tárgy esetén
     if (itemType == "item") {
         
     
-        let newAmount = GetText(shopId + "Amount")
+        let newAmount = getText(shopId + "Amount")
         newAmount=newAmount.replace("(", "")
         newAmount=newAmount.replace(")", "")
         newAmount=Number(newAmount)-1
        
         //-1
         if (newAmount > 0) {
-            SetText(shopId+"Amount", "(" + newAmount + ")")
+            setText(shopId+"Amount", "(" + newAmount + ")")
     
         //0
         } else {
-            SetText(shopId, "")
-            SetText(shopId+"Amount", "")
+            setText(shopId, "")
+            setText(shopId+"Amount", "")
     
-            GetElement(shopId).title = ""
-            GetElement(shopId).className = ""
-            GetElement(shopId).id = ""    
+            getElement(shopId).title = ""
+            getElement(shopId).className = ""
+            getElement(shopId).id = ""    
     
-            GetElement(shopId+"Amount").className = ""
-            GetElement(shopId+"Amount").id = ""    
+            getElement(shopId+"Amount").className = ""
+            getElement(shopId+"Amount").id = ""    
         }
     } else {
-        SetText(shopId, "")
-        GetElement(shopId).title = ""
-        GetElement(shopId).className = ""
-        GetElement(shopId).id = ""    
+        setText(shopId, "")
+        getElement(shopId).title = ""
+        getElement(shopId).className = ""
+        getElement(shopId).id = ""    
     }
 
 }
@@ -194,9 +196,9 @@ function BuyFromShop(itemName, itemType) {
 
 
 
-function UnselectElement() {
-    AddClass(unselectId, "tdSelected", 0)
-    AddClass(unselectId, "buttonSelected", 0)
+function unselectElement() {
+    addClass(unselectId, "tdSelected", 0)
+    addClass(unselectId, "buttonSelected", 0)
 }
 
 
@@ -223,12 +225,12 @@ $( function() {
   
 
 
-function LoadTable(table) {
+function loadTable(table) {
     switch (table) {
         case "Shop": if (shopLoaded == false) {
-            SetText("tbodyShop", "")
-            SetText("tbodyShop2", "")
-            LoadShop()
+            setText("tbodyShop", "")
+            setText("tbodyShop2", "")
+            loadShop()
             shopLoaded = true
         }
             break;
@@ -241,12 +243,12 @@ function LoadTable(table) {
 
 
 //-/- Bolt betöltése -\-\\
-function LoadShop() {
+function loadShop() {
     getData(`${route}weapon`).then((weapon) => {
         getData(`${route}armor`).then((armor) => {
             getData(`${route}scroll`).then((scroll) => {
-                const Table = GetElement("tbodyShop")
-                const Table2 = GetElement("tbodyShop2")
+                const Table = getElement("tbodyShop")
+                const Table2 = getElement("tbodyShop2")
 
 
     for(let i = 0; i<6; i++)  {           
@@ -260,7 +262,7 @@ function LoadShop() {
         td.title = "Cost: " + weapon[i].weaponCost + ", attack: " + weapon[i].weaponAttack + ", defense: " + weapon[i].weaponDefense + ", damage: " + weapon[i].weaponDamage + ", durability: " + weapon[i].weaponDurability 
 
         td.className = "tdSelectable BuyWeapon";
-        //tdd.setAttribute('onclick', `BuyWeapon( (GetText('BuyWeapon1')) )`);
+        //tdd.setAttribute('onclick', `BuyWeapon( (getText('BuyWeapon1')) )`);
          td.id = `BuyWeapon${i+1}`
         // tdd.onclick = BuyWeapon()
 
@@ -308,7 +310,7 @@ function LoadShop() {
             td.title = "Cost: " + itemList[i].cost 
     
             td.className = "tdSelectable BuyItem";
-            //tdd.setAttribute('onclick', `BuyWeapon( (GetText('BuyWeapon1')) )`);
+            //tdd.setAttribute('onclick', `BuyWeapon( (getText('BuyWeapon1')) )`);
              td.id = `BuyItem${i+1}`
             // tdd.onclick = BuyWeapon()
     
@@ -317,7 +319,7 @@ function LoadShop() {
             if (itemList[i].shopAmount.includes('-')) {
                 let min = Number(itemList[i].shopAmount.split('-')[0])
                 let max = Number(itemList[i].shopAmount.split('-')[1])
-                td.innerHTML =`<td>(${RandomNumber(min,max)})</td>`
+                td.innerHTML =`<td>(${randomNumber(min,max)})</td>`
             } else {
                 td.innerHTML =`<td>(1)</td>`
             }
@@ -347,29 +349,30 @@ console.error("Hiba történt:", error);
 
 
 //-/- Be vagy ki a városból -\-\\
-function OpenTown() {
-    text = GetText("ButtonTown")
+function openTown() {
+    text = getText("ButtonTown")
 
     //Enter
     if (text == "Enter town") {
-        Hidden('ButtonReloadShop', false)
-        Hidden('DivShop', false)
-        Hidden('DivFight', true)
-        LoadTable('Shop')
-        SetText("ButtonTown", "Leave town")
+        hidden('ButtonReloadShop', false)
+        hidden('DivShop', false)
+        hidden('DivFight', true)
+        loadTable('Shop')
+        setText("ButtonTown", "Leave town")
         //Leave
     } else {
-        SetText("ButtonTown", "Enter town")
-        Hidden('ButtonReloadShop', true)
-        Hidden('DivShop', true)
-        Hidden('DivFight', false)
+        setText("ButtonTown", "Enter town")
+        hidden('ButtonReloadShop', true)
+        hidden('DivShop', true)
+        hidden('DivFight', false)
     }
 }
 
 //-/- Bolt újra töltés -\-\\
-function ReloadShop1() {
-    AddClass("ButtonReloadShop", "buttonSelected", 1)
+function reloadShop1() {
+    addClass("ButtonReloadShop", "buttonSelected", 1)
     let cost = 0
+    let difficulty = getText("SettingsLabelDifficulty")
     switch (difficulty) {
         case "easy":
             cost = 15
@@ -386,19 +389,20 @@ function ReloadShop1() {
         default:
             break;
     }
-    let coins = GetText("InventoryCoins")
+    let coins = getText("InventoryCoins")
     if (cost > coins) {
         unselectId = "ButtonReloadShop"
-        Message(`You need ${cost} coins to reload the shop!`, 1, ["UnselectElement", "", ""])
+        sendMessage(`You need ${cost} coins to reload the shop!`, 1, ["deselectItems", "", ""])
     } else {
         unselectId = "ButtonReloadShop"
-        Message(`Do you want to reload the shop for ${cost} coins?`, 2, ["", "ReloadShop2", "UnselectElement"])
+        sendMessage(`Do you want to reload the shop for ${cost} coins?`, 2, ["", "ReloadShop2", "deselectItems"])
     }
 }
 
-function ReloadShop2() {
-    AddClass("ButtonReloadShop", "buttonSelected", 0)
+function reloadShop2() {
+    addClass("ButtonReloadShop", "buttonSelected", 0)
     let cost = 0
+    let difficulty = getText("SettingsLabelDifficulty")
     switch (difficulty) {
         case "easy":
             cost = 20
@@ -415,7 +419,7 @@ function ReloadShop2() {
         default:
             break;
     }
-    SetCoins(-cost)
+    setCoins(-cost)
     shopLoaded = false
-    LoadTable('Shop')
+    loadTable('Shop')
 }

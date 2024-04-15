@@ -1,29 +1,29 @@
 #DivRegister table {
-    border: 1px solid var(--brown);
-    width: 100%;
-    margin-bottom: 10px;
- }
- 
- #DivRegister td, th {
-    border: none;
- }
- #DivRegister input {
-    border: none;
- }
- #DivRegister button {
-    width: 100%;
-    margin-bottom: 10px;
- }
- 
- input {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-right: 2px;
-    width: 95%;
- }
+   border: 1px solid var(--brown);
+   width: 100%;
+   margin-bottom: 10px;
+}
+
+#DivRegister td, th {
+   border: none;
+}
+#DivRegister input {
+   border: none;
+}
+#DivRegister button {
+   width: 100%;
+   margin-bottom: 10px;
+}
+
+input {
+   margin-top: 2px;
+   margin-bottom: 2px;
+   margin-right: 2px;
+   width: 95%;
+}
 
 
- .divRedBorder {
-    padding: 15px;
-    width: 30%;
- }
+.divRedBorder {
+   padding: 15px;
+   width: 30%;
+}

@@ -83,7 +83,7 @@ button.buttonLast {
 
 
 /*/-- Edit data --/*/
-table:not(#DivMenu table) {
+table:not(#DivMenu table, .divAccount table) {
     margin: auto;
     border: 1px solid var(--brown);
     border: 2px solid var(--red1);
@@ -121,10 +121,72 @@ td:not(#DivMenu td), th {
 
 
 #DivAdmin {
+    width: 30%;
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+#DivAdmin button {
+    margin-left: 5px;
 }
 
 
-#ButtonNewData, #ButtonAdmin, #ButtonLogout {
-    width: 150px;
-}
+
+
+
+
+.divAccount, #DivSaves {
+    padding: 15px;
+ }
+ 
+ .divAccount td {
+    border: none;
+ }
+ 
+ .divAccount input {
+    border: none;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    width: 95%;
+ }
+ 
+ .divAccount button, .divAccount table {
+    margin-bottom: 10px;
+    width: 100%;
+ }
+
+ .divAccount table, #DivSaves table {
+    border: 1px solid var(--brown);
+    width: 100%;
+    margin-bottom: 10px;
+ }
+
+
+
+
+
+ @media only screen and (min-width: 1061px) {
+    .divAccount {
+       width: 35%;
+    } 
+ }
+ @media only screen and (max-width: 1060px) {
+    .divAccount {
+       width: 50%;
+    } 
+ }
+
+ @media only screen and (max-width: 530px) {
+    .divAccount {
+       width: 80%;
+    }
+ }
+ @media only screen and (max-width: 350px) {
+    .divAccount {
+       width: 100%;
+       border: none;
+       box-shadow: none;
+       background-color: rgba(0, 0, 139, 0);
+    }
+ }
+ 

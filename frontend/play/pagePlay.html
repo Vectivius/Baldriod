@@ -38,13 +38,13 @@
     
             <div id="DivMessage1" class="collapsibleListElements">
                 <p id="Message1"></p>
-                <button id="MessageButtonContinue" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Continue')">Continue</button>
+                <button id="MessageButtonContinue" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Continue')">Continue</button>
             </div>
     
             <div id="DivMessage2" class="collapsibleListElements">
                 <p id="Message2"></p>
-                <button id="MessageButtonYes" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Yes')">Yes</button>
-                <button id="MessageButtonNo"  onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg';Continue('No');">No</button>
+                <button id="MessageButtonYes" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Yes')">Yes</button>
+                <button id="MessageButtonNo"  onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg';callNewFunction('No');">No</button>
             </div>
     
         </div>
@@ -71,15 +71,15 @@
     <div id="DivMenu">
        <table>
             <tr>
-                <td onclick="location.href = '../home/pageHome.html'">Back to home page</td>
-                <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>
+                <td onclick="saveGame3(true);location.href = '../home/pageHome.html'">Back to home page</td>
+                <td onclick="saveGame3(true);location.href = '../newGame/pageNewGame.html'">New game</td>
 
-                <!-- <td id="ButtonSave" onclick="OpenSaveGame()">Save game</td>-->
-                <td hidden id="ButtonLoad" onclick="OpenLoadGame()">Load game</td> 
+                <td id="ButtonSave" onclick="openSaveGame()">Save game</td>
 
-                <td onclick="location.href = '../newGame/pageNewGame.html'">New game</td>
-                <td id="ButtonSettings" onclick="OpenSettings()">Settings</a>
-                <td hidden id="ButtonAccount" onclick="OpenAccount()">Account</a>
+                <td hidden id="ButtonLoad" onclick="openLoadGame()">Load game</td> 
+
+                <td id="ButtonSettings" onclick="openSettings()">Settings</a>
+                <td hidden id="ButtonAccount" onclick="openAccount()">Account</a>
             </tr>
        </table>
     </div>
@@ -96,8 +96,8 @@
                 <button id="ButtonSettingsTooltip">Show tooltips:  <span id="LabelSettingsTooltip">yes</span></button>
                 <span class="collapsibleListElements absoluteCenter" id="DivSettingsTooltip" hidden>
                     <table class="tableBig">
-                        <tr><td id="SettingsOptionYes" class="tdSelectable" onclick="SettingsTooltip('yes')">Yes</td></tr>
-                        <tr><td id="SettingsOptionNo" class="tdSelectable" onclick="SettingsTooltip('no')">No</td></tr>
+                        <tr><td id="SettingsOptionYes" class="tdSelectable" onclick="settingsTooltip('yes')">Yes</td></tr>
+                        <tr><td id="SettingsOptionNo" class="tdSelectable" onclick="settingsTooltip('no')">No</td></tr>
                     </table>
                 </span>
                 </span>
@@ -107,9 +107,9 @@
                 <button id="ButtonDifficulty">Difficulty:  <span id="SettingsLabelDifficulty">medium</span></button>
                 <span class="collapsibleListElements absoluteCenter" id="Difficulty" hidden>
                     <table class="tableBig">
-                        <tr><td id="SettingsOptionEasy" class="tdSelectable" onclick="SetDifficulty('Easy')">Easy</td></tr>
-                        <tr><td id="SettingsOptionMedium" class="tdSelectable" onclick="SetDifficulty('Medium')">Medium</td></tr>
-                        <tr><td id="SettingsOptionHard" class="tdSelectable" onclick="SetDifficulty('Hard')">Hard</td></tr>
+                        <tr><td id="SettingsOptionEasy" class="tdSelectable" onclick="setDifficulty('Easy')">Easy</td></tr>
+                        <tr><td id="SettingsOptionMedium" class="tdSelectable" onclick="setDifficulty('Medium')">Medium</td></tr>
+                        <tr><td id="SettingsOptionHard" class="tdSelectable" onclick="setDifficulty('Hard')">Hard</td></tr>
                     </table>
                 </span>
                 </span>
@@ -124,19 +124,16 @@
     <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivSave">
         <div class="center">
 
-        <button onclick="SaveGame2(true)">Save locally</button>
+        <button onclick="saveGame3(true)">Save locally</button>
 
 
         <div hidden id="DivSaveToServer">
 
             <table>
                 <tr>
-                    <td><input id="SaveName" placeholder="name"></td> <th><button id="ButtonSaveGame" onclick="SaveGame(GetValue('SaveName'))">Save to server</button></th>
+                    <td><input id="SaveName" placeholder="name"></td> <th><button id="ButtonSaveGame" onclick="saveGame(getValue('SaveName'))">Save to server</button></th>
                 </tr>
-
             </table>
-
-            
             
         </div>
 
@@ -148,7 +145,7 @@
     <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivLoad">
         <div class="center">
 
-                <table>
+                <table class="tableBig">
                     <tr id="TrData" style="font-weight: bold;">
                     </tr>
                     <tbody id="TbodyData">
@@ -157,10 +154,20 @@
             
                 </table>
 
+                                    <!-- Rename-->
+                                    <div hidden id="DivRenameSave">
+                                        <table>
+                                            <tr>
+                                                <td>New name:</td> <td><input type="text" id="NewSaveName"></td>
+                                            </tr>
+                                        </table>
+                                        <button onclick="renameSave()">Save</button>
+                                    </div>
+
             
 
             <!-- <input id="LoadName" placeholder="name">
-            <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button> -->
+            <button onclick="ClickLoadGame(getValue('LoadName'))">Load</button> -->
 
     </div>
     </div>
@@ -170,8 +177,47 @@
     <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivAccount">
         <div class="center">
 
+            <div hidden class="divRedBorder divAccount" id="DivUserAccount">
+                <h3>User account</h3>
+
+                <table>
+                    <tr>
+                        <td>Name:</td> <td><input type="text" readonly id="UserName"></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td> <td><input type="email" readonly id="UserEmail"></td>
+                    </tr>
+                </table>
+
+                <button onclick="showAccountEdit()">Edit account</button>
+
+                <button id="ButtonLogout" onclick="saveGame3(true);logout()">Logout</button>
+                <button id="" onclick="showAccount(true)">Back</button>
+            </div>
+
+
+
+            <div hidden class="divRedBorder divAccount" id="DivEditAccount">
+                <h3>Edit account</h3>
+
+                <table>
+                    <tr>
+                        <td>Name:</td> <td><input type="text" id="EditName"></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td> <td><input type="email" id="EditEmail"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td> <td><input type="password" id="EditPassword"></td>
+                    </tr>
+                </table>
+
+                <button id="" onclick="saveEditedAccount()">Save</button>
+                <button onclick="showAccountEdit(true)">Back</button>
+            </div>
+
         <!-- <input id="LoadName" placeholder="name">
-        <button onclick="ClickLoadGame(GetValue('LoadName'))">Load</button> -->
+        <button onclick="ClickLoadGame(getValue('LoadName'))">Load</button> -->
 
     </div>
     </div>
@@ -240,13 +286,13 @@
 
                 <div class="fight" id="DivFight"><br>
                     <!-- Játékos akciók-->
-                    <button class="button" id="ButtonNewRound" onclick="NewRound()">New round</button>
+                    <button class="button" id="ButtonNewRound" onclick="newRound()">New round</button>
                    
                     <div id="DivPlayerActions" class="text-center">
                         <table>
                             <tr>
-                                <td class="tdSelectable button" hidden onclick="PlayerActionAttack()" id="PlayerActionAttack">Attack</td>
-                                <td class="tdSelectable button" hidden onclick="PlayerActionSpell()" id="PlayerActionSpell">Spell</td>
+                                <td class="tdSelectable button" hidden onclick="playerActionAttack()" id="PlayerActionAttack">Attack</td>
+                                <td class="tdSelectable button" hidden onclick="playerActionSpell()" id="PlayerActionSpell">Spell</td>
                             </tr>
                         </table>
                     </div>
@@ -323,51 +369,51 @@
             <span id="AreaWeaponList">
             <button type="button" id="ButtonWeaponList">Weapon: <span id="InventorySelectedWeapon">none</span> <span hidden id="InventorySelectedWeaponSlot"></span> <span id="InventorySelectedWeaponDurability"></span> </button>
             <div class="collapsibleListElements" id="InventoryWeaponList" hidden>
-                <table class="tableBig tableInventoryHidden">
+                <table class="tableBig">
                     <tr>
-                        <td id="InventoryWeapon1" onclick="ChangeSelectedItem(1, 'weapon')"></td>
+                        <td id="InventoryWeapon1" onclick="changeSelectedItem(1, 'weapon')"></td>
                         <td> <span id="InventoryWeapon1Attack"></span> </td>
                         <td> <span id="InventoryWeapon1Defense"></span> </td>
                         <td> <span id="InventoryWeapon1Damage"></span> </td>
                         <td> <span id="InventoryWeapon1Durability"></span> <span id="InventoryWeapon1CurrentDurability"></span> </td>
-                        <td id="InventoryWeapon1Sell" onclick="sellItem = true;RemoveItem1(1, 'weapon')"></td>
-                        <td hidden id="InventoryWeapon1TextDelete" onclick="sellItem = false;RemoveItem1(1)"></td>
+                        <td id="InventoryWeapon1Sell" onclick="sellItem = true;removeItem1(1, 'weapon')"></td>
+                        <td hidden id="InventoryWeapon1TextDelete" onclick="sellItem = false;removeItem1(1)"></td>
                     </tr>
     
                     <tr>
-                        <td id="InventoryWeapon2" onclick="ChangeSelectedItem(2, 'weapon')"></td>
+                        <td id="InventoryWeapon2" onclick="changeSelectedItem(2, 'weapon')"></td>
                         <td> <span id="InventoryWeapon2Attack"></span> </td>
                         <td> <span id="InventoryWeapon2Defense"></span> </td>
                         <td> <span id="InventoryWeapon2Damage"></span> </td>
                         <td> <span id="InventoryWeapon2Durability"></span> <span id="InventoryWeapon2CurrentDurability"></span> </td>
-                        <td id="InventoryWeapon2Sell" onclick="sellItem = true;RemoveItem1(2, 'weapon')"></td>
+                        <td id="InventoryWeapon2Sell" onclick="sellItem = true;removeItem1(2, 'weapon')"></td>
                     </tr>
     
                     <tr>
-                        <td id="InventoryWeapon3" onclick="ChangeSelectedItem(3, 'weapon')"></td>
+                        <td id="InventoryWeapon3" onclick="changeSelectedItem(3, 'weapon')"></td>
                         <td> <span id="InventoryWeapon3Attack"></span> </td>
                         <td> <span id="InventoryWeapon3Defense"></span> </td>
                         <td> <span id="InventoryWeapon3Damage"></span> </td>
                         <td> <span id="InventoryWeapon3Durability"></span> <span id="InventoryWeapon3CurrentDurability"></span> </td>
-                        <td id="InventoryWeapon3Sell" onclick="sellItem = true;RemoveItem1(3, 'weapon')"></td>
+                        <td id="InventoryWeapon3Sell" onclick="sellItem = true;removeItem1(3, 'weapon')"></td>
                     </tr>
     
                     <tr id="InventoryWeapon4Row" hidden>
-                        <td id="InventoryWeapon4" onclick="ChangeSelectedItem(4, 'weapon')"></td>
+                        <td id="InventoryWeapon4" onclick="changeSelectedItem(4, 'weapon')"></td>
                         <td> <span id="InventoryWeapon4Attack"></span> </td>
                         <td> <span id="InventoryWeapon4Defense"></span> </td>
                         <td> <span id="InventoryWeapon4Damage"></span> </td>
                         <td> <span id="InventoryWeapon4Durability"></span> <span id="InventoryWeapon4CurrentDurability"></span> </td>
-                        <td id="InventoryWeapon4Sell" onclick="sellItem = true;RemoveItem1(4, 'weapon')"></td>
+                        <td id="InventoryWeapon4Sell" onclick="sellItem = true;removeItem1(4, 'weapon')"></td>
                     </tr>
     
                     <tr id="InventoryWeapon5Row" hidden>
-                        <td id="InventoryWeapon5" onclick="ChangeSelectedItem(5, 'weapon')"></td>
+                        <td id="InventoryWeapon5" onclick="changeSelectedItem(5, 'weapon')"></td>
                         <td> <span id="InventoryWeapon5Attack"></span> </td>
                         <td> <span id="InventoryWeapon5Defense"></span> </td>
                         <td> <span id="InventoryWeapon5Damage"></span> </td>
                         <td> <span id="InventoryWeapon5Durability"></span> <span id="InventoryWeapon5CurrentDurability"></span> </td>
-                        <td id="InventoryWeapon5Sell" onclick="sellItem = true;RemoveItem1(5, 'weapon')"></td>
+                        <td id="InventoryWeapon5Sell" onclick="sellItem = true;removeItem1(5, 'weapon')"></td>
                     </tr>
 
                   
@@ -380,29 +426,29 @@
             <span id="AreaArmorList">
                 <button type="button" class="collapsible" id="ButtonArmorList">Armor: <span id="InventorySelectedArmor">none</span> <span hidden id="InventorySelectedArmorSlot"></span> <span id="InventorySelectedArmorDurability"></span></button><br>
                 <div class="collapsibleListElements" id="InventoryArmorList" hidden>
-                <table class="tableBig tableInventoryHidden">
+                <table class="tableBig">
                 <tr>
-                    <td id="InventoryArmor1" onclick="ChangeSelectedItem(1, 'armor')"></td>
+                    <td id="InventoryArmor1" onclick="changeSelectedItem(1, 'armor')"></td>
                     <td> <span id="InventoryArmor1Defense"></span> </td>
                     <td> <span id="InventoryArmor1DamageReduction"></span> </td>
                     <td> <span id="InventoryArmor1Durability"></span> <span id="InventoryArmor1CurrentDurability"></span> </td>
-                    <td id="InventoryArmor1Sell" onclick="sellItem = true;RemoveItem1(1, 'armor')"></td>
+                    <td id="InventoryArmor1Sell" onclick="sellItem = true;removeItem1(1, 'armor')"></td>
                 </tr>
 
                 <tr id="InventoryArmor2Row" hidden>
-                    <td id="InventoryArmor2" onclick="ChangeSelectedItem(2, 'armor')"></td>
+                    <td id="InventoryArmor2" onclick="changeSelectedItem(2, 'armor')"></td>
                     <td> <span id="InventoryArmor2Defense"></span> </td>
                     <td> <span id="InventoryArmor2DamageReduction"></span> </td>
                     <td> <span id="InventoryArmor2Durability"></span> <span id="InventoryArmor2CurrentDurability"></span> </td>
-                    <td id="InventoryArmor2Sell" onclick="sellItem = true;RemoveItem1(2, 'armor')"></td>
+                    <td id="InventoryArmor2Sell" onclick="sellItem = true;removeItem1(2, 'armor')"></td>
                 </tr>
 
                 <tr id="InventoryArmor3Row" hidden>
-                    <td id="InventoryArmor3" onclick="ChangeSelectedItem(3, 'armor')"></td>
+                    <td id="InventoryArmor3" onclick="changeSelectedItem(3, 'armor')"></td>
                     <td> <span id="InventoryArmor3Defense"></span> </td>
                     <td> <span id="InventoryArmor3DamageReduction"></span> </td>
                     <td> <span id="InventoryArmor3Durability"></span> <span id="InventoryArmor3CurrentDurability"></span> </td>
-                    <td id="InventoryArmor3Sell" onclick="sellItem = true;RemoveItem1(3, 'armor')"></td>
+                    <td id="InventoryArmor3Sell" onclick="sellItem = true;removeItem1(3, 'armor')"></td>
                 </tr>
             </table>
             
@@ -416,29 +462,29 @@
             <span id="AreaShieldList">
                 <button type="button" class="collapsible" id="ButtonShieldList">Shield: <span id="InventorySelectedShield">none</span>  <span hidden id="InventorySelectedShieldSlot"></span> <span id="InventorySelectedShieldDurability"></span></button><br>
                 <div class="collapsibleListElements" id="InventoryShieldList" hidden>
-                    <table class="tableBig tableInventoryHidden">
+                    <table class="tableBig">
                         <tr>
-                            <td id="InventoryShield1" onclick="ChangeSelectedItem(1, 'shield')"></td>
+                            <td id="InventoryShield1" onclick="changeSelectedItem(1, 'shield')"></td>
                             <td> <span id="InventoryShield1Defense"></span> </td>
                             <td> <span id="InventoryShield1Durability"></span> <span id="InventoryShield1CurrentDurability"></span> </td>
                             <td> <span id="InventoryShield1TwoHandedPenalty"></span> </td>
-                            <td id="InventoryShield1Sell" onclick="sellItem = true;RemoveItem1(1, 'shield')"></td>
+                            <td id="InventoryShield1Sell" onclick="sellItem = true;removeItem1(1, 'shield')"></td>
                         </tr>
 
                         <tr id="InventoryShield2Row" hidden>
-                            <td id="InventoryShield2" onclick="ChangeSelectedItem(2,  'shield')"></td>
+                            <td id="InventoryShield2" onclick="changeSelectedItem(2,  'shield')"></td>
                             <td> <span id="InventoryShield2Defense"></span> </td>
                             <td> <span id="InventoryShield2Durability"></span> <span id="InventoryShield2CurrentDurability"></span> </td>
                             <td> <span id="InventoryShield2TwoHandedPenalty"></span> </td>
-                            <td id="InventoryShield2Sell" onclick="sellItem = true;RemoveItem1(2, 'shield')"></td>
+                            <td id="InventoryShield2Sell" onclick="sellItem = true;removeItem1(2, 'shield')"></td>
                         </tr>
 
                         <tr id="InventoryShield3Row" hidden>
-                            <td id="InventoryShield3" onclick="ChangeSelectedItem(3, 'shield')"></td>
+                            <td id="InventoryShield3" onclick="changeSelectedItem(3, 'shield')"></td>
                             <td> <span id="InventoryShield3Defense"></span> </td>
                             <td> <span id="InventoryShield3Durability"></span> <span id="InventoryShield3CurrentDurability"></span> </td>
                             <td> <span id="InventoryShield3TwoHandedPenalty"></span> </td>
-                            <td id="InventoryShield3Sell" onclick="sellItem = true;RemoveItem1(3, 'shield')"></td>
+                            <td id="InventoryShield3Sell" onclick="sellItem = true;removeItem1(3, 'shield')"></td>
                         </tr>
         
                     </table>
@@ -457,23 +503,23 @@
                              <table id="tableOtherItems">
                                 <tr><th colspan="4" style="text-align: center;">Other items</th></tr>
                                  <tr>
-                                     <td id="InventoryItem1"></td> <td> <span id="InventoryItem1Amount"></span></td>  <td onclick="UseItem(1)" id="InventoryItem1Use"></td> <td id="InventoryItem1Sell" onclick="sellItem = true;RemoveItem1(1, 'item')"></td>
+                                     <td id="InventoryItem1"></td> <td> <span id="InventoryItem1Amount"></span></td>  <td onclick="useItem(1)" id="InventoryItem1Use"></td> <td id="InventoryItem1Sell" onclick="sellItem = true;removeItem1(1, 'item')"></td>
                                  </tr>
 
                                  <tr>
-                                    <td id="InventoryItem2"></td> <td> <span id="InventoryItem2Amount"></span></td>  <td onclick="UseItem(2)" id="InventoryItem2Use"></td> <td id="InventoryItem2Sell" onclick="sellItem = true;RemoveItem1(2, 'item')"></td>
+                                    <td id="InventoryItem2"></td> <td> <span id="InventoryItem2Amount"></span></td>  <td onclick="useItem(2)" id="InventoryItem2Use"></td> <td id="InventoryItem2Sell" onclick="sellItem = true;removeItem1(2, 'item')"></td>
                                 </tr>
 
                                 <tr>
-                                    <td id="InventoryItem3"></td> <td> <span id="InventoryItem3Amount"></span></td>  <td onclick="UseItem(3)" id="InventoryItem3Use"></td> <td id="InventoryItem3Sell" onclick="sellItem = true;RemoveItem1(3, 'item')"></td>
+                                    <td id="InventoryItem3"></td> <td> <span id="InventoryItem3Amount"></span></td>  <td onclick="useItem(3)" id="InventoryItem3Use"></td> <td id="InventoryItem3Sell" onclick="sellItem = true;removeItem1(3, 'item')"></td>
                                 </tr>
 
                                 <tr id="InventoryItem4Row" hidden>
-                                    <td id="InventoryItem4"></td> <td> <span id="InventoryItem4Amount"></span></td>  <td onclick="UseItem(4)" id="InventoryItem4Use"></td> <td id="InventoryItem4Sell" onclick="sellItem = true;RemoveItem1(4, 'item')"></td>
+                                    <td id="InventoryItem4"></td> <td> <span id="InventoryItem4Amount"></span></td>  <td onclick="useItem(4)" id="InventoryItem4Use"></td> <td id="InventoryItem4Sell" onclick="sellItem = true;removeItem1(4, 'item')"></td>
                                 </tr>
 
                                 <tr id="InventoryItem5Row" hidden>
-                                    <td id="InventoryItem5"></td> <td> <span id="InventoryItem5Amount"></span></td>  <td onclick="UseItem(5)" id="InventoryItem5Use"></td> <td id="InventoryItem5Sell" onclick="sellItem = true;RemoveItem1(5, 'item')"></td>
+                                    <td id="InventoryItem5"></td> <td> <span id="InventoryItem5Amount"></span></td>  <td onclick="useItem(5)" id="InventoryItem5Use"></td> <td id="InventoryItem5Sell" onclick="sellItem = true;removeItem1(5, 'item')"></td>
                                 </tr>
 
                              </table>
@@ -486,23 +532,23 @@
           <div class="collapsibleListElements" id="InventorySpellList" hidden>
          <table class="tableBig">
                 <tr>
-                    <td id="InventorySpell1" onclick="ChangeChoosenSpell(1)"></td> <td id="InventorySpell1Type"></td> <td id="InventorySpell1Attack"></td> <td id="InventorySpell1Defense"></td> <td id="InventorySpell1Hp">  <td id="InventorySpell1Cost"></td>
+                    <td id="InventorySpell1" onclick="changeChoosenSpell(1)"></td> <td id="InventorySpell1Type"></td> <td id="InventorySpell1Attack"></td> <td id="InventorySpell1Defense"></td> <td id="InventorySpell1Hp">  <td id="InventorySpell1Cost"></td>
                 </tr>
         
                 <tr>
-                    <td id="InventorySpell2" onclick="ChangeChoosenSpell(2)"></td> <td id="InventorySpell2Type"></td> <td id="InventorySpell2Attack"></td> <td id="InventorySpell2Defense"></td> <td id="InventorySpell2Hp"></td>  <td id="InventorySpell2Cost"></td>
+                    <td id="InventorySpell2" onclick="changeChoosenSpell(2)"></td> <td id="InventorySpell2Type"></td> <td id="InventorySpell2Attack"></td> <td id="InventorySpell2Defense"></td> <td id="InventorySpell2Hp"></td>  <td id="InventorySpell2Cost"></td>
                 </tr>
         
                 <tr>
-                    <td id="InventorySpell3" onclick="ChangeChoosenSpell(3)"></td> <td id="InventorySpell3Type"></td> <td id="InventorySpell3Attack"></td> <td id="InventorySpell3Defense"></td> <td id="InventorySpell3Hp"></td>  <td id="InventorySpell3Cost"></td>
+                    <td id="InventorySpell3" onclick="changeChoosenSpell(3)"></td> <td id="InventorySpell3Type"></td> <td id="InventorySpell3Attack"></td> <td id="InventorySpell3Defense"></td> <td id="InventorySpell3Hp"></td>  <td id="InventorySpell3Cost"></td>
                 </tr>
         
                 <tr>
-                    <td id="InventorySpell4" onclick="ChangeChoosenSpell(4)"></td> <td id="InventorySpell4Type"></td> <td id="InventorySpell4Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell4Hp"></td>  <td id="InventorySpell4Cost"></td>
+                    <td id="InventorySpell4" onclick="changeChoosenSpell(4)"></td> <td id="InventorySpell4Type"></td> <td id="InventorySpell4Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell4Hp"></td>  <td id="InventorySpell4Cost"></td>
                 </tr>
         
                 <tr>
-                    <td id="InventorySpell5" onclick="ChangeChoosenSpell(5)"></td> <td id="InventorySpell5Type"></td> <td id="InventorySpell5Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell5Hp"></td>  <td id="InventorySpell5Cost"></td>
+                    <td id="InventorySpell5" onclick="changeChoosenSpell(5)"></td> <td id="InventorySpell5Type"></td> <td id="InventorySpell5Attack"></td> <td id="InventorySpell4Defense"></td> <td id="InventorySpell5Hp"></td>  <td id="InventorySpell5Cost"></td>
                 </tr>
         
          </table>
@@ -540,15 +586,15 @@
             <div class="column3 thirdColumn" id="">
                 <div id="MainColumn3">
 
-                <button hidden id="EnterTown" onclick="HiddenSwitch('DivShop'); HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivFight'); LoadTable('Shop')">Enter town</button>
+                <button hidden id="EnterTown" onclick="hiddenSwitch('DivShop'); hiddenSwitch('EnterTown');hiddenSwitch('LeaveTown'); hiddenSwitch('DivFight'); loadTable('Shop')">Enter town</button>
 
-                <button class="button" id="ButtonTown" onclick="OpenTown()">Enter town</button>
+                <button class="button" id="ButtonTown" onclick="openTown()">Enter town</button>
 
-                <button class="button" hidden id="ButtonReloadShop" onclick="ReloadShop1()">Reload shop</button>
+                <button class="button" hidden id="ButtonReloadShop" onclick="reloadShop1()">Reload shop</button>
 
                 
                                 <!-- Bolt --> <!-- Rejtett -->
-                                <button hidden onclick="HiddenSwitch('EnterTown');HiddenSwitch('LeaveTown'); HiddenSwitch('DivShop');HiddenSwitch('DivFight')" id="LeaveTown">Leave town</button>
+                                <button hidden onclick="hiddenSwitch('EnterTown');hiddenSwitch('LeaveTown'); hiddenSwitch('DivShop');hiddenSwitch('DivFight')" id="LeaveTown">Leave town</button>
                           
                                 <div hidden class="" id="DivShop" >
                                   <table id="tableShop">
@@ -595,10 +641,11 @@
 
             <!-- Test -->
 <Div id="divTest" hidden>
-    <button onclick="AddInv()">Add Inventory</button>
-    <button onclick="NewEnemy(`${4}`);Hidden('DivEnemyAttributes', false)">Wraith</button>
-    <button onclick="SetText('InventoryCoins', 600)">Money</button>
-    <button onclick="SetText('EnemyHp', 1)">Enemy hp 1</button>
+    <button onclick="setText('PlayerCurrentMagic', '600')">Magic</button>
+    <button onclick="addInv()">Add Inventory</button>
+    <button onclick="newEnemy(`${4}`);hidden('DivEnemyAttributes', false)">Wraith</button>
+    <button onclick="setText('InventoryCoins', 600)">Money</button>
+    <button onclick="setText('EnemyHp', 1)">Enemy hp 1</button>
     <button onclick="dura1()">Durability 1</button>
     <!-- <button onclick="showCollapsible()">Show collapsible inv</button> -->
 

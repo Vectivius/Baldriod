@@ -28,13 +28,13 @@
             
                     <div id="DivMessage1" class="collapsibleListElements">
                         <p id="Message1"></p>
-                        <button id="MessageButtonContinue" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Continue')">Continue</button>
+                        <button id="MessageButtonContinue" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Continue')">Continue</button>
                     </div>
             
                     <div id="DivMessage2" class="collapsibleListElements">
                         <p id="Message2"></p>
-                        <button id="MessageButtonYes" onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg'; Continue('Yes')">Yes</button>
-                        <button id="MessageButtonNo"  onclick="GetElement('DivMessageBgVisible').id = 'DivMessageBg';Continue('No');">No</button>
+                        <button id="MessageButtonYes" onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg'; callNewFunction('Yes')">Yes</button>
+                        <button id="MessageButtonNo"  onclick="getElement('DivMessageBgVisible').id = 'DivMessageBg';callNewFunction('No');">No</button>
                     </div>
             
                 </div>
@@ -44,12 +44,12 @@
         <div id="DivMenu">
             <table>
                 <tr>
-                    <td onclick="LoadTable('enemy')">Enemies</td>   
-                    <td onclick="LoadTable('weapon')">Weapons</td>  
-                    <td onclick="LoadTable('armor')">Armors</td>  
-                    <td onclick="LoadTable('spell')">Spells</td>  
-                    <td onclick="LoadTable('scroll')">Scrolls</td>  
-                    <td onclick="LoadTable('saves')">Saves</td>  
+                    <td onclick="loadTable('enemy')">Enemies</td>
+                    <td onclick="loadTable('weapon')">Weapons</td>
+                    <td onclick="loadTable('armor')">Armors</td>
+                    <td onclick="loadTable('spell')">Spells</td>
+                    <td onclick="loadTable('scroll')">Scrolls</td>
+                    <td onclick="loadTable('user')">Users</td>
                 </tr>
             </table>
             <!-- <a onclick="LoadTable('enemy')">Enemies</a>   
@@ -104,16 +104,14 @@
 
 
         <!--/\-\- Új adat feltöltése /-/\-->
-            <div class="centerHorizontal"><button id="ButtonNewData" onclick="OpenNewDataOptions()">New data</button></div>
+            <div class="centerHorizontal"><button id="ButtonNewData" onclick="openNewDataOptions()">New data</button></div>
                 <div id="DivNewData" hidden class="divNewData absoluteCenter">
          <div class="centerHorizontal">
-                        <button onclick="OpenNewDataDivs('Enemy')"  id="ButtonNewDataEnemy" class="buttonFirst">Enemy</button>
-                        <!-- <button onclick="OpenNewDataDivs('Enemy')"  id="" class="buttonMid">Locations</button>
-                        <button onclick="OpenNewDataDivs('Enemy')"  id="" class="buttonMid">Enemy locations</button> -->
-                        <button onclick="OpenNewDataDivs('Weapon')"  id="ButtonNewDataWeapon" class="buttonMid">Weapon</button>
-                        <button onclick="OpenNewDataDivs('Armor')"  id="" class="buttonMid">Armor</button>
-                        <button onclick="OpenNewDataDivs('Spell')"  id="" class="buttonMid">Spell</button>
-                        <button onclick="OpenNewDataDivs('Scroll')"  id="" class="buttonLast">Scroll</button>
+                        <button onclick="openNewDataDivs('Enemy')"  id="ButtonNewDataEnemy" class="buttonFirst">Enemy</button>
+                        <button onclick="openNewDataDivs('Weapon')"  id="ButtonNewDataWeapon" class="buttonMid">Weapon</button>
+                        <button onclick="openNewDataDivs('Armor')"  id="" class="buttonMid">Armor</button>
+                        <button onclick="openNewDataDivs('Spell')"  id="" class="buttonMid">Spell</button>
+                        <button onclick="openNewDataDivs('Scroll')"  id="" class="buttonLast">Scroll</button>
          </div>
 <br>
 
@@ -145,7 +143,7 @@
                                 <td>Level:</td> <th><input type="text" id="NewDataEnemyLevel"></th>
                         </tr>
                     </table>
-                    <button id="SaveNewDataEnemy" onclick="NewData('enemy')">Save data</button>
+                    <button id="SaveNewDataEnemy" onclick="newDataSql('enemy')">Save data</button>
                 </div>
 
                 <!-- Fegyver -->
@@ -174,7 +172,7 @@
                         </tr>          
      
                     </table>
-                    <button  onclick="NewData('weapon')">Save data</button>
+                    <button  onclick="newDataSql('weapon')">Save data</button>
                 </div>
 
                 <!-- Páncél -->
@@ -200,7 +198,7 @@
                         </tr>          
      
                     </table>
-                    <button  onclick="NewData('armor')">Save data</button>
+                    <button  onclick="newDataSql('armor')">Save data</button>
                 </div>
 
                 <!-- Fegyver -->
@@ -220,7 +218,7 @@
                         </tr>          
      
                     </table>
-                    <button  onclick="NewData('enemy')">Save data</button>
+                    <button  onclick="newDataSql('enemy')">Save data</button>
                 </div>
 
                 <!-- Fegyver -->
@@ -240,7 +238,7 @@
                         </tr>          
      
                     </table>
-                    <button  onclick="NewData('enemy')">Save data</button>
+                    <button  onclick="newDataSql('enemy')">Save data</button>
                 </div>
                 
 
@@ -255,13 +253,13 @@
                         <span id="AreaEditType">
                             <button type="button" id="ButtonEditType">Type: <span id="TextEditType"></span> </button><br>
                             <span class="collapsibleListElements" id="SpanEditType" hidden> 
-                                <table id="TableEditType" class="tableBig tableInventoryHidden">
+                                <table id="TableEditType" class="tableBig">
                              
                                 </table>
                             </span>
                         </span>
                         <input id="NewValue" type="text" placeholder="New value"><br>
-                          <button id="EditForCypress" onclick="Edit()">Save</button>
+                          <button id="EditForCypress" onclick="editSql()">Save</button>
                     </div>
 
 
@@ -278,19 +276,53 @@
 
 
 
-                <div id="DivAdmin" class="centerHorizontal">
+                <div id="DivAdmin" class="centerHorizontal divRedBorder">
+
+                    <button onclick="showAccount()">Account</button>
+                    <button onclick="location.href='../home/pageHome.html' ">Main page</button>
+            
+                </div>
+
+                <div hidden class="divRedBorder divAccount" id="DivUserAccount">
+                    <h3>User account</h3>
+
                     <table>
                         <tr>
-                            <td>Admin: <span id="AdminEmail"></span> </td> <td><button id="ButtonLogout" onclick="logout()">Logout</button>
-                            </td>
+                            <td>Name:</td> <td><input type="text" readonly id="AdminName"></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td> <td><input type="email" readonly id="AdminEmail"></td>
                         </tr>
                     </table>
 
+                    <button onclick="showAccountEdit()">Edit account</button>
 
+                    <button id="ButtonLogout" onclick="logout()">Logout</button>
+                    <button id="" onclick="showAccount(true)">Back</button>
+                </div>
+
+
+                <div hidden class="divRedBorder divAccount" id="DivEditAccount">
+                    <h3>Edit account</h3>
+
+                    <table>
+                        <tr>
+                            <td>Name:</td> <td><input type="text" id="EditName"></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td> <td><input type="email" id="EditEmail"></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td> <td><input type="password" id="EditPassword"></td>
+                        </tr>
+                    </table>
+
+                    <button id="" onclick="saveEditedAccount()">Save</button>
+                    <button onclick="showAccountEdit(true)">Back</button>
                 </div>
             
         
-            <!--<div class="center"><button class="buttonBoxShadow" onclick="HiddenSwitch('DivEditData')">Edit enemy data</button></div>
+            <!--<div class="center"><button class="buttonBoxShadow" onclick="hiddenSwitch('DivEditData')">Edit enemy data</button></div>
                 <div id="DivEditData" hidden class="center absoluteCenter">
 
                 </div> -->
