@@ -1,11 +1,14 @@
+-- Active: 1694777276218@@127.0.0.1@3306@baldriod
+
 -- Active: 1707322691317@@127.0.0.1@3306@baldriod
+
 
 CREATE DATABASE IF NOT EXISTS baldriod
     DEFAULT CHARACTER SET = 'utf8' COLLATE utf8_hungarian_ci;
     
 CREATE TABLE IF NOT EXISTS enemy(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    enemyName TEXT UNIQUE,
+    enemyName TEXT,
     enemyAttack INT,
     enemyDefense INT,
     enemyHp INT,
@@ -153,4 +156,8 @@ INSERT INTO `Armor` VALUES
 ALTER TABLE enemy AUTO_INCREMENT = 1
 
 
+UPDATE saves set saveName = "guder" where id = 3
 
+
+
+select * from enemy order by id desc limit 1
