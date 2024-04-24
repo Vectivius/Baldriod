@@ -4,6 +4,7 @@ const mysql = require('mysql2');
 const Config  = require('./config');
 const app = express();
 
+
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 
@@ -39,7 +40,20 @@ app.get('/user', authenticateTokenAdmin, (req,res) => {
         res.send(result);
     })
 })
+// Felhasználók
+app.get('/user', authenticateTokenAdmin, (req,res) => {
+    var con = mysql.createConnection(new Config());
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('sikeres csatlakozás (enemy)');
+    })
+    con.query('select * from user', (err,result) =>{
+        if (err) throw err;
+        res.send(result);
+    })
+})
 // Ellenfelek
+app.get('/enemy', (req,res) => {
 app.get('/enemy', (req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
@@ -52,6 +66,7 @@ app.get('/enemy', (req,res) => {
     })
 })
 // Fegyverek
+app.get('/weapon', (req,res) => {
 app.get('/weapon', (req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
@@ -99,6 +114,20 @@ app.get('/scroll',(req,res) => {
         res.send(result);
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,9 +255,31 @@ app.get('/saves/getall/:userId', authenticateToken, (req,res) => {
         res.send(result);
 
     })
+    })
 })
 
 
+//Mentés törlése
+app.delete('/saves/delete/:userId/:saveId', authenticateToken,(req,res) => {
+    var con = mysql.createConnection(new Config());
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('sikeres csatlakozás');
+    })
+
+   // con.query('delete from = ? where id = ?',[req.params['type'], req.params['id']], (err,result) =>{
+    let table = req.params['type']
+    con.query(`delete from saves where id = ?`,[req.params.saveId], (err,result) =>{
+        console.log(result)
+        //res.send(result);
+        if (err) {
+            res.status(404).send({status: 404 , error: "Hiba a törléskor"});
+        }
+        else {
+            res.status(200).send({status: 200 ,success: "Sikeres törlés"})
+        }
+    })    
+})
 //Mentés törlése
 app.delete('/saves/delete/:userId/:saveId', authenticateToken,(req,res) => {
     var con = mysql.createConnection(new Config());
@@ -271,23 +322,33 @@ app.delete('/saves/delete/:userId/:saveId', authenticateToken,(req,res) => {
 // Új adatok
 
 app.post('/enemy', authenticateTokenAdmin,(req,res) => {
+app.post('/enemy', authenticateTokenAdmin,(req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
         if (err) throw err;
         console.log('sikeres csatlakozás');
     })
-    const SQL = 'insert into enemy (enemyName,enemyAttack,enemyDefense, enemyHp, enemyDamage, enemyArmor, enemyMagic, enemyLevel) values (?,?,?,?,?,?,?, ?)';
-    con.query(SQL,[req.body.enemyName, req.body.enemyAttack, req.body.enemyDefense, req.body.enemyHp, req.body.enemyDamage, req.body.enemyArmor, req.body.enemyMagic, req.body.enemyLevel], (err,result) =>{
-        console.log(err);
-        if (err) {
-            res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
-        }
-        else {
-            res.status(200).send({status: 200 ,success: "Sikeres adatrögzítés"})
-        }
+
+    con.query("select id from enemy order by id desc limit 1", (err1, result1) => {
+
+        const SQL = 'insert into enemy (id, enemyName,enemyAttack,enemyDefense, enemyHp, enemyDamage, enemyArmor, enemyMagic, enemyLevel) values (?,?,?,?,?,?,?,?,?)';
+        con.query(SQL,[result1[0].id+1,req.body.enemyName, req.body.enemyAttack, req.body.enemyDefense, req.body.enemyHp, req.body.enemyDamage, req.body.enemyArmor, req.body.enemyMagic, req.body.enemyLevel], (err,result) =>{
+            console.log(err);
+            if (err) {
+                res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
+            }
+            else {
+                res.status(200).send({status: 200 ,success: "Sikeres adatrögzítés"})
+            }
+        })
+
     })
+
+
+
 })
 
+app.post('/weapon',authenticateTokenAdmin, (req,res) => {
 app.post('/weapon',authenticateTokenAdmin, (req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
@@ -307,6 +368,7 @@ app.post('/weapon',authenticateTokenAdmin, (req,res) => {
 })
 
 app.post('/armor', authenticateTokenAdmin,(req,res) => {
+app.post('/armor', authenticateTokenAdmin,(req,res) => {
     var con = mysql.createConnection(new Config());
     con.connect(function(err) {
         if (err) throw err;
@@ -323,6 +385,7 @@ app.post('/armor', authenticateTokenAdmin,(req,res) => {
         }
     })
 })
+
 
 
 
@@ -379,7 +442,10 @@ app.post('/saves', (req,res) => {
 
 
 
+
 //Törlés Id alapján
+app.delete('/delete/:type/:id', authenticateTokenAdmin,(req,res) => {
+    console.log('1')
 app.delete('/delete/:type/:id', authenticateTokenAdmin,(req,res) => {
     console.log('1')
     var con = mysql.createConnection(new Config());
@@ -439,6 +505,7 @@ app.delete('/delete/:type/:id', authenticateTokenAdmin,(req,res) => {
 
 
 //Ellenfél módosítása Id alapján
+app.put('/enemy/:id/:tipus/:ertek', authenticateTokenAdmin,(req,res) => {
 app.put('/enemy/:id/:tipus/:ertek', authenticateTokenAdmin,(req,res) => {
     console.log(req.params['id'])
     var con = mysql.createConnection(new Config());
@@ -547,12 +614,14 @@ console.log(`Alkalmazás publikálva ${port}-on`);
 
 //Bejelentkezés
 app.post("/user/login", (req, res) => {
+app.post("/user/login", (req, res) => {
     var con = mysql.createConnection(new Config())
     con.connect(function(err) {
         if (err) throw err;
         console.log('sikeres csatlakozás');
     })
 
+    con.query('select id, userName, userEmail, userLevel from user where userEmail = ?',  [req.body.email], (err,result) =>{
     con.query('select id, userName, userEmail, userLevel from user where userEmail = ?',  [req.body.email], (err,result) =>{
         if (err) throw err;
         console.log(req.body.email)
