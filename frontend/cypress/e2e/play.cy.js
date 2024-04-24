@@ -8,7 +8,7 @@
 
 
 
-/*
+
 it("enemy not empty", () => {
   cy.visit("../../play/pagePlay.html")
   cy.get("button[id=ButtonNewRound]").click()
@@ -218,7 +218,7 @@ it("use item", () => {
 
 
 
-it("save and load game locally", () => {
+it("save and load game", () => {
     //Start game
     cy.visit("../../newGame/pageNewGame.html")
     cy.get("td[id=SettingsOptionEasy]").click()
@@ -236,22 +236,22 @@ it("save and load game locally", () => {
     cy.get("th[id=PlayerName]").should('contain', 'Cypress')
 
     //Save
-    //cy.get("input[id=SaveName]").type("Cypress")
-    cy.get("button").contains("Save locally").click()
+    cy.get("input[id=SaveName]").type("Cypress")
+    cy.get("button").contains("Save").click()
 
     //Delete name
     cy.get("th[id=PlayerName]").invoke('html', '<td>600</td>');
 
     //Load
-    //cy.get("div[id=DivSave]").invoke('hide')
-    //cy.get("div[id=DivLoad]").invoke('show')
-    //cy.get("input[id=LoadName]").type("Cypress")
-    //cy.get("button").contains("Load").click()
+    cy.get("div[id=DivSave]").invoke('hide')
+    cy.get("div[id=DivLoad]").invoke('show')
+    cy.get("input[id=LoadName]").type("Cypress")
+    cy.get("button").contains("Load").click()
 
     //Load at home page
     cy.visit("../../home/pageHome.html")
-    //cy.get("textarea[id=SaveName]").type("Cypress")
-    cy.get("button").contains("Load local save").click()
+    cy.get("textarea[id=SaveName]").type("Cypress")
+    cy.get("button").contains("Load game").click()
 
     //Hide menu
     cy.get("div[id=DivLoad]").invoke('hide')
@@ -261,67 +261,3 @@ it("save and load game locally", () => {
 
 })
 
-*/
-
-
-
-it("save and load game to database", () => {
-
-  //Login
-  cy.visit("../../home/pageHome.html")
-  cy.get("button[id=ButtonLogin]").click()
-  cy.get("input[id=LoginEmail]").type("one@o")
-  cy.get("input[id=LoginPassword]").type("one")
-  cy.get("button").contains("Login").click()
-  // cy.get("button").contains("Saved games").click()
-  // cy.get("td").contains("Load").click()
-
-  //Start game
-  //cy.get("button").contains("Back to home page").click()
-  cy.get("button").contains("New game").click()
- // cy.visit("../../newGame/pageNewGame.html")
-  cy.get("td[id=SettingsOptionEasy]").click()
-  cy.get("div[id=NewGameDifficulty]").invoke('hide')
-  cy.get("textarea[id=NewGamePlayerName]").type("Cypress")
-  cy.get("div[id=NewGameAttributes]").invoke('hide')
-  cy.get("button[id=ButtonGenerate]").click()
-  cy.get("button[id=ButtonStartGame]").click()
-
-  //Hide menu
-  cy.get("div[id=DivLoad]").invoke('hide')
-  cy.get("div[id=DivSettings]").invoke('hide')
-  cy.get("div[id=DivAccount]").invoke('hide')
-
-  //Player not empty
-  cy.get("th[id=PlayerName]").should('contain', 'Cypress')
-
-  //Save
-  cy.get("input[id=SaveName]").type("Cypress")
-  cy.get("button").contains("Save to server").click()
-
-  //Delete name
-  cy.get("th[id=PlayerName]").invoke('html', '<td>600</td>');
-
-  //Load
-  cy.get("div[id=DivSave]").invoke('hide')
-  cy.get("div[id=DivLoad]").invoke('show')
-  //cy.get("input[id=LoadName]").type("Cypress")
-  cy.get("td").contains("Load").click()
-
-    //Hide menu
-    cy.get("div[id=DivLoad]").invoke('hide')
-    cy.get("div[id=DivSettings]").invoke('hide')
-    cy.get("div[id=DivAccount]").invoke('hide')
-
-  //Load at home page
-  cy.visit("../../home/pageHome.html")
-  //cy.get("textarea[id=SaveName]").type("Cypress")
-  cy.get("button").contains("Load local save").click()
-
-  //Hide menu
-  cy.get("div[id=DivLoad]").invoke('hide')
-  cy.get("div[id=DivSave]").invoke('hide')
-  cy.get("div[id=DivSettings]").invoke('hide')
-
-
-})

@@ -221,7 +221,7 @@ return response;
 //Mentett játék betöltése
 function loadGame(saveId) {
     
-    getData(`${route}saves/get/${localStorage.getItem("userId")}/${saveId}/id`, localStorage.getItem("token")).then((save) => {
+    getData(`${route}saves/getById/${localStorage.getItem("userId")}/${saveId}`, localStorage.getItem("token")).then((save) => {
 
         localStorage.setItem("playerName", save[0].playerName)
 

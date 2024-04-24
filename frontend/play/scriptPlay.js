@@ -1604,7 +1604,6 @@ function openLoadGame() {
 
 
 
-
 //-/- Játék mentése -\-\\
 function saveGame() {
     if (getValue("SaveName") == "") {
@@ -1617,8 +1616,9 @@ function saveGame() {
 
 function saveGame2() {
     let saveName = getValue("SaveName")
-    getData(`${route}saves/get/${localStorage.getItem("userId")}/${saveName}/name`).then((response) => {
-        if (response[0] != undefined) {
+    let data = {}
+    getData(`${route}saves/getByName/${localStorage.getItem("userId")}/${saveName}`, localStorage.getItem("token")).then((response) => {
+                if (response[0] != undefined) {
             generalId = response[0].id
             sendMessage("This save already exists. Do you want to overwrite it?", 2, ["", "saveGame3", ""])
         } else {
@@ -1626,7 +1626,6 @@ function saveGame2() {
         }
     })
 }
-
 
 function saveGame3(localSave = false, replace = false) {
 
@@ -1714,10 +1713,12 @@ function saveGame3(localSave = false, replace = false) {
 
         //Delete old
         if (replace == true) {
-            deleteData(`${route}delete/saves/${generalId}`)
+            let  data = {}
+            deleteData(`${route}saves/delete/${localStorage.getItem("userId")}/${generalId}`, data, localStorage.getItem("token"))
         }
 
         //Save
+        
         postData(`${route}saves/new/${data.userId}`,data, localStorage.getItem("token"))
         .then((response) => {
             console.log(data)

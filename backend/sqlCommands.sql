@@ -1,11 +1,14 @@
 -- Active: 1707322691317@@127.0.0.1@3306@baldriod
 
+-- Active: 1694777276218@@127.0.0.1@3306@baldriod
+
+
 CREATE DATABASE IF NOT EXISTS baldriod
     DEFAULT CHARACTER SET = 'utf8' COLLATE utf8_hungarian_ci;
     
 CREATE TABLE IF NOT EXISTS enemy(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    enemyName TEXT UNIQUE,
+    enemyName TEXT,
     enemyAttack INT,
     enemyDefense INT,
     enemyHp INT,
@@ -101,11 +104,12 @@ CREATE TABLE IF NOT EXISTS user(
 );
 
 INSERT INTO `saves` VALUES
-    (null, "gregSave", (SELECT id from user WHERE `userName`='greg'), "greg")
+  (null, "gregSave", (SELECT id from user WHERE `userName`='greg'), "greg")
 
 
 INSERT INTO `user` VALUES
     (null, "notAdmin", "non@n", "non", 1),
+    (null, "oneUser", "one@o", "one", 1),
     (null, "greg", "greg@g", "greg", 2)
 
 
@@ -153,4 +157,4 @@ INSERT INTO `Armor` VALUES
 ALTER TABLE enemy AUTO_INCREMENT = 1
 
 
-
+UPDATE saves set saveName = "guder" where id = 3
