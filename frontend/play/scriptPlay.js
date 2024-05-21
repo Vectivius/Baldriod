@@ -1702,7 +1702,8 @@ function saveGame3(localSave = false, replace = false) {
         WeaponsDurability: weaponDurability,
         ArmorsDurability: armorDurability,
         ShieldsDurability: shieldDurability,
-        SelectedItems: selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3
+        SelectedItems: selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3,
+        Coins: getText("InventoryCoins")
     }
 
     //Local storage
@@ -1720,6 +1721,8 @@ function saveGame3(localSave = false, replace = false) {
     localStorage.setItem("armorsDurability", armorDurability)
     localStorage.setItem("shieldsDurability", shieldDurability)
     localStorage.setItem("selectedItems", selectedItem1 + "-" + selectedItem2 + "-" + selectedItem3)
+    localStorage.setItem("coins", getText("InventoryCoins"))
+
     
     if (localSave != true) {
 

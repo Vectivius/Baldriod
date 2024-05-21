@@ -101,6 +101,8 @@ if (localStorage.getItem("playerAttack") != undefined) {
     setText("PlayerStartMagic", localStorage.getItem("playerMagic").split("-")[1])
     setText("PlayerCurrentMagic", localStorage.getItem("playerMagic").split("-")[1])
 
+    setText("InventoryCoins", localStorage.getItem("coins"))
+
     //Fegyverek betöltése
     if (localStorage.getItem("weapons") != undefined && localStorage.getItem("weapons") != "null") {
         setTimeout(() => {
