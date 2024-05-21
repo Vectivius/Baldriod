@@ -603,6 +603,16 @@ textarea, input {
     border: 1px solid var(--brown);
     transition: 100ms linear;
 }
+
+/* https://discourse.webflow.com/t/autofill-background-color-turn-to-white-how-to-change-this/200153 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: black !important;
+}
+
 textarea:focus, input:focus {
     outline: none !important;
     border: 1px solid var(--red1);

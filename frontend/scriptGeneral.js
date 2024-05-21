@@ -362,11 +362,11 @@ function callNewFunction(type) {
             break;
 
         case "RemoveItem2":
-            RemoveItem2()
-            CloseItemList()
+            removeItem2()
+            closeItemList()
             break;
         case "CloseItemList":
-            CloseItemList()
+            closeItemList()
             break;
         case "saveGame3":
             saveGame3(false, true)
