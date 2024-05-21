@@ -203,6 +203,13 @@ document.body.addEventListener("click", (event) => {
        //Rename
         if (event.target.id.includes('EditSave') ) {
 
+            //Close
+            if (event.target.classList.contains("tdSelected")) {
+                hidden("DivRenameSave", true)
+                deselectItems()
+
+            } else {
+            //Open
             let list = document.getElementsByClassName("tdSelected")
 
             for (let i = 0; i < list.length; i++) {
@@ -212,6 +219,9 @@ document.body.addEventListener("click", (event) => {
             addClass(event.target.id, "tdSelected", 1)
             generalId = event.target.id.split("-")[1]
             hidden("DivRenameSave", false)
+            }
+
+
 
         }
 
