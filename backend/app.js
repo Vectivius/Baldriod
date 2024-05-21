@@ -167,12 +167,12 @@ app.post('/saves/new/:userId', authenticateToken,(req,res) => {
         if (err) throw err;
         console.log('sikeres csatlakozás');
     })
-    const SQL = 'insert into saves (id, saveName,userId,playerName,PlayerAttack,PlayerDefense,PlayerHp,PlayerMagic,Weapons,Armors,Shields,WeaponsDurability,ArmorsDurability,ShieldsDurability,SelectedItems) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+    const SQL = 'insert into saves (id, saveName,userId,playerName,PlayerAttack,PlayerDefense,PlayerHp,PlayerMagic,Weapons,Armors,Shields,WeaponsDurability,ArmorsDurability,ShieldsDurability,SelectedItems,Coins) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
     id = null
     if (req.body.id != undefined) {
         id = req.body.id
     }
-    con.query(SQL,[id, req.body.saveName, req.params.userId, req.body.playerName, req.body.PlayerAttack, req.body.PlayerDefense, req.body.PlayerHp, req.body.PlayerMagic, req.body.Weapons, req.body.Armors, req.body.Shields, req.body.WeaponsDurability, req.body.ArmorsDurability, req.body.ShieldsDurability, req.body.SelectedItems], (err,result) =>{
+    con.query(SQL,[id, req.body.saveName, req.params.userId, req.body.playerName, req.body.PlayerAttack, req.body.PlayerDefense, req.body.PlayerHp, req.body.PlayerMagic, req.body.Weapons, req.body.Armors, req.body.Shields, req.body.WeaponsDurability, req.body.ArmorsDurability, req.body.ShieldsDurability, req.body.SelectedItems, req.body.Coins], (err,result) =>{
         console.log(err);
         if (err) {
             res.status(404).send({status: 404 , error: "Hiba az adat rögzítésekor"});
