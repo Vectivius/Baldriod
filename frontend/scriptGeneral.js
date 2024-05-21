@@ -240,6 +240,9 @@ function loadGame(saveId) {
 
         localStorage.setItem("selectedItems", save[0].SelectedItems)
 
+        localStorage.setItem("coins", save[0].Coins)
+        
+
 
         /*localStorage.setItem("playerName", save[0].playerName)
         localStorage.setItem("playerName", save[0].playerName)
