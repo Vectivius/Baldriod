@@ -11,6 +11,16 @@ const jwt = require("jsonwebtoken")
 
 const port = 8001;
 
+// publikáljuk a szervert
+app.listen(port, () => {
+    console.log(`Alkalmazás publikálva ${port}-on`);
+    
+    })
+    
+    
+    
+    
+
 //app.use(express.static(__dirname + './address.js'));
 //app.use("./address.js");
 
@@ -512,14 +522,6 @@ app.put('/enemy/:id/:tipus/:ertek', authenticateTokenAdmin,(req,res) => {
 })
 
 
-// publikáljuk a szervert
-app.listen(port, () => {
-console.log(`Alkalmazás publikálva ${port}-on`);
-
-})
-
-
-
 
 
 
@@ -567,6 +569,7 @@ app.post("/user/login", (req, res) => {
                     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
                     refreshTokens.push(refreshToken)
                     //res.json({accesToken: accesToken, refreshToken: refreshToken})
+
                     res.send({result: result, accesToken: accesToken})
                 }
             } else res.send({error: "incorrect"})
@@ -574,14 +577,6 @@ app.post("/user/login", (req, res) => {
     })
 })
 
-/*
-app.post("/user/login", (req, res) => {
-    const user = {email: req.body.email}
-    const accesToken = generateAccessToken(user)
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-    refreshTokens.push(refreshToken)
-    res.json({accesToken: accesToken, refreshToken: refreshToken})
-})*/
 
 let refreshTokens = []
 
@@ -601,16 +596,6 @@ app.post("/token", (req, res) => {
         res.json({accessToken: accessToken })
     })
 })
-/*
-non
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vbkBuIiwibGV2ZWwiOiIxIiwiaWF0IjoxNzEzMDkxMTUwLCJleHAiOjE3MTMwOTI5NTB9.-rdSyirPH-_19ctlp1Xq46wbpN19GFJtCl7B_sxuvc0
-
-greg
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdyZWdAZyIsImxldmVsIjoiMiIsImlhdCI6MTcxMzA5MTIyNSwiZXhwIjoxNzEzMDkzMDI1fQ.Ib2pT4LtyfH72pyRPpxT__wewTkrxMR0WuLpK-rICqg
-*/
-
-
-
 
 
 

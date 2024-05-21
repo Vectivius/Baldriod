@@ -1,8 +1,7 @@
--- Active: 1694777276218@@127.0.0.1@3306@baldriod
-
 -- Active: 1707322691317@@127.0.0.1@3306@baldriod
 
--- Active: 1694777276218@@127.0.0.1@3306@baldriod
+
+
 
 
 
@@ -67,6 +66,14 @@ CREATE TABLE IF NOT EXISTS scroll(
     FOREIGN KEY (spellId) REFERENCES spell(id)
 );
 
+CREATE TABLE IF NOT EXISTS user(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    userName TEXT,
+    userEmail TEXT,
+    userPassword TEXT,
+    userLevel TEXT DEFAULT 1
+);
+
 CREATE TABLE IF NOT EXISTS saves(
     id INT PRIMARY KEY AUTO_INCREMENT,
     saveName TEXT,
@@ -98,16 +105,10 @@ CREATE TABLE IF NOT EXISTS saves(
     FOREIGN KEY (userId) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS user(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    userName TEXT,
-    userEmail TEXT,
-    userPassword TEXT,
-    userLevel TEXT DEFAULT 1
-);
 
-INSERT INTO `saves` VALUES
-  (null, "gregSave", (SELECT id from user WHERE `userName`='greg'), "greg")
+
+-- INSERT INTO `saves` VALUES
+--   (null, "gregSave", (SELECT id from user WHERE `userName`='greg'), "greg")
 
 
 INSERT INTO `user` VALUES
@@ -118,11 +119,11 @@ INSERT INTO `user` VALUES
 
 
 INSERT INTO `spell` VALUES
-    (null,'Fireball', 'attack', '0', '0', '3-5', 5, 1),
-    (null,'Lightning strike', 'attack', '0-1', '0-1', '1-7', 5, 1),
-    (null,'Healing', 'defense', '0', '0', '2-9', 5, 1),
-    (null,'Strength', 'defense', '2', '0', '0', 5, 3),
-    (null,'Protection', 'defense', '0', '3', '0', 7, 3);
+    (null,'Fireball', 'attack', '0', '0', '3-5', 5),
+    (null,'Lightning strike', 'attack', '0-1', '0-1', '1-7', 5),
+    (null,'Healing', 'defense', '0', '0', '2-9', 5),
+    (null,'Strength', 'defense', '2', '0', '0', 5),
+    (null,'Protection', 'defense', '0', '3', '0', 7);
 
 INSERT INTO `scroll` VALUES
     (null, 'Fireball scroll', 17, (SELECT id from spell WHERE `spellName`='Fireball')),
@@ -160,7 +161,7 @@ INSERT INTO `Armor` VALUES
 ALTER TABLE enemy AUTO_INCREMENT = 1
 
 
-UPDATE saves set saveName = "guder" where id = 3
+-- UPDATE saves set saveName = "guder" where id = 3
 
 
 
