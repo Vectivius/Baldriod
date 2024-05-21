@@ -124,7 +124,7 @@
     <div class="collapsibleListElements absoluteCenter divMenuCollapsible" hidden id="DivSave">
         <div class="center">
 
-        <button onclick="saveGame3(true)">Save locally</button>
+        <button id="ButtonSaveGameLocally" onclick="saveGame3(true)">Save locally</button>
 
 
         <div hidden id="DivSaveToServer">
@@ -287,6 +287,7 @@
                 <div class="fight" id="DivFight"><br>
                     <!-- Játékos akciók-->
                     <button class="button" id="ButtonNewRound" onclick="newRound()">New round</button>
+                    <button hidden class="button" id="ButtonNewRoundCypress" onclick="newRoundCypress()">New round</button>
                    
                     <div id="DivPlayerActions" class="text-center">
                         <table>

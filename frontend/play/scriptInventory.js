@@ -35,7 +35,7 @@ function removeItem1(id, type) {
         } else {
             
             if (type == "item") {
-                sendMessage("Enter the town to sell an item!", 1, ["deselectItems", "", ""])
+                sendMessage("Enter the town to sell an item!", 1, ["CloseItemList", "", ""])
                 unselectId = `InventoryItem${id}Sell`
                 addClass(unselectId, "tdSelected", 1)
             }
@@ -147,6 +147,8 @@ function closeItemList() {
         getElement("InventoryShieldListOpen").id = "InventoryShieldList"
     }
 }
+
+
 
 
 
@@ -888,11 +890,92 @@ AreaSpellList.addEventListener("mouseover", function () {
 })
 
 
+/* Mentés */
+const DivSave = document.getElementById("DivSave")
+DivSave.addEventListener("mouseleave", function() {
+    hidden("DivSave", true)
+    document.getElementById("ButtonSave").classList.remove("buttonSelected")
+})
+DivSave.addEventListener("mouseover", function () {
+    hidden("DivSave", false)
+    document.getElementById("ButtonSave").classList.add("buttonSelected")
+})
+
+const ButtonSave = document.getElementById("ButtonSave")
+ButtonSave.addEventListener("mouseleave", function() {
+    hidden("DivSave", true)
+    document.getElementById("ButtonSave").classList.remove("buttonSelected")
+})
+ButtonSave.addEventListener("mouseover", function () {
+    hidden("DivSave", false)
+    document.getElementById("ButtonSave").classList.add("buttonSelected")
+})
 
 
+/* Betöltés */
+const DivLoad = document.getElementById("DivLoad")
+DivLoad.addEventListener("mouseleave", function() {
+    hidden("DivLoad", true)
+    document.getElementById("ButtonLoad").classList.remove("buttonSelected")
+})
+DivLoad.addEventListener("mouseover", function () {
+    hidden("DivLoad", false)
+    document.getElementById("ButtonLoad").classList.add("buttonSelected")
+})
+
+const ButtonLoad = document.getElementById("ButtonLoad")
+ButtonLoad.addEventListener("mouseleave", function() {
+    hidden("DivLoad", true)
+    document.getElementById("ButtonLoad").classList.remove("buttonSelected")
+})
+ButtonLoad.addEventListener("mouseover", function () {
+    hidden("DivLoad", false)
+    document.getElementById("ButtonLoad").classList.add("buttonSelected")
+})
 
 
+/* Beállítások */
+const DivSettings = document.getElementById("DivSettings")
+DivSettings.addEventListener("mouseleave", function() {
+    hidden("DivSettings", true)
+    document.getElementById("ButtonSettings").classList.remove("buttonSelected")
+})
+DivSettings.addEventListener("mouseover", function () {
+    hidden("DivSettings", false)
+    document.getElementById("ButtonSettings").classList.add("buttonSelected")
+})
 
+const ButtonSettings = document.getElementById("ButtonSettings")
+ButtonSettings.addEventListener("mouseleave", function() {
+    hidden("DivSettings", true)
+    document.getElementById("ButtonSettings").classList.remove("buttonSelected")
+})
+ButtonSettings.addEventListener("mouseover", function () {
+    hidden("DivSettings", false)
+    document.getElementById("ButtonSettings").classList.add("buttonSelected")
+})
+
+
+/* Fiók */
+const DivAccount = document.getElementById("DivAccount")
+DivAccount.addEventListener("mouseleave", function() {
+    hidden("DivAccount", true)
+    document.getElementById("ButtonAccount").classList.remove("buttonSelected")
+})
+DivAccount.addEventListener("mouseover", function () {
+    hidden("DivAccount", false)
+    document.getElementById("ButtonAccount").classList.add("buttonSelected")
+})
+
+const ButtonAccount = document.getElementById("ButtonAccount")
+ButtonAccount.addEventListener("mouseleave", function() {
+    hidden("DivAccount", true)
+    document.getElementById("ButtonAccount").classList.remove("buttonSelected")
+})
+ButtonAccount.addEventListener("mouseover", function () {
+    hidden("DivAccount", false)
+    document.getElementById("ButtonAccount").classList.add("buttonSelected")
+})
 
 
 

@@ -247,12 +247,12 @@
     line-height: normal;
 }
 
-#DivSave button:hover:not(#ButtonSaveGame) {
+#DivSave button:enabled:hover:not(#ButtonSaveGame) {
     background-color: var(--yellow);
     box-shadow: 00 0 10px var(--red1);
     transition: 100ms linear;
 }
-#ButtonSaveGame:hover {
+#ButtonSaveGame:enabled:hover {
     background-color: var(--yellow);
     box-shadow: 00 0 10px var(--red1);
     transition: 100ms linear;

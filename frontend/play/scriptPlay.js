@@ -282,7 +282,9 @@ getData(`${route}enemy`).then((enemy) => {
 //-/- Új kör -\-\\
 function newRound() {
     disabled("ButtonNewRound")
+    // addClass("ButtonNewRound", "buttonDisabled", 1)
     disabled("ButtonSaveGame")
+    disabled("ButtonSaveGameLocally")
     disabled("ButtonTown")
     hidden("DivEnemyAttributes", false)
     do {
@@ -291,8 +293,17 @@ function newRound() {
         
         newEnemy(enemyId)
 }
-
-
+function newRoundCypress() {
+    disabled("ButtonSaveGame")
+    disabled("ButtonSaveGameLocally")
+    disabled("ButtonTown")
+    hidden("DivEnemyAttributes", false)
+    do {
+        enemyId=randomNumber(0,enemyList.length-1);
+    } while (enemyList[enemyId].level > difficultyLevel)
+        
+        newEnemy(enemyId)
+}
 
 //-/- Új ellenség -\-\\
 function newEnemy(id) {
@@ -1153,6 +1164,7 @@ if (enemyAttackWithWeapon == true) {
 
         enabled("ButtonNewRound")
         enabled("ButtonSaveGame")
+        enabled("ButtonSaveGameLocally")
         
                 //Mágia növelése 1-gyel
                 if (player.magic < getText("PlayerStartMagic")) {
