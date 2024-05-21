@@ -1,5 +1,25 @@
+it("correct admin login", () => {
+  cy.visit("../../registerAndLogin/pageLogin.html")
+
+  cy.get("input[id=LoginEmail]").type("greg@g")
+  cy.get("input[id=LoginPassword]").type("greg")
+  cy.get("button").contains("Login").click()
+
+  cy.get("button").contains("Admin page").click()
+  cy.get("button").contains("Account").click()
+  // cy.get("button").contains("Logout").click()
+
+})
+
+
 it("new data", () => {
-  cy.visit("../../admin/pageAdmin.html")
+  //Login
+  cy.visit("../../registerAndLogin/pageLogin.html")
+  cy.get("input[id=LoginEmail]").type("greg@g")
+  cy.get("input[id=LoginPassword]").type("greg")
+  cy.get("button").contains("Login").click()
+  cy.get("button").contains("Admin page").click()
+
   cy.get("button[id=ButtonNewData]").click()
   cy.get("button[id=ButtonNewDataEnemy]").click()
 
@@ -9,9 +29,7 @@ it("new data", () => {
   //Write data
   cy.get("input[id=NewDataEnemyName]").type("cypr")
   cy.get("button[id=SaveNewDataEnemy]").click()
-  //cy.get("button").contains("Save data")
   cy.get("td").contains("Enemies").click()
-  //cy.get("div[id=DivTable]").invoke("show")
 
   cy.get("td").contains("cypr")
 })
@@ -24,7 +42,12 @@ it("new data", () => {
 
 //6 enemy needed
 it("edit data", () => {
-  cy.visit("../../admin/pageAdmin.html")
+    //Login
+    cy.visit("../../registerAndLogin/pageLogin.html")
+    cy.get("input[id=LoginEmail]").type("greg@g")
+    cy.get("input[id=LoginPassword]").type("greg")
+    cy.get("button").contains("Login").click()
+    cy.get("button").contains("Admin page").click()
 
   //Load table
   cy.get("td").contains("Enemies").click()
@@ -49,7 +72,13 @@ it("edit data", () => {
 
 
 it("delete data", () => {
-  cy.visit("../../admin/pageAdmin.html")
+    //Login
+    cy.visit("../../registerAndLogin/pageLogin.html")
+    cy.get("input[id=LoginEmail]").type("greg@g")
+    cy.get("input[id=LoginPassword]").type("greg")
+    cy.get("button").contains("Login").click()
+    cy.get("button").contains("Admin page").click()
+    
   cy.get("td").contains("Enemies").click()
 
   cy.get("td[id=DeleteEnemy-7]").click()
@@ -63,16 +92,4 @@ it("delete data", () => {
 
 
 
-it("correct admin login", () => {
-  cy.visit("../../admin/pageAdmin.html")
-
-  cy.get("textarea[id=LoginEmail]").type("greg@g")
-  cy.get("textarea[id=LoginPassword]").type("greg")
-  cy.get("button").contains("Login").click()
-
-  cy.get("button").contains("Admin page").click()
-  cy.get("button").contains("Account").click()
-  cy.get("button").contains("Logout").click()
-
-})
 

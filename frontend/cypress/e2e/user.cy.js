@@ -1,8 +1,21 @@
+it("user blank login", () => {
+  cy.visit("../../registerAndLogin/pageLogin.html")
+  cy.get("button[id=ButtonLogin]").click()
+})
+
+
+it("user incorrect login", () => {
+  cy.visit("../../registerAndLogin/pageLogin.html")
+  cy.get("input[id=LoginEmail]").type("ohfghfe@o")
+  cy.get("input[id=LoginPassword]").type("gfd")
+  cy.get("button[id=ButtonLogin]").click()
+
+})
+
+
 
 it("user register", () => {
-  cy.visit("../../home/pageHome.html")
-
-  cy.get("button[id=ButtonReg]").click()
+  cy.visit("../../registerAndLogin/pageRegister.html")
 
   cy.get("input[id=RegName]").type("new")
   cy.get("input[id=RegEmail]").type("new@n")
@@ -20,24 +33,8 @@ it("blank register", () => {
 
 
 
-it("user blank login", () => {
-  cy.visit("../../home/pageHome.html")
-  cy.get("button[id=ButtonLogin]").click()
-})
-
-
-it("user incorrect login", () => {
-  cy.visit("../../home/pageHome.html")
-  cy.get("input[id=LoginEmail]").type("ohfghfe@o")
-  cy.get("input[id=LoginPassword]").type("gfd")
-  cy.get("button[id=ButtonLogin]").click()
-})
-
-
-
-
 it("user login", () => {
-  cy.visit("../../home/pageHome.html")
+  cy.visit("../../registerAndLogin/pageLogin.html")
 
   cy.get("input[id=LoginEmail]").type("one@o")
   cy.get("input[id=LoginPassword]").type("one")
@@ -53,7 +50,7 @@ it("user login", () => {
 
 //at least one save required
 it("user rename and load save", () => {
-  cy.visit("../../home/pageHome.html")
+  cy.visit("../../registerAndLogin/pageLogin.html")
 
   cy.get("input[id=LoginEmail]").type("one@o")
   cy.get("input[id=LoginPassword]").type("one")
@@ -73,9 +70,10 @@ it("user rename and load save", () => {
 
 
 it("user edit account", () => {
-  cy.visit("../../home/pageHome.html")
+  cy.visit("../../registerAndLogin/pageRegister.html")
 
   cy.get("button[id=ButtonReg]").click()
+  cy.get("button").contains("Continue").click()
 
   cy.get("input[id=RegName]").type("newn")
   cy.get("input[id=RegEmail]").type("new@nn")
